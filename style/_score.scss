@@ -1,0 +1,136 @@
+.score {
+  display: grid;
+  grid-template-areas: 'Title Close' 'WAContent WAContent';
+  position: relative;
+  background-color: $blue;
+  color: $white;
+  h1 {
+    grid-area: Title;
+    margin: 10px;
+  }
+  .close_quiz {
+    position: absolute;
+    right: 0px;
+    grid-area: Close;
+    margin: 10px;
+    height: 40px;
+    width: 40px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .close_quiz {
+    height: 40px;
+    width: 40px;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+  }
+  .wrong_answer_container {
+    grid-area: WAContent;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-height: 800px;
+    overflow-y: scroll;
+
+    .wrong_answer {
+      background-color: #ececec;
+      border-radius: 5px;
+      margin: 10px;
+      color: black;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+
+      .wrong_answer_image {
+        text-align: center;
+
+        img {
+          padding-top: 10px;
+          height: 70px;
+          width: 70px;
+        }
+      }
+
+      .wrong_answer_content {
+        div {
+          margin-top: 10px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .score {
+    .wrong_answer_container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+@media (max-width: 750px) {
+  .score {
+    .wrong_answer_container {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  .score {
+    padding-top: 60px;
+    .wrong_answer_container {
+      .sc-dlfnbm {
+        display: grid;
+        grid-template-columns: 1fr;
+        height: 100%;
+        padding-bottom: 80px;
+        min-height: 400px;
+
+        .sc-bdfBwQ {
+          position: absolute;
+          right: 50%;
+          transform: translateX(50%);
+          bottom: 0;
+        }
+        .wrong_answer {
+          padding: 10px;
+          height: auto;
+          border: 1px solid black;
+          margin: 0;
+
+          .wrong_answer_top {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas: 'Image Content' 'Theory Theory';
+            width: 100%;
+
+            .wrong_answer_image {
+              grid-area: 'Image';
+              height: auto;
+              width: 150px;
+              img {
+                height: auto;
+                width: 150px;
+              }
+            }
+            .wrong_answer_content {
+              grid-area: 'Content';
+              width: 50%;
+              height: 50%;
+            }
+            .wrong_answer_theory {
+              grid-area: 'Theory';
+            }
+          }
+        }
+      }
+    }
+  }
+}

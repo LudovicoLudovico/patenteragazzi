@@ -1,0 +1,218 @@
+.navbar {
+  .container {
+    display: grid;
+    grid-template-columns: 100px 1fr 400px;
+    align-items: center;
+    .navbar_logo {
+      height: 100px;
+      width: 100px;
+    }
+
+    .navbar_image {
+      position: relative;
+
+      .div_navbar_image {
+        width: 100px;
+        height: 100px;
+      }
+      .navbar_img_background {
+        background-color: $blue;
+        z-index: -1;
+        height: 150px;
+        width: 150px;
+        left: -30px;
+        top: -40px;
+        border-radius: 50%;
+        position: absolute;
+      }
+    }
+
+    .navbar_hamburger {
+      display: none;
+    }
+    .navbar_title {
+      color: $blue;
+      padding-left: 40px;
+      font-size: 40px;
+    }
+
+    .navbar_menu {
+      display: flex;
+      justify-content: space-around;
+      background-color: $blue;
+      height: 50px;
+      border-radius: 50px 0 0 50px;
+
+      button {
+        background: none;
+        color: $white;
+        border: none;
+        a {
+          color: $white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    .container {
+      grid-template-columns: 100px 1fr 100px;
+      position: relative;
+
+      .navbar_hamburger {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        z-index: 3;
+        width: 30px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 10px;
+        height: 30px;
+
+        span {
+          display: block;
+          width: 100%;
+          height: 4px;
+          background-color: $blue;
+          color: $blue;
+        }
+      }
+
+      .navbar_menu {
+        top: -40px;
+        right: -50px;
+        position: absolute;
+        flex-direction: column;
+        height: 0;
+        width: 0;
+
+        transition: 0.2s all ease-out;
+        border-radius: 50%;
+        align-items: center;
+        z-index: 2;
+        justify-content: center;
+
+        button {
+          margin: 15px 0;
+          font-size: 24px;
+
+          &:nth-child(1) {
+            margin-right: 150px;
+          }
+
+          &:nth-child(2) {
+            margin-right: 130px;
+          }
+
+          &:nth-child(3) {
+            margin-right: 30px;
+          }
+
+          &:nth-child(4) {
+            margin-right: -70px;
+          }
+        }
+
+        &.open {
+          transition: 0.2s all ease-out;
+
+          height: 350px;
+          width: 350px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  .navbar {
+    margin-bottom: 30px;
+    .container {
+      margin-top: 10px;
+      grid-template-columns: 40px 1fr 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .navbar_title {
+        font-size: 24px;
+        padding-left: 0;
+      }
+
+      .navbar_image {
+        position: relative;
+
+        .div_navbar_image {
+          width: 50px;
+          height: 50px;
+        }
+
+        .navbar_img_background {
+          background-color: $blue;
+          z-index: -1;
+          height: 80px;
+          width: 80px;
+          left: -20px;
+          top: -20px;
+          border-radius: 50%;
+          position: absolute;
+        }
+        .navbar_logo {
+          height: 50px;
+          width: 50px;
+        }
+      }
+
+      .navbar_hamburger {
+        margin-right: 20px;
+      }
+
+      .navbar_menu {
+        top: -40px;
+        right: -50px;
+        position: absolute;
+        flex-direction: column;
+        height: 0;
+        width: 0;
+
+        transition: 0.2s all ease-out;
+        border-radius: 50%;
+        align-items: center;
+        z-index: 2;
+        justify-content: center;
+
+        button {
+          margin: 15px 0;
+          font-size: 18px;
+
+          &:nth-child(1) {
+            margin-right: 150px;
+          }
+
+          &:nth-child(2) {
+            margin-right: 130px;
+          }
+
+          &:nth-child(3) {
+            margin-right: 30px;
+          }
+
+          &:nth-child(4) {
+            margin-right: -70px;
+          }
+        }
+
+        &.open {
+          transition: 0.2s all ease-out;
+
+          height: 300px;
+          width: 300px;
+        }
+      }
+    }
+  }
+}
