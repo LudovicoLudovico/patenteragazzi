@@ -194,6 +194,7 @@ const AdminUI = () => {
     return (
       <>
         <NextSeo nofollow={true} />
+        {/* Navbar */}
         <Navbar />
         <div className='admin-ui container'>
           {/* Image Upload */}
