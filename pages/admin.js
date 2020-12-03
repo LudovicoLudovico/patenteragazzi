@@ -393,9 +393,9 @@ const AdminUI = () => {
                                   width: 100,
                                   padding: 20,
                                 }}
+                                key={image.name}
                                 src={image.imageUrl}
                                 alt={image.name}
-                                key={image.name}
                               />
                             );
                           })}
