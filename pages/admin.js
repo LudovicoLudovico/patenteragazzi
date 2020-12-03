@@ -13,7 +13,7 @@ import { useUser } from '../context/userContext';
 import firebase from 'firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
-
+import Navbar from '../components/Navbar';
 //Components
 import QuestionsList from '../components/QuestionsList';
 import CategoryList from '../components/CategoryList';
@@ -194,6 +194,7 @@ const AdminUI = () => {
     return (
       <>
         <NextSeo nofollow={true} />
+        <Navbar />
         <div className='admin-ui container'>
           {/* Image Upload */}
           <h2>Carica immagine</h2>
