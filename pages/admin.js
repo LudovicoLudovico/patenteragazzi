@@ -406,7 +406,6 @@ const AdminUI = () => {
                 </Fade>
               </Modal>
             </div>
-            <br />
 
             <TextField
               id='outlined-multiline-flexible'
