@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useUser } from '../context/userContext';
 import Link from 'next/link';
 
 const QuizHero = () => {
   const { user, login } = useUser();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className='quiz_hero'>
       <>
         <div className='quiz_hero_buttons'>
-          <Link href='/quiz'>
-            <Button variant='contained'>INIZIA QUIZ PATENTE A/B</Button>
+          <Link href='/quiz' passHref>
+            <a>
+              <Button
+                variant='contained'
+                onClick={(e) => {
+                  setLoading(true);
+                }}
+              >
+                {!loading ? 'INIZIA QUIZ PATENTE A/B' : 'CARICAMENTO...'}
+              </Button>
+            </a>
           </Link>
 
-          <Button variant='contained'>INIZIA QUIZ ERRORI</Button>
-          <Button variant='contained'>INIZIA QUIZ ARGOMENTI</Button>
+          <Button variant='contained' disabled={true}>
+            INIZIA QUIZ ERRORI
+          </Button>
+          <Button variant='contained' disabled={true}>
+            INIZIA QUIZ ARGOMENTI
+          </Button>
         </div>
         <div className='quiz_hero_description'>
           <p>

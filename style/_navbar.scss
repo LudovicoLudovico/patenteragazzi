@@ -1,7 +1,7 @@
 .navbar {
   .container {
     display: grid;
-    grid-template-columns: 100px 1fr 400px;
+    grid-template-columns: 100px 1fr 500px;
     align-items: center;
     .navbar_logo {
       height: 100px;
@@ -35,15 +35,37 @@
       padding-left: 40px;
       font-size: 40px;
     }
-
+    .navbar_hamburger {
+      margin-right: 20px;
+    }
     .navbar_menu {
       display: flex;
       justify-content: space-around;
+      align-items: center;
       background-color: $blue;
       height: 50px;
+      padding-left: 20px;
       border-radius: 50px 0 0 50px;
 
+      .profile_image {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        border: 2px solid $white;
+      }
+
+      span {
+        display: block;
+        width: 1px;
+        height: 30px;
+        background-color: white;
+      }
+
       button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
         background: none;
         color: $white;
         border: none;
@@ -56,7 +78,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 920px) {
   .navbar {
     .container {
       grid-template-columns: 100px 1fr 100px;
@@ -83,45 +105,34 @@
       }
 
       .navbar_menu {
-        top: -40px;
-        right: -50px;
+        top: 0;
+        right: 0;
         position: absolute;
         flex-direction: column;
-        height: 0;
         width: 0;
-
+        height: 100vh;
         transition: 0.2s all ease-out;
-        border-radius: 50%;
         align-items: center;
         z-index: 2;
         justify-content: center;
+        padding: 0;
+        overflow: hidden;
 
+        span {
+          transform: rotate(90deg);
+          height: 100px;
+          padding: 0;
+        }
         button {
           margin: 15px 0;
           font-size: 24px;
-
-          &:nth-child(1) {
-            margin-right: 150px;
-          }
-
-          &:nth-child(2) {
-            margin-right: 130px;
-          }
-
-          &:nth-child(3) {
-            margin-right: 30px;
-          }
-
-          &:nth-child(4) {
-            margin-right: -70px;
-          }
         }
 
         &.open {
+          display: flex;
+          justify-self: center;
           transition: 0.2s all ease-out;
-
-          height: 350px;
-          width: 350px;
+          width: 300px;
         }
       }
     }
@@ -130,10 +141,9 @@
 
 @media (max-width: 530px) {
   .navbar {
-    margin-bottom: 30px;
     .container {
-      margin-top: 10px;
-      grid-template-columns: 40px 1fr 70px;
+      padding-top: 10px;
+      padding-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -160,57 +170,6 @@
           top: -20px;
           border-radius: 50%;
           position: absolute;
-        }
-        .navbar_logo {
-          height: 50px;
-          width: 50px;
-        }
-      }
-
-      .navbar_hamburger {
-        margin-right: 20px;
-      }
-
-      .navbar_menu {
-        top: -40px;
-        right: -50px;
-        position: absolute;
-        flex-direction: column;
-        height: 0;
-        width: 0;
-
-        transition: 0.2s all ease-out;
-        border-radius: 50%;
-        align-items: center;
-        z-index: 2;
-        justify-content: center;
-
-        button {
-          margin: 15px 0;
-          font-size: 18px;
-
-          &:nth-child(1) {
-            margin-right: 150px;
-          }
-
-          &:nth-child(2) {
-            margin-right: 130px;
-          }
-
-          &:nth-child(3) {
-            margin-right: 30px;
-          }
-
-          &:nth-child(4) {
-            margin-right: -70px;
-          }
-        }
-
-        &.open {
-          transition: 0.2s all ease-out;
-
-          height: 300px;
-          width: 300px;
         }
       }
     }

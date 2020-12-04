@@ -22,13 +22,18 @@ export default function UserContextComp({ children }) {
             } else {
               setIsAdmin(false);
             }
+
+            setUser({
+              picture: idTokenResult.claims.picture,
+              name: idTokenResult.claims.name,
+              email: idTokenResult.claims.email,
+            });
           })
           .catch((error) => {
             console.log(error);
           });
-        setUser(true);
       } else {
-        setUser(false);
+        setUser(null);
         setIsAdmin(false);
       }
     });
