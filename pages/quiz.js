@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Timer from 'react-compound-timer';
-import { getQuestions } from '../fetchData/getQuestions';
+import { getQuestionsServer } from '../fetchData/getQuestionsServer';
+import { getQuestionsClient } from '../fetchData/getQuestionsClient';
 import { useUser } from '../context/userContext';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -12,7 +13,8 @@ import Modal from '@material-ui/core/Modal';
 import WrongAnswer from '../components/WrongAnswer';
 import QuizBottom from '../components/QuizBottom';
 
-const quiz = ({ questions }) => {
+const quiz = (props) => {
+  const [questions, setQuestions] = useState(props.questions);
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
@@ -22,6 +24,14 @@ const quiz = ({ questions }) => {
 
   const { user, login } = useUser();
 
+  useEffect(async () => {
+    for (let i = 0; i < 30; i++) {
+      const newQuestion = await getQuestionsClient(1);
+      setQuestions((questions) => [...questions, newQuestion[0]]);
+    }
+
+    return;
+  }, []);
   //Set answers when the true or false button is pressed
   const getAnswer = (index, answer) => {
     if (questionCounter + 1 !== questions.length) {
@@ -121,9 +131,9 @@ const quiz = ({ questions }) => {
                     Correggi
                   </Button>
 
-                  <Link href='/'>
+                  <a href='/'>
                     <button className='close_quiz'>x</button>
-                  </Link>
+                  </a>
                 </div>
               </div>
 
@@ -250,7 +260,7 @@ const quiz = ({ questions }) => {
 export default quiz;
 
 export async function getServerSideProps() {
-  const questionsRaw = await getQuestions();
+  const questionsRaw = await getQuestionsServer(10);
   const questionStr = JSON.stringify(questionsRaw);
   const questions = JSON.parse(questionStr);
 
