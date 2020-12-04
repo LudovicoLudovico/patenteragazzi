@@ -15,7 +15,6 @@ export default function Home() {
   useEffect(() => {
     router.prefetch('/quiz');
     getQuestionsClient();
-    console.log(questions);
   }, []);
 
   return (

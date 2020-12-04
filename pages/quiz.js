@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Timer from 'react-compound-timer';
 import { getQuestionsClient } from '../fetchData/getQuestionsClient';
-// import { getQuestionsServer } from '../fetchData/getQuestionsServer';
 import { useUser } from '../context/userContext';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -15,8 +14,6 @@ import QuizBottom from '../components/QuizBottom';
 
 const quiz = () => {
   const { questions } = useQuestions();
-  console.log(questions);
-
   const [quizQuestions, setQuizQuestions] = useState(questions);
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
@@ -28,7 +25,7 @@ const quiz = () => {
   const { user, login } = useUser();
 
   useEffect(() => {
-    if (questions.length !== 20) {
+    if (questions.length === 0) {
       async function fetchData() {
         for (let i = 0; i < 40; i++) {
           const newQuestion = await getQuestionsClient(1);
