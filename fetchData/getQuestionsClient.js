@@ -7,7 +7,7 @@ export const getQuestionsClient = async (num) => {
   let questions = [];
 
   for (let i = 0; i < num; i++) {
-    const rand = Math.floor(Math.random() * 330);
+    const rand = Math.floor(Math.random() * 925);
     await questionsCollection
       .where('num', '==', rand)
       .limit(1)

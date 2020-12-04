@@ -11,7 +11,7 @@ const QuizHero = () => {
     <div className='quiz_hero'>
       <>
         <div className='quiz_hero_buttons'>
-          <Link href='/quiz' passHref>
+          <Link href='/quiz'>
             <a>
               <Button
                 variant='contained'

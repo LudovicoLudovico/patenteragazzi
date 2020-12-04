@@ -9,14 +9,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { PaginatedList } from 'react-paginated-list';
-import { useUser } from '../context/userContext';
+import { useUser } from '../../context/userContext';
 import firebase from 'firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 //Components
-import QuestionsList from '../components/QuestionsList';
-import CategoryList from '../components/CategoryList';
+import QuestionsList from '../../components/QuestionsList';
+import CategoryList from '../../components/CategoryList';
 
 const AdminUI = () => {
   const { loadingUser, user, login, logout, isAdmin } = useUser();
@@ -100,6 +100,22 @@ const AdminUI = () => {
             //State reset
             setImageToUpload(null);
           });
+      });
+  };
+  const numQuestions = () => {
+    let i = 0;
+    firebase
+      .firestore()
+      .collection('questions')
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          console.log('ran');
+          firebase.firestore().collection('questions').doc(doc.id).update({
+            num: i,
+          });
+          i++;
+        });
       });
   };
 
@@ -484,6 +500,10 @@ const AdminUI = () => {
               theoryList={theoryList}
             />
           )}
+
+          <Button variant='contained' onClick={numQuestions}>
+            Num Questions
+          </Button>
         </div>
       </>
     );
