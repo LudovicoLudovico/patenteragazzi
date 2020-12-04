@@ -25,7 +25,7 @@ const quiz = (props) => {
   const { user, login } = useUser();
 
   useEffect(async () => {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 35; i++) {
       const newQuestion = await getQuestionsClient(1);
       setQuestions((questions) => [...questions, newQuestion[0]]);
     }
@@ -260,7 +260,7 @@ const quiz = (props) => {
 export default quiz;
 
 export async function getServerSideProps() {
-  const questionsRaw = await getQuestionsServer(10);
+  const questionsRaw = await getQuestionsServer(5);
   const questionStr = JSON.stringify(questionsRaw);
   const questions = JSON.parse(questionStr);
 
