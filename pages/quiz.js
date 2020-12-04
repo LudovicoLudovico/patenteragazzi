@@ -234,9 +234,12 @@ const quiz = (props) => {
           {showScore && (
             <div className='score'>
               <h1>Risultato {score}/40</h1>
-              <Link href='/'>
+              <a
+                href='/
+            '
+              >
                 <button className='close_quiz'>x</button>
-              </Link>
+              </a>
 
               <div className='wrong_answer_container'>
                 {wrongAnswers.map((wrong, id) => {
