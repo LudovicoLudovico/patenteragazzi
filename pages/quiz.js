@@ -6,15 +6,14 @@ import { useUser } from '../context/userContext';
 import Link from 'next/link';
 import Head from 'next/head';
 import Modal from '@material-ui/core/Modal';
-import { useQuestions } from '../context/questionsContext';
+import Image from 'next/image';
 
 //Components
 import WrongAnswer from '../components/WrongAnswer';
 import QuizBottom from '../components/QuizBottom';
 
 const quiz = () => {
-  const { questions } = useQuestions();
-  const [quizQuestions, setQuizQuestions] = useState(questions);
+  const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
@@ -27,10 +26,8 @@ const quiz = () => {
   useEffect(() => {
     if (user) {
       async function fetchData() {
-        for (let i = 0; i < 40; i++) {
-          const newQuestion = await getQuestionsClient(1);
-          setQuizQuestions((questions) => [...questions, newQuestion[0]]);
-        }
+        const newQuestion = await getQuestionsClient();
+        setQuizQuestions(newQuestion);
       }
       fetchData();
     }
@@ -272,7 +269,13 @@ const quiz = () => {
   } else {
     return (
       <div className='loading'>
-        <img src='/car.svg' alt='' />
+        <Image
+          src='/car.svg'
+          alt='Caricamento'
+          layout={'intrinsic'}
+          width={150}
+          height={150}
+        />
         <p>Caricamento...</p>
       </div>
     );
