@@ -5,54 +5,50 @@ export const getQuestionsClient = async () => {
   const questionsCollection = db.collection('questions');
 
   let questions = [];
-  let indexes1 = [
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-  ];
-  let indexes2 = [
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-  ];
-  let indexes3 = [
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-  ];
-  let indexes4 = [
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-    Math.floor(Math.random() * 925),
-  ];
+
+  let extracted = [];
+  let indexes1 = [];
+  let indexes2 = [];
+  let indexes3 = [];
+  let indexes4 = [];
+
+  for (let i = 0; i < 10; i++) {
+    const rand = Math.floor(Math.random() * 925);
+    if (!extracted.includes(rand)) {
+      extracted.push(rand);
+      indexes1.push(rand);
+    } else {
+      i--;
+    }
+  }
+  for (let i = 0; i < 10; i++) {
+    const rand = Math.floor(Math.random() * 925);
+    if (!extracted.includes(rand)) {
+      extracted.push(rand);
+      indexes2.push(rand);
+    } else {
+      i--;
+    }
+  }
+  for (let i = 0; i < 10; i++) {
+    const rand = Math.floor(Math.random() * 925);
+    if (!extracted.includes(rand)) {
+      extracted.push(rand);
+      indexes3.push(rand);
+    } else {
+      i--;
+    }
+  }
+  for (let i = 0; i < 10; i++) {
+    const rand = Math.floor(Math.random() * 925);
+    if (!extracted.includes(rand)) {
+      extracted.push(rand);
+      indexes4.push(rand);
+    } else {
+      i--;
+    }
+  }
+
   await questionsCollection
     .where('num', 'in', indexes1)
     .limit(10)
