@@ -1,35 +1,32 @@
 .score {
   display: grid;
-  grid-template-areas: 'Title Close' 'WAContent WAContent';
+  grid-template-areas: 'Top Top' 'WAContent WAContent';
   position: relative;
   background-color: $blue;
   color: $white;
 
-  h1 {
-    grid-area: Title;
-    margin: 10px;
-    color: $white;
-  }
-  .close_quiz {
-    position: absolute;
-    right: 0px;
-    grid-area: Close;
-    margin: 10px;
-    height: 40px;
-    width: 40px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  .score_top {
+    grid-area: Top;
+    h1 {
+      margin: 10px;
+      color: $white;
+    }
+    a {
+      button {
+        position: absolute;
+        right: 0px;
+        top: 0;
+        margin: 10px;
+        height: 40px;
+        width: 40px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+    }
   }
 
-  .close_quiz {
-    height: 40px;
-    width: 40px;
-    background-color: red;
-    border: none;
-    border-radius: 5px;
-  }
   .wrong_answer_container {
     grid-area: WAContent;
     display: grid;
@@ -84,7 +81,35 @@
 
 @media (max-width: 530px) {
   .score {
-    padding-top: 60px;
+    padding-top: 120px;
+    position: relative;
+    padding-bottom: 100px;
+
+    .score_top {
+      h1 {
+        grid-area: Title;
+        margin: 10px;
+        color: $white;
+        position: fixed;
+        top: 5px;
+      }
+      a {
+        button {
+          top: 5px;
+          position: fixed;
+          right: 0px;
+          grid-area: Close;
+          margin: 10px;
+          height: 40px;
+          width: 40px;
+          background-color: red;
+          color: white;
+          border: none;
+          border-radius: 5px;
+        }
+      }
+    }
+
     .wrong_answer_container {
       .sc-dlfnbm {
         display: grid;

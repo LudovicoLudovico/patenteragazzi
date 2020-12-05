@@ -24,13 +24,11 @@ const quiz = () => {
   const { user, login } = useUser();
 
   useEffect(() => {
-    if (user) {
-      async function fetchData() {
-        const newQuestion = await getQuestionsClient();
-        setQuizQuestions(newQuestion);
-      }
-      fetchData();
+    async function fetchData() {
+      const newQuestion = await getQuestionsClient();
+      setQuizQuestions(newQuestion);
     }
+    fetchData();
   }, [user]);
 
   //Set answers when the true or false button is pressed
@@ -89,7 +87,7 @@ const quiz = () => {
     setShowScore(true);
   };
 
-  if (user && quizQuestions.length > 5) {
+  if (quizQuestions.length > 5) {
     return (
       <>
         <Head>
@@ -235,12 +233,14 @@ const quiz = () => {
 
             {showScore && (
               <div className='score'>
-                <h1>Risultato {score}/40</h1>
-                <Link href='/' passHref className='close_quiz'>
-                  <a>
-                    <button>x</button>
-                  </a>
-                </Link>
+                <div className='score_top'>
+                  <h1>Risultato {score}/40</h1>
+                  <Link href='/' passHref>
+                    <a className='close_quiz'>
+                      <button>X</button>
+                    </a>
+                  </Link>
+                </div>
 
                 <div className='wrong_answer_container'>
                   {wrongAnswers.map((wrong, id) => {
@@ -258,13 +258,6 @@ const quiz = () => {
           </div>
         </div>
       </>
-    );
-  } else if (!user) {
-    return (
-      <div>
-        <h2>Per fare i quiz devi essere autenticato</h2>
-        <button onClick={() => login()}>Accedi</button>
-      </div>
     );
   } else {
     return (
