@@ -25,7 +25,8 @@ const quiz = () => {
   const { user, login } = useUser();
 
   useEffect(() => {
-    if (questions.length === 0) {
+    //questions.length === 0
+    if (true) {
       async function fetchData() {
         for (let i = 0; i < 40; i++) {
           const newQuestion = await getQuestionsClient(1);
@@ -35,7 +36,7 @@ const quiz = () => {
       fetchData();
     } else {
       async function fetchData() {
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 40 - questions.length; i++) {
           const newQuestion = await getQuestionsClient(1);
           setQuizQuestions((questions) => [...questions, newQuestion[0]]);
         }

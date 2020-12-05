@@ -11,7 +11,7 @@ export default function QuestionsContextComp({ children }) {
     const db = firebase.firestore();
     const questionsCollection = db.collection('questions');
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 5; i++) {
       const rand = Math.floor(Math.random() * 925);
       await questionsCollection
         .where('num', '==', rand)
