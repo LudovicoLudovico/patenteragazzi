@@ -25,8 +25,7 @@ const quiz = () => {
   const { user, login } = useUser();
 
   useEffect(() => {
-    //questions.length === 0
-    if (true) {
+    if (user) {
       async function fetchData() {
         for (let i = 0; i < 40; i++) {
           const newQuestion = await getQuestionsClient(1);
@@ -34,16 +33,8 @@ const quiz = () => {
         }
       }
       fetchData();
-    } else {
-      async function fetchData() {
-        for (let i = 0; i < 40 - questions.length; i++) {
-          const newQuestion = await getQuestionsClient(1);
-          setQuizQuestions((questions) => [...questions, newQuestion[0]]);
-        }
-      }
-      fetchData();
     }
-  }, []);
+  }, [user]);
 
   //Set answers when the true or false button is pressed
   const getAnswer = (index, answer) => {
@@ -101,197 +92,191 @@ const quiz = () => {
     setShowScore(true);
   };
 
-  return (
-    <>
-      <Head>
-        <title>Patenteragazzi - Quiz Online Patente AM/B</title>
-        <link rel='icon' href='/patenteragazzi.ico' />
-      </Head>
-      <div className='quiz' id='quiz'>
-        <div className='container'>
-          {!showScore && (
-            <div className='standard_quiz'>
-              <div className='quiz_top'>
-                <div className='quiz_timer'>
-                  {/* 1800000 */}
-                  <Timer
-                    initialTime={1800000}
-                    startImmediately={true}
-                    direction='backward'
-                    checkpoints={[
-                      {
-                        time: 0,
-                        callback: () => correct(),
-                      },
-                    ]}
-                  >
-                    <Timer.Minutes
-                      formatValue={(value) =>
-                        `${value < 10 ? `0${value}` : value}`
-                      }
-                    />
-                    :
-                    <Timer.Seconds
-                      formatValue={(value) =>
-                        `${value < 10 ? `0${value}` : value}`
-                      }
-                    />
-                  </Timer>
-                </div>{' '}
-                <div className='quiz_top_right'>
-                  <Button
-                    variant='contained'
-                    className='correct_btn'
-                    onClick={correct}
-                    disabled={quizQuestions.length !== 40}
-                  >
-                    Correggi
-                  </Button>
+  if (user && quizQuestions.length > 5) {
+    return (
+      <>
+        <Head>
+          <title>Patenteragazzi - Quiz Online Patente AM/B</title>
+          <link rel='icon' href='/patenteragazzi.ico' />
+        </Head>
+        <div className='quiz' id='quiz'>
+          <div className='container'>
+            {!showScore && (
+              <div className='standard_quiz'>
+                <div className='quiz_top'>
+                  <div className='quiz_timer'>
+                    {/* 1800000 */}
+                    <Timer
+                      initialTime={1800000}
+                      startImmediately={true}
+                      direction='backward'
+                      checkpoints={[
+                        {
+                          time: 0,
+                          callback: () => correct(),
+                        },
+                      ]}
+                    >
+                      <Timer.Minutes
+                        formatValue={(value) =>
+                          `${value < 10 ? `0${value}` : value}`
+                        }
+                      />
+                      :
+                      <Timer.Seconds
+                        formatValue={(value) =>
+                          `${value < 10 ? `0${value}` : value}`
+                        }
+                      />
+                    </Timer>
+                  </div>{' '}
+                  <div className='quiz_top_right'>
+                    <Button
+                      variant='contained'
+                      className='correct_btn'
+                      onClick={correct}
+                      disabled={quizQuestions.length !== 40}
+                    >
+                      Correggi
+                    </Button>
 
-                  <Link href='/'>
-                    <a>
-                      <button className='close_quiz'>x</button>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-
-              {quizQuestions.length !== 0 && (
-                <div className='quiz_content'>
-                  {quizQuestions[questionCounter] && (
-                    <div className='quiz_image'>
-                      {quizQuestions[questionCounter].image ? (
-                        <>
-                          <Modal
-                            open={open}
-                            onClick={() => setOpen(false)}
-                            aria-labelledby='simple-modal-title'
-                            aria-describedby='simple-modal-description'
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              outline: 'none',
-                            }}
-                          >
-                            <img
-                              src={quizQuestions[questionCounter].image}
-                              alt=''
-                              className='modal_img'
-                              style={{
-                                boxSizing: 'border-box',
-                                height: 'auto',
-                                width: '100%',
-                                maxWidth: 700,
-                                padding: 20,
-                                margin: 10,
-                                border: '5px solid white',
-                                borderRadius: 20,
-                                background: '#00408b',
-                                outline: 'none',
-                              }}
-                            />
-                          </Modal>
-
-                          <img
-                            onClick={() => setOpen(true)}
-                            src={quizQuestions[questionCounter].image}
-                            alt=''
-                          />
-                        </>
-                      ) : (
-                        <div className='modal_img'></div>
-                      )}
-                    </div>
-                  )}
-
-                  <div className='quiz_right'>
-                    {/* Question */}
-                    <div className='quiz_question'>
-                      <p>{quizQuestions[questionCounter].question}</p>
-                    </div>
-
-                    {/* Buttons for answering */}
-                    <div className='quiz_answer'>
-                      <Button
-                        variant='contained'
-                        className='quiz_answer_btn'
-                        onClick={() => {
-                          getAnswer(questionCounter, true);
-                        }}
-                      >
-                        Vero
-                      </Button>
-                      <Button
-                        variant='contained'
-                        className='quiz_answer_btn'
-                        onClick={() => {
-                          getAnswer(questionCounter, false);
-                        }}
-                      >
-                        Falso
-                      </Button>
-                    </div>
+                    <Link href='/'>
+                      <a>
+                        <button className='close_quiz'>x</button>
+                      </a>
+                    </Link>
                   </div>
                 </div>
-              )}
 
-              <QuizBottom
-                questionCounter={questionCounter}
-                quizQuestions={quizQuestions}
-                setQuestionCounter={(index) => setQuestionCounter(index)}
-              />
-            </div>
-          )}
+                {quizQuestions.length !== 0 && (
+                  <div className='quiz_content'>
+                    {quizQuestions[questionCounter] && (
+                      <div className='quiz_image'>
+                        {quizQuestions[questionCounter].image ? (
+                          <>
+                            <Modal
+                              open={open}
+                              onClick={() => setOpen(false)}
+                              aria-labelledby='simple-modal-title'
+                              aria-describedby='simple-modal-description'
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                outline: 'none',
+                              }}
+                            >
+                              <img
+                                src={quizQuestions[questionCounter].image}
+                                alt=''
+                                className='modal_img'
+                                style={{
+                                  boxSizing: 'border-box',
+                                  height: 'auto',
+                                  width: '100%',
+                                  maxWidth: 700,
+                                  padding: 20,
+                                  margin: 10,
+                                  border: '5px solid white',
+                                  borderRadius: 20,
+                                  background: '#00408b',
+                                  outline: 'none',
+                                }}
+                              />
+                            </Modal>
 
-          {showScore && (
-            <div className='score'>
-              <h1>Risultato {score}/40</h1>
-              <Link href='/' passHref>
-                <a>
-                  <button className='close_quiz'>x</button>
-                </a>
-              </Link>
+                            <img
+                              onClick={() => setOpen(true)}
+                              src={quizQuestions[questionCounter].image}
+                              alt=''
+                            />
+                          </>
+                        ) : (
+                          <div className='modal_img'></div>
+                        )}
+                      </div>
+                    )}
 
-              <div className='wrong_answer_container'>
-                {wrongAnswers.map((wrong, id) => {
-                  return (
-                    <WrongAnswer
-                      wrong={wrong}
-                      key={id}
-                      // theory={getTheory(wrong.answer)}
-                    />
-                  );
-                })}
+                    <div className='quiz_right'>
+                      {/* Question */}
+                      <div className='quiz_question'>
+                        <p>{quizQuestions[questionCounter].question}</p>
+                      </div>
+
+                      {/* Buttons for answering */}
+                      <div className='quiz_answer'>
+                        <Button
+                          variant='contained'
+                          className='quiz_answer_btn'
+                          onClick={() => {
+                            getAnswer(questionCounter, true);
+                          }}
+                        >
+                          Vero
+                        </Button>
+                        <Button
+                          variant='contained'
+                          className='quiz_answer_btn'
+                          onClick={() => {
+                            getAnswer(questionCounter, false);
+                          }}
+                        >
+                          Falso
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <QuizBottom
+                  questionCounter={questionCounter}
+                  quizQuestions={quizQuestions}
+                  setQuestionCounter={(index) => setQuestionCounter(index)}
+                />
               </div>
-            </div>
-          )}
+            )}
+
+            {showScore && (
+              <div className='score'>
+                <h1>Risultato {score}/40</h1>
+                <Link href='/' passHref className='close_quiz'>
+                  <a>
+                    <button>x</button>
+                  </a>
+                </Link>
+
+                <div className='wrong_answer_container'>
+                  {wrongAnswers.map((wrong, id) => {
+                    return (
+                      <WrongAnswer
+                        wrong={wrong}
+                        key={id}
+                        // theory={getTheory(wrong.answer)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+      </>
+    );
+  } else if (!user) {
+    return (
+      <div>
+        <h2>Per fare i quiz devi essere autenticato</h2>
+        <button onClick={() => login()}>Accedi</button>
       </div>
-    </>
-  );
+    );
+  } else {
+    return (
+      <div className='loading'>
+        <img src='/car.svg' alt='' />
+        <p>Caricamento...</p>
+      </div>
+    );
+  }
 };
 
 export default quiz;
-
-// export async function getServerSideProps() {
-//   const questionsRaw = await getQuestionsServer(20);
-//   const questionStr = JSON.stringify(questionsRaw);
-//   const questions = JSON.parse(questionStr);
-
-//   return {
-//     props: {
-//       questions,
-//     }, // will be passed to the page component as props
-//   };
-// }
-
-// quiz.getInitialProps = async () => {
-//   const questionsRaw = await getQuestionsClient(5);
-//   const questionStr = JSON.stringify(questionsRaw);
-//   const questions = JSON.parse(questionStr);
-
-//   return {
-//     questions,
-//   };
-// };

@@ -1,22 +1,11 @@
 import Head from 'next/head';
 import { NextSeo } from 'next-seo';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useQuestions } from '../context/questionsContext';
 
 //Componentsv
 import Navbar from '../components/Navbar';
 import QuizHero from '../components/QuizHero';
 
 export default function Home() {
-  const router = useRouter();
-  const { getQuestionsClient, questions } = useQuestions();
-
-  useEffect(() => {
-    router.prefetch('/quiz');
-    // getQuestionsClient();
-  }, []);
-
   return (
     <>
       <NextSeo
