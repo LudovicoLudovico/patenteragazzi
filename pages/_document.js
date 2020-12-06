@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <script
-            data-ad-client='ca-pub-2772266083081033'
+            data-ad-client='ca-pub-1952072547785091'
             async
             src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
           ></script>

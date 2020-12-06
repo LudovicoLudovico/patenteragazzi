@@ -30,6 +30,11 @@
     background-repeat: no-repeat;
     background-size: 'cover';
     background-blend-mode: lighten;
+
+    a {
+      text-decoration: none;
+    }
+
     button {
       padding: 20px 40px;
       width: 300px;
@@ -295,6 +300,7 @@
     flex-direction: column;
     padding: 0;
     width: 100vw;
+
     .quiz_hero_buttons {
       padding: 0;
       height: 900px;
