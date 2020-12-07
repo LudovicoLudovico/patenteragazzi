@@ -18,8 +18,12 @@ const CategoryList = ({ category, setCategory }) => {
           id: 'age-native-simple',
         }}
       >
+        <option value={"Definizioni generali e doveri nell'uso dell strada"}>
+          Definizioni generali e doveri nell'uso dell strada
+        </option>
         <option value={'Segnali di pericolo'}>Segnali di pericolo</option>
         <option value={'Segnali di obbligo'}>Segnali di obbligo</option>
+        <option value={'Segnali di divieto'}>Segnali di divieto</option>
         <option value={'Segnali di precedenza'}>Segnali di precedenza</option>
         <option value='Segnaletica orizzontale e segni sugli ostacoli'>
           Segnaletica orizzontale e segni sugli ostacoli
