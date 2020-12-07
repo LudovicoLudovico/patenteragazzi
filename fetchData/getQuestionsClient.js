@@ -12,8 +12,10 @@ export const getQuestionsClient = async () => {
   let indexes3 = [];
   let indexes4 = [];
 
+  const questionsNum = 40;
+
   for (let i = 0; i < 10; i++) {
-    const rand = Math.floor(Math.random() * 925);
+    const rand = Math.floor(Math.random() * questionsNum);
     if (!extracted.includes(rand)) {
       extracted.push(rand);
       indexes1.push(rand);
@@ -22,7 +24,7 @@ export const getQuestionsClient = async () => {
     }
   }
   for (let i = 0; i < 10; i++) {
-    const rand = Math.floor(Math.random() * 925);
+    const rand = Math.floor(Math.random() * questionsNum);
     if (!extracted.includes(rand)) {
       extracted.push(rand);
       indexes2.push(rand);
@@ -31,7 +33,7 @@ export const getQuestionsClient = async () => {
     }
   }
   for (let i = 0; i < 10; i++) {
-    const rand = Math.floor(Math.random() * 925);
+    const rand = Math.floor(Math.random() * questionsNum);
     if (!extracted.includes(rand)) {
       extracted.push(rand);
       indexes3.push(rand);
@@ -40,7 +42,7 @@ export const getQuestionsClient = async () => {
     }
   }
   for (let i = 0; i < 10; i++) {
-    const rand = Math.floor(Math.random() * 925);
+    const rand = Math.floor(Math.random() * questionsNum);
     if (!extracted.includes(rand)) {
       extracted.push(rand);
       indexes4.push(rand);

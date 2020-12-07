@@ -1,14 +1,19 @@
+//Next/React imports
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import Timer from 'react-compound-timer';
-import { getQuestionsClient } from '../fetchData/getQuestionsClient';
-import { useUser } from '../context/userContext';
 import Link from 'next/link';
 import Head from 'next/head';
-import Modal from '@material-ui/core/Modal';
 import Image from 'next/image';
 
+//Material UI
+import Button from '@material-ui/core/Button';
+import Modal from '@material-ui/core/Modal';
+
+//Context/Fetch
+import { getQuestionsClient } from '../fetchData/getQuestionsClient';
+import { useUser } from '../context/userContext';
+
 //Components
+import Timer from 'react-compound-timer';
 import WrongAnswer from '../components/WrongAnswer';
 import QuizBottom from '../components/QuizBottom';
 
@@ -20,16 +25,15 @@ const quiz = () => {
   const [score, setScore] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [open, setOpen] = useState(false);
-  const [canCorrect, setCanCorrect] = useState(false);
   const { user, login } = useUser();
 
-  useEffect(() => {
-    async function fetchData() {
-      const newQuestion = await getQuestionsClient();
-      setQuizQuestions(newQuestion);
-    }
-    fetchData();
-  }, [user]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const newQuestion = await getQuestionsClient();
+  //     setQuizQuestions(newQuestion);
+  //   }
+  //   fetchData();
+  // }, []);
 
   //Set answers when the true or false button is pressed
   const getAnswer = (index, answer) => {
