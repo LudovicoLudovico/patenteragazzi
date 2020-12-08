@@ -20,6 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navbar from '../../components/Navbar';
 import QuestionsList from '../../components/QuestionsList';
 import CategoryList from '../../components/CategoryList';
+import UpdateTheory from '../../components/admin/UpdateTheory';
 
 const AdminUI = () => {
   const { loadingUser, user, login, logout, isAdmin } = useUser();
@@ -40,6 +41,8 @@ const AdminUI = () => {
   const [theoryImage, setTheoryImage] = useState('');
   const [theoryList, setTheoryList] = useState([]);
   const [filterImage, setFilterImage] = useState('');
+  const [theoryToUpdate, setTheoryToUpdate] = useState('');
+  const [theoryUpdate, setTheoryUpdate] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     modal: {
@@ -255,6 +258,8 @@ const AdminUI = () => {
                 ))}
           </div>
 
+          <UpdateTheory />
+
           {/* Theory Upload */}
           <h2>Carica teoria</h2>
           <form className='admin-theory'>
@@ -346,16 +351,7 @@ const AdminUI = () => {
             </Button>
           </form>
           {/* 
-      {theoryList &&
-        theoryList.map((theoryItem) => {
-          return (
-            <div>
-              <h2>{theoryItem.title}</h2>
-              <MDEditor value={theoryItem.theory} onChange={setTheory} />
-              <Button variant='contained'>Modifica</Button>
-            </div>
-          );
-        })} */}
+
 
           {/* Question Upload */}
           <h2>Carica domanda</h2>
