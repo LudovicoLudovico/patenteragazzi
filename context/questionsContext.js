@@ -6,26 +6,25 @@ export const QuestionsContext = createContext();
 export default function QuestionsContextComp({ children }) {
   const db = firebase.firestore();
   const questionsCollection = db.collection('questions');
-  const [extracted, setExtracted] = useState([]);
+  // const [extracted, setExtracted] = useState([]);
   const [questions, setQuestions] = useState([]);
+  let extracted = [];
 
   const resetQuestions = () => {
     setQuestions([]);
-    setExtracted([]);
   };
 
   const getQuestions = async () => {
     const numQuestions = 1603;
-
     let indexes1 = [];
     let indexes2 = [];
 
     for (let i = 0; i < 10; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
-
-      console.log(extracted);
       if (!extracted.includes(rand)) {
-        setExtracted((extracted) => [...extracted, rand]);
+        extracted.push(rand);
+
+        console.log(extracted);
         indexes1.push(rand);
       } else {
         i--;
@@ -34,7 +33,7 @@ export default function QuestionsContextComp({ children }) {
     for (let i = 0; i < 10; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
       if (!extracted.includes(rand)) {
-        setExtracted((extracted) => [...extracted, rand]);
+        extracted.push(rand);
         indexes2.push(rand);
       } else {
         i--;
@@ -80,12 +79,13 @@ export default function QuestionsContextComp({ children }) {
         });
       });
 
+    console.log(extracted.sort());
     return questions;
   };
 
   return (
     <QuestionsContext.Provider
-      value={{ getQuestions, questions, extracted, resetQuestions }}
+      value={{ getQuestions, questions, resetQuestions }}
     >
       {children}
     </QuestionsContext.Provider>
