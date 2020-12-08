@@ -9,29 +9,35 @@ export default function QuestionsContextComp({ children }) {
   const [extracted, setExtracted] = useState([]);
   const [questions, setQuestions] = useState([]);
 
-  const getQuestionsClient = async () => {
-    const numQuestions = 40;
+  const resetQuestions = () => {
+    setQuestions([]);
+    setExtracted([]);
+  };
+
+  const getQuestions = async () => {
+    const numQuestions = 1603;
 
     let indexes1 = [];
     let indexes2 = [];
-    let extracted = [];
 
     for (let i = 0; i < 10; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
+
+      console.log(extracted);
       if (!extracted.includes(rand)) {
-        extracted.push(rand);
+        setExtracted((extracted) => [...extracted, rand]);
         indexes1.push(rand);
       } else {
-        i = i - 1;
+        i--;
       }
     }
     for (let i = 0; i < 10; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
       if (!extracted.includes(rand)) {
-        extracted.push(rand);
+        setExtracted((extracted) => [...extracted, rand]);
         indexes2.push(rand);
       } else {
-        i = i - 1;
+        i--;
       }
     }
 
@@ -73,10 +79,14 @@ export default function QuestionsContextComp({ children }) {
           ]);
         });
       });
+
+    return questions;
   };
 
   return (
-    <QuestionsContext.Provider value={{ getQuestionsClient, questions }}>
+    <QuestionsContext.Provider
+      value={{ getQuestions, questions, extracted, resetQuestions }}
+    >
       {children}
     </QuestionsContext.Provider>
   );

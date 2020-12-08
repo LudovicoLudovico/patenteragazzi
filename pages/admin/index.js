@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { PaginatedList } from 'react-paginated-list';
+import { useUser } from '../../context/userContext';
+import firebase from 'firebase';
+import MDEditor from '@uiw/react-md-editor';
+import { NextSeo } from 'next-seo';
+
+//Material-UI
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { PaginatedList } from 'react-paginated-list';
-import { useUser } from '../../context/userContext';
-import firebase from 'firebase';
-import MDEditor from '@uiw/react-md-editor';
-import { NextSeo } from 'next-seo';
-import Navbar from '../../components/Navbar';
+
 //Components
+import Navbar from '../../components/Navbar';
 import QuestionsList from '../../components/QuestionsList';
 import CategoryList from '../../components/CategoryList';
 

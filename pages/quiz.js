@@ -9,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 
 //Context/Fetch
-import { getQuestionsClient } from '../fetchData/getQuestionsClient';
+// import { getQuestionsClient } from '../fetchData/getQuestionsClient';
+import { useQuestions } from '../context/questionsContext';
 import { useUser } from '../context/userContext';
 
 //Components
@@ -26,14 +27,17 @@ const quiz = () => {
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [open, setOpen] = useState(false);
   const { user, login } = useUser();
+  const { getQuestions, questions, resetQuestions } = useQuestions();
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const newQuestion = await getQuestionsClient();
-  //     setQuizQuestions(newQuestion);
-  //   }
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    resetQuestions();
+    getQuestions();
+    getQuestions();
+  }, []);
+
+  useEffect(() => {
+    setQuizQuestions(questions);
+  }, [questions]);
 
   //Set answers when the true or false button is pressed
   const getAnswer = (index, answer) => {
