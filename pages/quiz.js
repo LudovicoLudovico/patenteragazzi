@@ -19,29 +19,48 @@ import WrongAnswer from '../components/WrongAnswer';
 import QuizBottom from '../components/QuizBottom';
 
 const quiz = () => {
-  const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [open, setOpen] = useState(false);
-  const { user, login } = useUser();
+  const [correctPopup, setCorrectPopup] = useState(false);
+  const [ungivenState, setUngivenState] = useState(null);
   const { getQuestions, questions, resetQuestions } = useQuestions();
 
   useEffect(() => {
     resetQuestions();
     getQuestions();
     getQuestions();
+    getQuestions();
+    getQuestions();
   }, []);
 
+  const checkUngiven = () => {
+    let i = 0;
+    let ungiven = [];
+    const answersCopy = [...answers];
+    answersCopy.forEach((answer) => {
+      if (answer == undefined || answer == null) {
+        ungiven.push(i);
+      }
+      i++;
+    });
+
+    setUngivenState({
+      number: ungiven.length,
+      position: ungiven,
+    });
+  };
+
   useEffect(() => {
-    setQuizQuestions(questions);
-  }, [questions]);
+    checkUngiven();
+  }, [answers]);
 
   //Set answers when the true or false button is pressed
   const getAnswer = (index, answer) => {
-    if (questionCounter + 1 !== quizQuestions.length) {
+    if (questionCounter + 1 !== questions.length) {
       setQuestionCounter((prevState) => prevState + 1);
       let answersCopy = [...answers];
       answersCopy[index] = answer;
@@ -53,12 +72,58 @@ const quiz = () => {
       answersCopy[index] = answer;
 
       setAnswers(answersCopy);
+
+      setCorrectPopup(true);
     }
   };
 
   //Correct the quiz comparing answers
   const correct = () => {
-    let quizQuestionsCopy = [...quizQuestions];
+    checkUngiven();
+
+    if (ungivenState.position.length === 0) {
+      let quizQuestionsCopy = [...questions];
+
+      for (let i = 0; i < 40; i++) {
+        if (answers[i] === quizQuestionsCopy[i].response) {
+          setScore((prevState) => prevState + 1);
+        } else {
+          if (answers[i] === undefined || answers[i] === null) {
+            setWrongAnswers((wrongAnswers) => [
+              ...wrongAnswers,
+              {
+                userResponse: null,
+                question: quizQuestionsCopy[i].question,
+                response: quizQuestionsCopy[i].response,
+                image: quizQuestionsCopy[i].image,
+                answer: quizQuestionsCopy[i].answer,
+                num: i,
+              },
+            ]);
+          } else {
+            setWrongAnswers((wrongAnswers) => [
+              ...wrongAnswers,
+              {
+                userResponse: !quizQuestionsCopy[i].response,
+                question: quizQuestionsCopy[i].question,
+                response: quizQuestionsCopy[i].response,
+                image: quizQuestionsCopy[i].image,
+                answer: quizQuestionsCopy[i].answer,
+                num: i,
+              },
+            ]);
+          }
+        }
+      }
+
+      setShowScore(true);
+    } else {
+      setCorrectPopup(true);
+    }
+  };
+
+  const forceCorrect = () => {
+    let quizQuestionsCopy = [...questions];
 
     for (let i = 0; i < 40; i++) {
       if (answers[i] === quizQuestionsCopy[i].response) {
@@ -93,9 +158,10 @@ const quiz = () => {
     }
 
     setShowScore(true);
+    setCorrectPopup(false);
   };
 
-  if (quizQuestions.length > 5) {
+  if (questions.length > 5) {
     return (
       <>
         <Head>
@@ -138,7 +204,7 @@ const quiz = () => {
                       variant='contained'
                       className='correct_btn'
                       onClick={correct}
-                      disabled={quizQuestions.length !== 40}
+                      disabled={questions.length !== 40}
                     >
                       Correggi
                     </Button>
@@ -151,11 +217,11 @@ const quiz = () => {
                   </div>
                 </div>
 
-                {quizQuestions.length !== 0 && (
+                {questions.length !== 0 && (
                   <div className='quiz_content'>
-                    {quizQuestions[questionCounter] && (
+                    {questions[questionCounter] && (
                       <div className='quiz_image'>
-                        {quizQuestions[questionCounter].image ? (
+                        {questions[questionCounter].image ? (
                           <>
                             <Modal
                               open={open}
@@ -170,7 +236,7 @@ const quiz = () => {
                               }}
                             >
                               <img
-                                src={quizQuestions[questionCounter].image}
+                                src={questions[questionCounter].image}
                                 alt=''
                                 className='modal_img'
                                 style={{
@@ -190,7 +256,7 @@ const quiz = () => {
 
                             <img
                               onClick={() => setOpen(true)}
-                              src={quizQuestions[questionCounter].image}
+                              src={questions[questionCounter].image}
                               alt=''
                             />
                           </>
@@ -203,7 +269,7 @@ const quiz = () => {
                     <div className='quiz_right'>
                       {/* Question */}
                       <div className='quiz_question'>
-                        <p>{quizQuestions[questionCounter].question}</p>
+                        <p>{questions[questionCounter].question}</p>
                       </div>
 
                       {/* Buttons for answering */}
@@ -233,10 +299,55 @@ const quiz = () => {
 
                 <QuizBottom
                   questionCounter={questionCounter}
-                  quizQuestions={quizQuestions}
+                  quizQuestions={questions}
                   setQuestionCounter={(index) => setQuestionCounter(index)}
                 />
               </div>
+            )}
+
+            {ungivenState && (
+              <Modal
+                open={correctPopup}
+                onClick={() => setCorrectPopup(false)}
+                aria-labelledby='simple-modal-title'
+                aria-describedby='simple-modal-description'
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  outline: 'none',
+                }}
+              >
+                <div className='correct_popup'>
+                  {ungivenState.number !== 0 && (
+                    <>
+                      <h3>Non hai risposto a {ungivenState.number} domande</h3>
+                      <p>Vuoi consegnarlo comunque?</p>
+                      <Button
+                        variant='contained'
+                        className='correct_btn'
+                        onClick={forceCorrect}
+                      >
+                        Correggi
+                      </Button>
+                    </>
+                  )}
+
+                  {ungivenState.number === 0 && (
+                    <>
+                      <h3>Hai completato il quiz!</h3>
+                      <p>Vuoi correggerlo?</p>
+                      <Button
+                        variant='contained'
+                        className='correct_btn'
+                        onClick={forceCorrect}
+                      >
+                        Correggi
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </Modal>
             )}
 
             {showScore && (
