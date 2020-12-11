@@ -1,162 +1,105 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
-import Navbar from '../../components/Navbar';
-import firebase from 'firebase';
-
-import {
-  Button,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
-} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-function questions() {
-  const [searchQuestionTitle, setSearchQuestionTitle] = useState('');
-  const [searchQuestionsCategory, setSearchQuestionsCategory] = useState('');
-  const [resultQuestions, setResultQuestions] = useState([]);
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-  const useStyles = makeStyles((theme) => ({
-    formControl: {
-      width: 220,
-    },
-  }));
+//Components
+import Filter from '../../components/admin/questions/Filter';
+import SelectQuestion from '../../components/admin/questions/SelectQuestion';
+import ModifyQuestion from '../../components/admin/questions/ModifyQuestion';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  backButton: {
+    marginRight: theme.spacing(1),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+function getSteps() {
+  return [
+    'Seleziona i filtri per le domande',
+    'Seleziona domanda',
+    'Modifica domanda',
+  ];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0:
+      return <Filter />;
+    case 1:
+      return <SelectQuestion />;
+    case 2:
+      return <ModifyQuestion />;
+    default:
+      return 'Unknown stepIndex';
+  }
+}
+
+export default function HorizontalLabelPositionBelowStepper() {
   const classes = useStyles();
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = getSteps();
 
-  const searchQuestions = () => {
-    if (searchQuestionTitle) {
-      firebase
-        .firestore()
-        .collection('questions')
-        .where('question', '==', searchQuestionTitle)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach(function (doc) {
-            setResultQuestions((resultQuestions) => [
-              ...resultQuestions,
-              {
-                id: doc.id,
-                data: doc.data(),
-              },
-            ]);
-          });
-        });
-    }
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
   };
 
   return (
-    <>
-      <Head>
-        <title>Admin Area - Domande</title>
-        <link rel='shortcut icon' href='/patenteragazzi.ico' />
-      </Head>
-      <Navbar isAdminNav={true} />
-      <div className='container admin-ui'>
-        <h2>Cerca Domande Per Titolo</h2> <br />
-        <TextField
-          id='outlined-basic'
-          label='Cerca domanda...'
-          variant='outlined'
-          value={searchQuestionTitle}
-          onChange={(e) => setSearchQuestionTitle(e.target.value)}
-        />
-        <FormControl variant='filled' className={classes.formControl}>
-          <InputLabel id='demo-simple-select-filled-label'>
-            Categoria
-          </InputLabel>
-          <Select
-            labelId='demo-simple-select-filled-label'
-            id='demo-simple-select-filled'
-            value={searchQuestionsCategory}
-            onChange={(e) => setSearchQuestionsCategory(e.target.value)}
-          >
-            <MenuItem value=''>None</MenuItem>
-            <MenuItem
-              value={"Definizioni generali e doveri nell'uso dell strada"}
-            >
-              Definizioni generali e doveri nell'uso dell strada
-            </MenuItem>
-            <MenuItem value={'Segnali di pericolo'}>
-              Segnali di pericolo
-            </MenuItem>
-            <MenuItem value={'Segnali di obbligo'}>Segnali di obbligo</MenuItem>
-            <MenuItem value={'Segnali di divieto'}>Segnali di divieto</MenuItem>
-            <MenuItem value={'Segnali di precedenza'}>
-              Segnali di precedenza
-            </MenuItem>
-            <MenuItem value='Segnaletica orizzontale e segni sugli ostacoli'>
-              Segnaletica orizzontale e segni sugli ostacoli
-            </MenuItem>
-            <MenuItem value='Segnalazioni semaforiche e degli agenti del traffico'>
-              Segnalazioni semaforiche e degli agenti del traffico
-            </MenuItem>
-            <MenuItem value='Segnali di indicazione'>
-              Segnali di indicazione
-            </MenuItem>
-            <MenuItem value='Segnali complementari, segnali temporanei e di cantiere'>
-              Segnali complementari, segnali temporanei e di cantiere
-            </MenuItem>
-            <MenuItem value='Pannelli integrativi dei segnali'>
-              Pannelli integrativi dei segnali
-            </MenuItem>
-            <MenuItem value='Limiti di velocità, pericolo e intralcio alla circolazione'>
-              Limiti di velocità, pericolo e intralcio alla circolazione
-            </MenuItem>
-            <MenuItem value='Distanza di sicurezza'>
-              Distanza di sicurezza
-            </MenuItem>
-            <MenuItem value='Norme sulla circolazione dei veicoli'>
-              Norme sulla circolazione dei veicoli
-            </MenuItem>
-            <MenuItem value='Ordine di precedenza agli incroci'>
-              Ordine di precedenza agli incroci
-            </MenuItem>
-            <MenuItem value='Norme sul sorpasso'>Norme sul sorpasso</MenuItem>
-            <MenuItem value='Fermata, sosta, arresto'>
-              Fermata, sosta, arresto
-            </MenuItem>
-            <MenuItem value='Norme varie'>Norme varie</MenuItem>
-            <MenuItem value='Uso delle luci e dei dispositivi acustici, spie e simboli'>
-              Uso delle luci e dei dispositivi acustici, spie e simboli
-            </MenuItem>
-            <MenuItem value='Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza'>
-              Dispositivi di equipaggiamento, funzione ed uso: cinture di
-              sicurezza, sistemi di ritenuta per bambini, casco protettivo e
-              abbigliamento di sicurezza
-            </MenuItem>
-            <MenuItem value='Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti'>
-              Patenti di guida, sistema sanzionatorio, documenti di
-              circolazione, obblighi verso agenti
-            </MenuItem>
-            <MenuItem value='Incidenti stradali e comportamenti in caso di incidente'>
-              Incidenti stradali e comportamenti in caso di incidente
-            </MenuItem>
-            <MenuItem value='Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'>
-              Guida in relazione alle qualità e condizioni fisiche e psichiche,
-              alcool, droga, farmaci e primo soccorso
-            </MenuItem>
-            <MenuItem value='Responsabilità civile, penale e amministrativa, assicurazione r.c.a. e altre forme assicurative legate al veicolo'>
-              Responsabilità civile, penale e amministrativa, assicurazione
-              R.C.A. e altre forme assicurative legate al veicolo
-            </MenuItem>
-            <MenuItem value="Limitazione dei consumi, rispetto dell'ambiente e inquinamento">
-              Limitazione dei consumi, rispetto dell'ambiente e inquinamento
-            </MenuItem>
-            <MenuItem value='Elementi costitutivi del veicolo, manutenzione ed uso, stabilità e tenuta di strada, comportamenti e cautele di guida'>
-              Elementi costitutivi del veicolo, manutenzione ed uso, stabilità e
-              tenuta di strada, comportamenti e cautele di guida
-            </MenuItem>
-          </Select>
-        </FormControl>
-        <br />
-        <Button variant='contained' onClick={searchQuestions}>
-          Cerca
-        </Button>
+    <div className={classes.root}>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        {activeStep === steps.length ? (
+          <div>
+            <Typography className={classes.instructions}>
+              All steps completed
+            </Typography>
+            <Button onClick={handleReset}>Reset</Button>
+          </div>
+        ) : (
+          <div>
+            <Typography className={classes.instructions}>
+              {getStepContent(activeStep)}
+            </Typography>
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Back
+              </Button>
+              <Button variant='contained' color='primary' onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
-
-export default questions;
