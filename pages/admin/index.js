@@ -4,6 +4,7 @@ import { useUser } from '../../context/userContext';
 import firebase from 'firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 
 //Material-UI
 import InputLabel from '@material-ui/core/InputLabel';
@@ -216,8 +217,12 @@ const AdminUI = () => {
     return (
       <>
         <NextSeo nofollow={true} />
+        <Head>
+          <title>Admin Area</title>
+          <link rel='shortcut icon' href='/patenteragazzi.ico' />
+        </Head>
         {/* Navbar */}
-        <Navbar />
+        <Navbar isAdminNav={true} />
         <div className='admin-ui container'>
           {/* Image Upload */}
           <h2>Carica immagine</h2>

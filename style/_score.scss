@@ -83,8 +83,7 @@
   .score {
     padding-top: 120px;
     position: relative;
-    padding-bottom: 100px;
-
+    padding-bottom: 20px;
     .score_top {
       position: fixed;
       z-index: 4;
@@ -97,13 +96,11 @@
         grid-area: Title;
         margin: 10px;
         color: $white;
-        position: fixed;
         top: 5px;
       }
       a {
         button {
           top: 5px;
-          position: fixed;
           right: 0px;
           grid-area: Close;
           margin: 10px;
@@ -118,7 +115,7 @@
     }
 
     .wrong_answer_container {
-      padding-top: 90px;
+      margin-top: 200px;
       .sc-dlfnbm {
         display: grid;
         grid-template-columns: 1fr;
@@ -138,6 +135,9 @@
           border: 1px solid black;
           margin: 0;
 
+          &:nth-last-child() {
+            margin-bottom: 100px;
+          }
           .wrong_answer_top {
             height: 100vh;
             display: grid;

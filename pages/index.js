@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo';
 //Componentsv
 import Navbar from '../components/Navbar';
 import QuizHero from '../components/QuizHero';
+import Footer from '../components/Footer';
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
           description: 'Più di 7000 domande della patente AM/B',
           images: [
             {
-              url: 'https://patenteragazzi.it/patenteragazzi.png',
+              url: 'https://patenteragazzi.it/patenteragazzi-square.png',
               width: 600,
               height: 600,
               alt: 'Patenteragazzi Logo',
@@ -34,6 +35,8 @@ export default function Home() {
         <Navbar />
         <QuizHero />
       </div>
+
+      <Footer />
     </>
   );
 }

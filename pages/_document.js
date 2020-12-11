@@ -5,7 +5,7 @@ import { GA_TRACKING_ID } from '../lib/gtag';
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang='it'>
         <Head>
           <script
             data-ad-client='ca-pub-7942078481061905'

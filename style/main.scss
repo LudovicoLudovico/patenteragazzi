@@ -1,6 +1,7 @@
 // COLORS
 $blue: #00408b;
 $white: #f4f4f4;
+$red: #9d0606;
 
 @import 'navbar';
 @import 'admin';
@@ -9,6 +10,7 @@ $white: #f4f4f4;
 // @import 'stats';
 // @import 'social';
 @import 'score';
+@import 'footer';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 * {

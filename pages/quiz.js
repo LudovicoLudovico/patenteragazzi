@@ -3,20 +3,19 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
+import { NextSeo } from 'next-seo';
 
 //Material UI
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 
 //Context/Fetch
-// import { getQuestionsClient } from '../fetchData/getQuestionsClient';
 import { useQuestions } from '../context/questionsContext';
-import { useUser } from '../context/userContext';
 
 //Components
 import Timer from 'react-compound-timer';
-import WrongAnswer from '../components/WrongAnswer';
-import QuizBottom from '../components/QuizBottom';
+import WrongAnswer from '../components/quiz/WrongAnswer';
+import QuizBottom from '../components/quiz/QuizBottom';
 
 const quiz = () => {
   const [questionCounter, setQuestionCounter] = useState(0);
@@ -29,6 +28,7 @@ const quiz = () => {
   const [ungivenState, setUngivenState] = useState(null);
   const { getQuestions, questions, resetQuestions } = useQuestions();
 
+  //Onload reset state and get new questions
   useEffect(() => {
     resetQuestions();
     getQuestions();
@@ -37,6 +37,8 @@ const quiz = () => {
     getQuestions();
   }, []);
 
+  //This func loops through the answers and check if there are
+  //any undefined or null valuse. Then is stores their index in an array
   const checkUngiven = () => {
     let i = 0;
     let ungiven = [];
@@ -122,6 +124,8 @@ const quiz = () => {
     }
   };
 
+  //This func is used to force the correction of the quiz
+  // It doesn't perform ungivenCheck
   const forceCorrect = () => {
     let quizQuestionsCopy = [...questions];
 
@@ -161,12 +165,32 @@ const quiz = () => {
     setCorrectPopup(false);
   };
 
+  //If 5 questions are loaded then display UI, in the meantime display
+  //a loading screen with rotating icon
   if (questions.length > 5) {
     return (
       <>
+        <NextSeo
+          title='Patenteragazzi - Quiz Patente Online AM/B'
+          description='Più di 7000 domande della patente AM/B'
+          canonical='https://patenteragazzi.it/quiz'
+          openGraph={{
+            url: 'https://patenteragazzi.it/quiz',
+            title: 'Patenteragazzi',
+            description: 'Più di 7000 domande della patente AM/B',
+            images: [
+              {
+                url: 'https://patenteragazzi.it/patenteragazzi-square.png',
+                width: 600,
+                height: 600,
+                alt: 'Patenteragazzi Logo',
+              },
+            ],
+            site_name: 'Patenteragazzi',
+          }}
+        />
         <Head>
-          <title>Patenteragazzi - Quiz Online Patente AM/B</title>
-          <link rel='icon' href='/patenteragazzi.ico' />
+          <link rel='shortcut icon' href='/patenteragazzi.ico' />
         </Head>
         <div className='quiz' id='quiz'>
           <div className='container'>
@@ -174,7 +198,8 @@ const quiz = () => {
               <div className='standard_quiz'>
                 <div className='quiz_top'>
                   <div className='quiz_timer'>
-                    {/* 1800000 */}
+                    {/* Timer */}
+                    {/* Timer value should be  1800000 (30:00) */}
                     <Timer
                       initialTime={1800000}
                       startImmediately={true}
@@ -198,7 +223,9 @@ const quiz = () => {
                         }
                       />
                     </Timer>
-                  </div>{' '}
+                  </div>
+
+                  {/* Top right section of the quiz, contains correct btn and close btn */}
                   <div className='quiz_top_right'>
                     <Button
                       variant='contained'
@@ -217,6 +244,7 @@ const quiz = () => {
                   </div>
                 </div>
 
+                {/* If there are questions in the state then display question, image and modal */}
                 {questions.length !== 0 && (
                   <div className='quiz_content'>
                     {questions[questionCounter] && (
@@ -296,7 +324,7 @@ const quiz = () => {
                     </div>
                   </div>
                 )}
-
+                {/* Bottom Navigation */}
                 <QuizBottom
                   questionCounter={questionCounter}
                   quizQuestions={questions}
@@ -363,13 +391,7 @@ const quiz = () => {
 
                 <div className='wrong_answer_container'>
                   {wrongAnswers.map((wrong, id) => {
-                    return (
-                      <WrongAnswer
-                        wrong={wrong}
-                        key={id}
-                        // theory={getTheory(wrong.answer)}
-                      />
-                    );
+                    return <WrongAnswer wrong={wrong} key={id} />;
                   })}
                 </div>
               </div>

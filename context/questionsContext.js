@@ -11,33 +11,24 @@ export default function QuestionsContextComp({ children }) {
   let extracted = [];
 
   const resetQuestions = () => {
+    extracted = [];
     setQuestions([]);
   };
 
   const getQuestions = async () => {
-    const numQuestions = 1791;
+    const numQuestions = 40;
     let indexes1 = [];
 
     for (let i = 0; i < 10; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
       if (!extracted.includes(rand)) {
+        console.log('Here');
         extracted.push(rand);
-
-        console.log(extracted);
         indexes1.push(rand);
       } else {
         i--;
       }
     }
-    // for (let i = 0; i < 10; i++) {
-    //   const rand = Math.floor(Math.random() * numQuestions);
-    //   if (!extracted.includes(rand)) {
-    //     extracted.push(rand);
-    //     indexes2.push(rand);
-    //   } else {
-    //     i--;
-    //   }
-    // }
 
     await questionsCollection
       .where('num', 'in', indexes1)
@@ -58,27 +49,7 @@ export default function QuestionsContextComp({ children }) {
           ]);
         });
       });
-    // await questionsCollection
-    //   .where('num', 'in', indexes2)
-    //   .limit(10)
-    //   .get()
-    //   .then(function (querySnapshot) {
-    //     querySnapshot.forEach(function (doc) {
-    //       setQuestions((questions) => [
-    //         ...questions,
-    //         {
-    //           id: doc.id,
-    //           question: doc.data().question,
-    //           image: doc.data().image,
-    //           answer: doc.data().answer,
-    //           response: doc.data().response,
-    //           timestamp: doc.data().timestamp,
-    //         },
-    //       ]);
-    //     });
-    //   });
 
-    console.log(extracted.sort());
     return questions;
   };
 

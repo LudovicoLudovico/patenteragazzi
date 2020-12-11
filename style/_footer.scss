@@ -1,0 +1,29 @@
+.footer {
+  background-color: $blue;
+
+  .container {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+    .footer_contact {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 180px;
+    }
+  }
+}
+
+@media (max-width: 510px) {
+  .footer {
+    .container {
+      font-size: 1rem;
+      .footer_contact {
+        width: 130px;
+      }
+    }
+  }
+}

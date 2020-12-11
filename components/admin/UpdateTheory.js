@@ -41,9 +41,19 @@ const UpdateTheory = () => {
             });
         }}
       >
-        Cerca domanda
+        Cerca teoria
       </Button>
 
+      <TextField
+        id='outlined-multiline-flexible'
+        label='Cerca teoria (titolo)
+          '
+        multiline
+        rowsMax={10}
+        onChange={(e) => setSearchTheory(e.target.value)}
+        value={searchTheory}
+        variant='outlined'
+      />
       <MDEditor value={theoryToUpdate} onChange={setTheoryToUpdate} />
 
       <Button
