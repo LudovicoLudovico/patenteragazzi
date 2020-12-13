@@ -30,14 +30,15 @@ export default function Home() {
           site_name: 'Patenteragazzi',
         }}
       />
+
       <Head>
-        <link rel='shortcut icon' href='/patenteragazzi.ico' />
         <script
           data-ad-client='ca-pub-7942078481061905'
           async
           src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
         ></script>
       </Head>
+
       <div className='container'>
         <Navbar />
         <QuizHero />

@@ -16,7 +16,7 @@ export default function QuestionsContextComp({ children }) {
   };
 
   const getQuestions = async () => {
-    const numQuestions = 40;
+    const numQuestions = 2731;
     let indexes1 = [];
 
     for (let i = 0; i < 10; i++) {

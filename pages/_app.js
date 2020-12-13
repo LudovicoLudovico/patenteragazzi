@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 import UserProvider from '../context/userContext';
 import QuestionsProvider from '../context/questionsContext';
+import AdminProvider from '../context/adminContext';
 import '../main.min.css';
 
 const App = ({ Component, pageProps }) => {
@@ -20,7 +21,9 @@ const App = ({ Component, pageProps }) => {
   return (
     <UserProvider>
       <QuestionsProvider>
-        <Component {...pageProps} />
+        <AdminProvider>
+          <Component {...pageProps} />
+        </AdminProvider>
       </QuestionsProvider>
     </UserProvider>
   );

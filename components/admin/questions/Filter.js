@@ -30,7 +30,7 @@ const Filter = () => {
           value={searchQuestionsCategory}
           onChange={(e) => setSearchQuestionsCategory(e.target.value)}
         >
-          <MenuItem value=''>None</MenuItem>
+          <MenuItem value='                  '>None</MenuItem>
           <MenuItem
             value={"Definizioni generali e doveri nell'uso dell strada"}
           >
