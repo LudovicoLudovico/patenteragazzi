@@ -1,7 +1,8 @@
 import React from 'react';
 import SunEditor, { buttonList } from 'suneditor-react';
 
-import 'suneditor/dist/css/suneditor.min.css';
+import '../../suneditor.min.css';
+
 const Editor = ({ text, setText, height }) => {
   return (
     <>
