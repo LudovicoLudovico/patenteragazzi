@@ -13,9 +13,11 @@ import {
   Fade,
 } from '@material-ui/core';
 import CategoryList from '../../components/CategoryList';
+import QuestionsList from '../../components/QuestionsList';
 
 import { PaginatedList } from 'react-paginated-list';
 import firebase from 'firebase/app';
+import { useAdmin } from '../../context/adminContext';
 import { useUser } from '../../context/userContext';
 
 //Components
@@ -27,7 +29,7 @@ export default function questions() {
   const [resultQuestions, setResultQuestions] = useState([]);
   const [imageSelected, setImageSelected] = useState(null);
   const [modal, setModal] = useState(false);
-  const [images, setImages] = useState(null);
+
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [questionsList, setQuestionsList] = useState([]);
@@ -36,7 +38,8 @@ export default function questions() {
   const [category, setCategory] = useState('Segnali di pericolo');
   const [counter, setCounter] = useState(0);
 
-  const { loadingUser, user, login, logout, isAdmin } = useUser();
+  const { isAdmin } = useUser();
+  const { images, getImages } = useAdmin();
 
   const useStyles = makeStyles((theme) => ({
     modal: {
@@ -66,6 +69,7 @@ export default function questions() {
       .firestore()
       .collection('theory')
       .orderBy('timestamp', 'desc')
+      .limit(50)
       .onSnapshot((snapshot) => {
         setTheoryList(
           snapshot.docs.map((doc) => ({
@@ -78,19 +82,9 @@ export default function questions() {
         );
       });
 
-    firebase
-      .firestore()
-      .collection('images')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) => {
-        setImages(
-          snapshot.docs.map((doc) => ({
-            id: doc.data().id,
-            name: doc.data().name,
-            imageUrl: doc.data().imageUrl,
-          }))
-        );
-      });
+    if (!images) {
+      getImages();
+    }
 
     firebase
       .firestore()
@@ -100,6 +94,7 @@ export default function questions() {
         setCounter(doc.data().counter);
       });
   }, []);
+
   const searchQuestions = () => {
     setResultQuestions([]);
     firebase
@@ -178,7 +173,11 @@ export default function questions() {
                 images.map((image) => {
                   if (image.imageUrl === imageSelected) {
                     return (
-                      <img src={imageSelected} alt='' key={image.imageUrl} />
+                      <>
+                        <img src={imageSelected} alt='' key={image.imageUrl} />{' '}
+                        <br />
+                        <br />
+                      </>
                     );
                   } else {
                     return <div></div>;
@@ -330,12 +329,6 @@ export default function questions() {
             value={searchQuestionTitle}
             onChange={(e) => setSearchQuestionTitle(e.target.value)}
           />
-
-          <CategoryList
-            category={searchQuestionsCategory}
-            setCategory={(e) => setSearchQuestionsCategory(e.target.value)}
-          />
-
           <br />
           <br />
           <Button
@@ -397,14 +390,7 @@ export default function questions() {
             </Button>
           )}
 
-          {questionsList.map((question) => {
-            return (
-              <div key={question.id}>
-                <h3>{question.question}</h3>
-                <p>{question.response}</p>
-              </div>
-            );
-          })}
+          <QuestionsList questionsList={questionsList} theoryList={[]} />
         </div>
       </>
     );

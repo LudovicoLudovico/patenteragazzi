@@ -13,7 +13,7 @@ const Editor = ({ text, setText, height }) => {
           height: height || '500',
           buttonList: [
             ['undo', 'redo'],
-            ['formatBlock'],
+            ['formatBlock', 'removeFormat'],
             ['bold', 'italic', 'underline'],
             ['list'],
             ['image', 'video'],

@@ -8,6 +8,7 @@ export default function QuestionsContextComp({ children }) {
   const questionsCollection = db.collection('questions');
   // const [extracted, setExtracted] = useState([]);
   const [questions, setQuestions] = useState([]);
+
   let extracted = [];
 
   const resetQuestions = () => {

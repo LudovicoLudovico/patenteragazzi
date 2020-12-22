@@ -9,6 +9,11 @@ export default function AdminContextComp({ children }) {
   const [searchQuestionToModify, setSearchQuestionToModify] = useState(null);
   const [modifiedQuestion, setModifiedQuestion] = useState(null);
 
+  const [images, setImages] = useState(null);
+  const [imageQuantity, setImageQuantity] = useState(50);
+  const [theory, setTheory] = useState([]);
+  const [posts, setPosts] = useState([]);
+
   const queryQuestions = () => {
     if (searchQuestionQuery) {
       firebase
@@ -29,6 +34,24 @@ export default function AdminContextComp({ children }) {
         });
     }
   };
+
+  const getImages = () => {
+    firebase
+      .firestore()
+      .collection('images')
+      .orderBy('timestamp', 'desc')
+      .limit(imageQuantity)
+      .onSnapshot((snapshot) => {
+        setImages(
+          snapshot.docs.map((doc) => ({
+            id: doc.data().id,
+            name: doc.data().name,
+            imageUrl: doc.data().imageUrl,
+          }))
+        );
+      });
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -39,6 +62,8 @@ export default function AdminContextComp({ children }) {
         setSearchQuestionQuery,
         setSearchQuestionResult,
         queryQuestions,
+        getImages,
+        images,
       }}
     >
       {children}
