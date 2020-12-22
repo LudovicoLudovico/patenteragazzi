@@ -63,10 +63,16 @@ const Navbar = ({ isAdminNav }) => {
           {isAdminNav && (
             <>
               <button>
+                <a href='/admin'>IMMAGINI</a>
+              </button>
+              <button>
                 <a href='/admin/theory'>TEORIA</a>
               </button>
               <button>
                 <a href='/admin/questions'>DOMANDE</a>
+              </button>
+              <button>
+                <a href='/admin/post'>POST</a>
               </button>
             </>
           )}

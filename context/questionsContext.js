@@ -16,13 +16,12 @@ export default function QuestionsContextComp({ children }) {
   };
 
   const getQuestions = async () => {
-    const numQuestions = 2731;
+    const numQuestions = 3403;
     let indexes1 = [];
 
     for (let i = 0; i < 10; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
       if (!extracted.includes(rand)) {
-        console.log('Here');
         extracted.push(rand);
         indexes1.push(rand);
       } else {

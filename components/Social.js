@@ -36,7 +36,7 @@ const Social = () => {
           </a>
         </div>
         <div className='green social_bar'>
-          <a href='mailto:patenteragazzi@gmail.com'>
+          <a href='mailto:patenteragazzi@gmail.com' aria-label='Mail'>
             <img src='/mail.svg' alt='' />
           </a>
         </div>
