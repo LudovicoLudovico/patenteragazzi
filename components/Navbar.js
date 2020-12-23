@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../context/userContext';
 import Image from 'next/image';
-import Link from 'next/Link';
+import Link from 'next/link';
 
 const Navbar = ({ isAdminNav }) => {
   const [isOpen, setIsOpen] = useState(false);
