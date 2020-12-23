@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../context/userContext';
 import Image from 'next/image';
+import Link from 'next/Link';
 
 const Navbar = ({ isAdminNav }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,13 +50,19 @@ const Navbar = ({ isAdminNav }) => {
           {!isAdminNav && (
             <>
               <button>
-                <a href='/quiz'> QUIZ</a>
+                <Link href='/quiz'>
+                  <a>QUIZ</a>
+                </Link>
               </button>
               <button>
-                <a href='#stats'> STATISTICHE</a>
+                <Link href='#stats'>
+                  <a>STATISTICHE</a>
+                </Link>
               </button>
               <button>
-                <a href='#stats'> PREMIUM</a>
+                <Link href='#premium'>
+                  <a>PREMIUM</a>
+                </Link>
               </button>
             </>
           )}
@@ -63,16 +70,24 @@ const Navbar = ({ isAdminNav }) => {
           {isAdminNav && (
             <>
               <button>
-                <a href='/admin'>IMMAGINI</a>
+                <Link href='/admin'>
+                  <a>IMMAGINI</a>
+                </Link>
               </button>
               <button>
-                <a href='/admin/theory'>TEORIA</a>
+                <Link href='/admin/theory'>
+                  <a>TEORIA</a>
+                </Link>
               </button>
               <button>
-                <a href='/admin/questions'>DOMANDE</a>
+                <Link href='/admin/questions'>
+                  <a>DOMANDE</a>
+                </Link>
               </button>
               <button>
-                <a href='/admin/post'>POST</a>
+                <Link href='/admin/post'>
+                  <a>POST</a>
+                </Link>
               </button>
             </>
           )}

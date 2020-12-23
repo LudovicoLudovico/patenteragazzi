@@ -32,14 +32,19 @@ export default function questions() {
 
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const [questionsList, setQuestionsList] = useState([]);
-  const [theoryList, setTheoryList] = useState([]);
   const [response, setResponse] = useState(true);
   const [category, setCategory] = useState('Segnali di pericolo');
   const [counter, setCounter] = useState(0);
 
   const { isAdmin } = useUser();
-  const { images, getImages } = useAdmin();
+  const {
+    images,
+    getImages,
+    getQuestionsList,
+    questionsList,
+    theoryList,
+    getTheoryList,
+  } = useAdmin();
 
   const useStyles = makeStyles((theme) => ({
     modal: {
@@ -65,26 +70,8 @@ export default function questions() {
   const classes = useStyles();
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection('theory')
-      .orderBy('timestamp', 'desc')
-      .limit(50)
-      .onSnapshot((snapshot) => {
-        setTheoryList(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            image: doc.data().image,
-            theory: doc.data().theory,
-            title: doc.data().title,
-            category: doc.data().category,
-          }))
-        );
-      });
-
-    if (!images) {
-      getImages();
-    }
+    getTheoryList();
+    getImages();
 
     firebase
       .firestore()
@@ -174,7 +161,15 @@ export default function questions() {
                   if (image.imageUrl === imageSelected) {
                     return (
                       <>
-                        <img src={imageSelected} alt='' key={image.imageUrl} />{' '}
+                        <img
+                          src={imageSelected}
+                          alt=''
+                          key={image.imageUrl}
+                          style={{
+                            height: '100px',
+                            width: 'auto',
+                          }}
+                        />{' '}
                         <br />
                         <br />
                       </>
@@ -342,14 +337,7 @@ export default function questions() {
             Cerca
           </Button>
 
-          {resultQuestions.map((result) => {
-            return (
-              <div key={result.id}>
-                <img src={result.image} alt='' />
-                <h2>{result.question}</h2> <p>{result.response}</p>
-              </div>
-            );
-          })}
+          <QuestionsList questionsList={resultQuestions} theoryList={[]} />
 
           {resultQuestions.length === 0 && (
             <>
@@ -359,28 +347,12 @@ export default function questions() {
             </>
           )}
 
-          <h2>Domande</h2>
+          <h2>Domande (Ultime 100 domande caricate)</h2>
 
           {questionsList.length === 0 && (
             <Button
               variant='contained'
-              onClick={() => {
-                firebase
-                  .firestore()
-                  .collection('questions')
-                  .limit(100)
-                  .orderBy('timestamp', 'desc')
-                  .onSnapshot((snapshot) => {
-                    setQuestionsList(
-                      snapshot.docs.map((doc) => ({
-                        id: doc.id,
-                        question: doc.data().question,
-                        response: doc.data().response,
-                        image: doc.data().image,
-                      }))
-                    );
-                  });
-              }}
+              onClick={getQuestionsList}
               style={{
                 background: '#2e88f2',
                 color: 'white',
@@ -391,6 +363,10 @@ export default function questions() {
           )}
 
           <QuestionsList questionsList={questionsList} theoryList={[]} />
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </>
     );

@@ -104,9 +104,7 @@ const AdminUI = () => {
 
   //On page load get all images
   useEffect(() => {
-    if (!images) {
-      getImages();
-    }
+    getImages();
   }, []);
 
   if (isAdmin) {
@@ -119,7 +117,7 @@ const AdminUI = () => {
         </Head>
         {/* Navbar */}
         <Navbar isAdminNav={true} />
-        <div className='admin-ui container'>
+        <div className='admin-ui container-full'>
           {/* Image Upload */}
           <h2>Carica immagine</h2>
           <form className='admin-image-upload'>

@@ -33,7 +33,7 @@ const QuestionsList = ({ questionsList, theoryList }) => {
             }
           }}
         >
-          {questionsList && theoryList && (
+          {questionsList.length !== 0 && theoryList && (
             <PaginatedList
               list={questionsList}
               itemsPerPage={10}

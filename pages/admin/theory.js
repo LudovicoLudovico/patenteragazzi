@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
 import firebase from 'firebase/app';
 import Editor from '../../components/admin/Editor';
@@ -64,9 +64,7 @@ const theory = () => {
   };
 
   useEffect(() => {
-    if (!images) {
-      getImages();
-    }
+    getImages();
   }, []);
 
   if (isAdmin) {
@@ -76,7 +74,7 @@ const theory = () => {
           <title>Admin Area - Teoria</title>
         </Head>
         <Navbar isAdminNav={true} />
-        <div className='container'>
+        <div className='container-full'>
           <br />
           <h1>Carica teoria</h1>
           <form className='admin-theory'>

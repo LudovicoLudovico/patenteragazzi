@@ -9,9 +9,10 @@ export default function AdminContextComp({ children }) {
   const [searchQuestionToModify, setSearchQuestionToModify] = useState(null);
   const [modifiedQuestion, setModifiedQuestion] = useState(null);
 
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState([]);
   const [imageQuantity, setImageQuantity] = useState(50);
-  const [theory, setTheory] = useState([]);
+  const [questionsList, setQuestionsList] = useState([]);
+  const [theoryList, setTheoryList] = useState([]);
   const [posts, setPosts] = useState([]);
 
   const queryQuestions = () => {
@@ -36,22 +37,62 @@ export default function AdminContextComp({ children }) {
   };
 
   const getImages = () => {
+    if (!images || images.length === 0) {
+      firebase
+        .firestore()
+        .collection('images')
+        .orderBy('timestamp', 'desc')
+        .limit(imageQuantity)
+        .onSnapshot((snapshot) => {
+          setImages(
+            snapshot.docs.map((doc) => ({
+              id: doc.data().id,
+              name: doc.data().name,
+              imageUrl: doc.data().imageUrl,
+            }))
+          );
+        });
+    }
+  };
+
+  const getQuestionsList = () => {
     firebase
       .firestore()
-      .collection('images')
+      .collection('questions')
+      .limit(100)
       .orderBy('timestamp', 'desc')
-      .limit(imageQuantity)
       .onSnapshot((snapshot) => {
-        setImages(
+        setQuestionsList(
           snapshot.docs.map((doc) => ({
-            id: doc.data().id,
-            name: doc.data().name,
-            imageUrl: doc.data().imageUrl,
+            id: doc.id,
+            question: doc.data().question,
+            response: doc.data().response,
+            image: doc.data().image,
           }))
         );
       });
   };
 
+  const getTheoryList = () => {
+    if (!theoryList || theoryList.length === 0) {
+      firebase
+        .firestore()
+        .collection('theory')
+        .orderBy('timestamp', 'desc')
+        .limit(50)
+        .onSnapshot((snapshot) => {
+          setTheoryList(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              image: doc.data().image,
+              theory: doc.data().theory,
+              title: doc.data().title,
+              category: doc.data().category,
+            }))
+          );
+        });
+    }
+  };
   return (
     <AdminContext.Provider
       value={{
@@ -64,6 +105,10 @@ export default function AdminContextComp({ children }) {
         queryQuestions,
         getImages,
         images,
+        getQuestionsList,
+        questionsList,
+        getTheoryList,
+        theoryList,
       }}
     >
       {children}

@@ -19,13 +19,13 @@ const App = ({ Component, pageProps }) => {
     };
   }, [router.events]);
   return (
-    <UserProvider>
-      <QuestionsProvider>
-        <AdminProvider>
+    <AdminProvider>
+      <UserProvider>
+        <QuestionsProvider>
           <Component {...pageProps} />
-        </AdminProvider>
-      </QuestionsProvider>
-    </UserProvider>
+        </QuestionsProvider>
+      </UserProvider>
+    </AdminProvider>
   );
 };
 
