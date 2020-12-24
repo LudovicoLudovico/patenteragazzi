@@ -42,7 +42,6 @@ export default function AdminContextComp({ children }) {
         .firestore()
         .collection('images')
         .orderBy('timestamp', 'desc')
-        .limit(imageQuantity)
         .onSnapshot((snapshot) => {
           setImages(
             snapshot.docs.map((doc) => ({
