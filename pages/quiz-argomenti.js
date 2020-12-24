@@ -5,20 +5,20 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import { encrypt, decrypt } from '../lib/enc';
+import { getQuestions } from '../fetchData/getQuestions';
 
 //Material UI
-import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
+import { Modal, Button, Checkbox } from '@material-ui/core';
 
 //Context/Fetch
 import { useQuestions } from '../context/questionsContext';
-import { getQuestions } from '../fetchData/getQuestions';
+import TopicQuizSelec from '../components/TopicQuizSelec';
 //Components
 import Timer from 'react-compound-timer';
 import WrongAnswer from '../components/quiz/WrongAnswer';
 import QuizBottom from '../components/quiz/QuizBottom';
 
-const newQuiz = ({ questions }) => {
+const quizArgomenti = ({ questions }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
@@ -27,31 +27,38 @@ const newQuiz = ({ questions }) => {
   const [open, setOpen] = useState(false);
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
+  const [showQuiz, setShowQuiz] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const [filters, setFilters] = useState([]);
 
-  //Onload reset state and get new questions
-  //4841
+  const startQuiz = async () => {
+    let allQuestionsCopy = await decrypt(questions.iv, questions.content);
 
-  useEffect(() => {
-    const numQuestions = 4841;
-    let extracted = [];
-    let allQuestionsCopy = decrypt(questions.iv, questions.content);
     let allQuestions = JSON.parse(allQuestionsCopy);
 
-    console.log(allQuestions);
-    for (let i = 0; i < 40; i++) {
-      const rand = Math.floor(Math.random() * numQuestions);
-      if (!extracted.includes(rand)) {
-        extracted.push(rand);
-        setQuizQuestions((quizQuestions) => [
-          ...quizQuestions,
-          allQuestions[rand],
-        ]);
-      } else {
-        i--;
+    const questsFiltered = allQuestions.filter((item) => {
+      return filters.includes(item.category);
+    });
+
+    if (questsFiltered.length >= 40) {
+      let extracted = [];
+      for (let i = 0; i < 40; i++) {
+        const rand = Math.floor(Math.random() * questsFiltered.length);
+        if (!extracted.includes(rand)) {
+          extracted.push(rand);
+          setQuizQuestions((quizQuestions) => [
+            ...quizQuestions,
+            questsFiltered[rand],
+          ]);
+        } else {
+          i--;
+        }
       }
+      setShowQuiz(true);
+    } else {
+      alert('Domande insufficienti selezionare altre categorie');
     }
-  }, []);
+  };
 
   //This func loops through the answers and check if there are
   //any undefined or null valuse. Then is stores their index in an array
@@ -183,15 +190,15 @@ const newQuiz = ({ questions }) => {
 
   //If 5 questions are loaded then display UI, in the meantime display
   //a loading screen with rotating icon
-  if (quizQuestions.length > 5) {
+  if (showQuiz) {
     return (
       <>
         <NextSeo
           title='Patenteragazzi - Quiz Patente Online AM/B'
           description='Più di 7000 domande della patente AM/B'
-          canonical='https://patenteragazzi.it/quiz'
+          canonical='https://patenteragazzi.it/quiz-argomenti'
           openGraph={{
-            url: 'https://patenteragazzi.it/quiz',
+            url: 'https://patenteragazzi.it/quiz-argomenti',
             title: 'Patenteragazzi',
             description: 'Più di 7000 domande della patente AM/B',
             images: [
@@ -208,9 +215,9 @@ const newQuiz = ({ questions }) => {
         <Head>
           <link rel='shortcut icon' href='/patenteragazzi.ico' />
         </Head>
-        <div className='quiz' id='quiz'>
+        <div className='quiz quiz-argomenti' id='quiz'>
           <div className='container'>
-            {!showScore && (
+            {!showScore && showQuiz && (
               <div className='standard_quiz'>
                 <div className='quiz_top'>
                   <div className='quiz_timer'>
@@ -260,7 +267,7 @@ const newQuiz = ({ questions }) => {
                   </div>
                 </div>
 
-                {/* If there are quizQuestions in the state then display question, image and modal */}
+                {/* If there are questions in the state then display question, image and modal */}
                 {quizQuestions.length !== 0 && (
                   <div className='quiz_content'>
                     {quizQuestions[questionCounter] && (
@@ -394,7 +401,7 @@ const newQuiz = ({ questions }) => {
               </Modal>
             )}
 
-            {showScore && (
+            {showScore && showQuiz && (
               <div className='score'>
                 <div className='score_top'>
                   <h1>Risultato {score}/40</h1>
@@ -418,16 +425,149 @@ const newQuiz = ({ questions }) => {
     );
   } else {
     return (
-      <div className='loading'>
-        <Image
-          src='/car.svg'
-          alt='Caricamento'
-          layout={'intrinsic'}
-          width={150}
-          height={150}
+      <>
+        <NextSeo
+          title='Quiz Patente Argomenti - Patenteragazzi'
+          description='Più di 7000 domande della patente AM/B'
+          canonical='https://patenteragazzi.it/quiz-argomenti'
+          openGraph={{
+            url: 'https://patenteragazzi.it/quiz-argomenti',
+            title: 'Patenteragazzi',
+            description: 'Più di 7000 domande della patente AM/B',
+            images: [
+              {
+                url: 'https://patenteragazzi.it/patenteragazzi-square.png',
+                width: 600,
+                height: 600,
+                alt: 'Patenteragazzi Logo',
+              },
+            ],
+            site_name: 'Patenteragazzi',
+          }}
         />
-        <p>Caricamento...</p>
-      </div>
+        <div className='topic-choice '>
+          <div className='container-full'>
+            <div className='topic-choice-top'>
+              <h2>Scegli argomenti per il quiz</h2>
+              <div>
+                <Link href='/'>
+                  <a>
+                    <button className='close_quiz'>X</button>
+                  </a>
+                </Link>
+                <Button
+                  variant='contained'
+                  className='start'
+                  onClick={startQuiz}
+                >
+                  Inizia quiz
+                </Button>
+              </div>
+            </div>
+
+            <div className='topics-list'>
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnali di pericolo'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnali di divieto'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnali di obbligo'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Distanza di sicurezza'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Norme sulla circolazione dei veicolio'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Esempi di precedenza (ordine di precedenza agli incroci)'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Fermata, sosta, arresto e partenza'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Norme varie (ingombro della carreggiata, circolazione su autostrade e strade extraurbane principali, trasporto di persone, pannelli sui veicoli, etc.)'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Uso delle luci e dei dispositivi acustici, spie e simboli'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti, uso di lenti e altri apparecchi'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Incidenti stradali e comportamenti in caso di incidente'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Responsabilità civile, penale e amministrativa, assicurazione r.c.a. e altre forme assicurative legate al veicolo'
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  "Limitazione dei consumi, rispetto dell'ambiente e inquinamento"
+                }
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Elementi costitutivi del veicolo, manutenzione ed uso, stabilità e tenuta di strada, comportamenti e cautele di guida'
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 };
@@ -443,4 +583,5 @@ export async function getStaticProps(context) {
     },
   };
 }
-export default newQuiz;
+
+export default quizArgomenti;

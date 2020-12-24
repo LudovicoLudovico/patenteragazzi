@@ -7,9 +7,11 @@ $green: #06690d;
 @import 'navbar';
 @import 'admin';
 @import 'quiz';
+@import 'quizargomenti';
 @import 'quizhero';
 @import 'cards';
 // @import 'stats';
+
 @import 'social';
 @import 'score';
 @import 'footer';
@@ -56,6 +58,7 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
 }
 
 .footer {

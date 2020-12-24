@@ -24,11 +24,24 @@ const QuizHero = () => {
         </Link>
 
         <Button variant='contained' disabled={true}>
-          INIZIA QUIZ ERRORI
+          WORK IN PROGRESS
         </Button>
-        <Button variant='contained' disabled={true}>
-          INIZIA QUIZ ARGOMENTI
-        </Button>
+
+        <Link href='/quiz-argomenti'>
+          <a>
+            <Button
+              variant='contained'
+              style={{
+                background: '#06690d',
+              }}
+              onClick={(e) => {
+                setLoading(true);
+              }}
+            >
+              {!loading ? 'INIZIA QUIZ ARGOMENTI (BETA)' : 'CARICAMENTO...'}
+            </Button>
+          </a>
+        </Link>
       </div>
       <div className='quiz_hero_description'>
         <p>

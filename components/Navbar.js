@@ -55,13 +55,8 @@ const Navbar = ({ isAdminNav }) => {
                 </Link>
               </button>
               <button>
-                <Link href='#stats'>
-                  <a>STATISTICHE</a>
-                </Link>
-              </button>
-              <button>
-                <Link href='#premium'>
-                  <a>PREMIUM</a>
+                <Link href='/quiz-argomenti'>
+                  <a>QUIZ ARGOMENTI</a>
                 </Link>
               </button>
             </>
