@@ -2,14 +2,27 @@ import React, { useState, useEffect } from 'react';
 import Editor from '../../components/admin/Editor';
 import Navbar from '../../components/Navbar';
 import Head from 'next/head';
+import Image from 'next/image';
 import {
   TextField,
   Checkbox,
   FormControlLabel,
   Button,
 } from '@material-ui/core';
+
 import firebase from 'firebase/app';
 import { useUser } from '../../context/userContext';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: 'none',
+  },
+}));
 
 const post = () => {
   const [text, setText] = useState('');
@@ -18,7 +31,11 @@ const post = () => {
   const [faqQuestion, setFaqQuestion] = useState('');
   const [faqAnswer, setFaqAnswer] = useState('');
   const [posts, setPosts] = useState([]);
+  const [postImage, setPostImage] = useState('');
+  const [imageLoader, setImageLoader] = useState(false);
   const { loadingUser, user, login, logout, isAdmin } = useUser();
+
+  const classes = useStyles();
 
   useEffect(() => {
     firebase
@@ -108,6 +125,7 @@ const post = () => {
           text,
           isPublished: true,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          image: postImage,
         })
         .then(() => {
           setText('');
@@ -133,11 +151,36 @@ const post = () => {
             text: doc.data().text,
             faqQuestion: doc.data().faqQuestion,
             isPublished: doc.data().isPublished,
+            image: postImage,
           }))
         );
       });
   };
 
+  const handleImageUpload = (e) => {
+    const image = e.target.files[0];
+    setImageLoader(true);
+    firebase
+      .storage()
+      .ref(`images/${image.name}`)
+      .put(image)
+      .then(() => {
+        firebase
+          .storage()
+          .ref('images')
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            firebase.firestore().collection('images').add({
+              imageUrl: url,
+              name: image.name,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            setPostImage(url);
+            setImageLoader(false);
+          });
+      });
+  };
   if (isAdmin) {
     return (
       <>
@@ -148,6 +191,88 @@ const post = () => {
         <div className='container-full'>
           <br />
           <h1>Post</h1>
+
+          {!postImage && (
+            <div
+              style={{
+                marginBottom: 0,
+                display: 'flex',
+                height: 60,
+                alignItems: 'center',
+              }}
+            >
+              <input
+                accept='image/*'
+                className={classes.input}
+                id='contained-button-file'
+                type='file'
+                onChange={(e) => handleImageUpload(e)}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button
+                  variant='contained'
+                  component='span'
+                  style={{ backgroundColor: '#2e88f2', color: 'white' }}
+                >
+                  Carica immagine cover
+                </Button>
+              </label>
+              <p style={{ margin: 20 }}>Oppure caricala attraverso link</p>
+              <TextField
+                id='outlined-basic'
+                label="Inserisci il link all'immagine"
+                variant='outlined'
+                style={{
+                  minWidth: '500px',
+
+                  marginTop: 0,
+                }}
+                onChange={(e) => {
+                  setPostImage(e.target.value);
+                }}
+                value={postImage}
+              />
+            </div>
+          )}
+
+          {postImage && !imageLoader && (
+            <>
+              <img
+                src={postImage}
+                alt=''
+                style={{
+                  height: 100,
+                  width: 'auto',
+                  marginTop: 0,
+                  marginBottom: 20,
+                }}
+              />
+            </>
+          )}
+
+          {imageLoader && (
+            <>
+              <br />
+              <div
+                className='loading'
+                style={{
+                  height: 250,
+                  width: 250,
+                }}
+              >
+                <Image
+                  src='/car.svg'
+                  alt='Caricamento'
+                  layout={'intrinsic'}
+                  width={150}
+                  height={150}
+                />
+                <p>Caricamento...</p>
+              </div>
+            </>
+          )}
+
+          <br />
 
           <TextField
             id='outlined-basic'

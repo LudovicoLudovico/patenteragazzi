@@ -4,6 +4,7 @@ import { useAdmin } from '../../context/adminContext';
 import firebase from 'firebase';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
+import Image from 'next/image';
 
 //Material-UI
 import Button from '@material-ui/core/Button';
@@ -20,6 +21,7 @@ const AdminUI = () => {
   //State
   const [imageToUpload, setImageToUpload] = useState(null);
   const [filterImage, setFilterImage] = useState('');
+  const [imageLoader, setImageLoader] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     modal: {
@@ -40,6 +42,15 @@ const AdminUI = () => {
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    input: {
+      display: 'none',
+    },
   }));
 
   const classes = useStyles();
@@ -54,53 +65,61 @@ const AdminUI = () => {
   };
 
   //Handle Image Upload
+  // const handleImageUpload = (e) => {
+  //   // If there is not image to Upload do nothing
+  //   if (!imageToUpload) {
+  //     return;
+  //   }
+
+  //   e.preventDefault();
+
+  //   //Create a reference in the storage and save the downloadURl to db
+  //   firebase
+  //     .storage()
+  //     .ref(`images/${imageToUpload.name}`)
+  //     .put(imageToUpload)
+  //     .then(() => {
+  //       firebase
+  //         .storage()
+  //         .ref('images')
+  //         .child(imageToUpload.name)
+  //         .getDownloadURL()
+  //         .then((url) => {
+  //           firebase.firestore().collection('images').add({
+  //             imageUrl: url,
+  //             name: imageToUpload.name,
+  //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //           });
+
+  //           //State reset
+  //           setImageToUpload(null);
+  //         });
+  //     });
+  // };
+
   const handleImageUpload = (e) => {
-    // If there is not image to Upload do nothing
-    if (!imageToUpload) {
-      return;
-    }
-
-    e.preventDefault();
-
-    //Create a reference in the storage and save the downloadURl to db
+    const image = e.target.files[0];
+    setImageLoader(true);
     firebase
       .storage()
-      .ref(`images/${imageToUpload.name}`)
-      .put(imageToUpload)
+      .ref(`images/${image.name}`)
+      .put(image)
       .then(() => {
         firebase
           .storage()
           .ref('images')
-          .child(imageToUpload.name)
+          .child(image.name)
           .getDownloadURL()
           .then((url) => {
             firebase.firestore().collection('images').add({
               imageUrl: url,
-              name: imageToUpload.name,
+              name: image.name,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
-
-            //State reset
-            setImageToUpload(null);
+            setImageLoader(false);
           });
       });
   };
-  // const numQuestions = () => {
-  //   let i = 0;
-  //   firebase
-  //     .firestore()
-  //     .collection('questions')
-  //     .get()
-  //     .then(function (querySnapshot) {
-  //       querySnapshot.forEach(function (doc) {
-  //         console.log('ran');
-  //         firebase.firestore().collection('questions').doc(doc.id).update({
-  //           num: i,
-  //         });
-  //         i++;
-  //       });
-  //     });
-  // };
 
   //On page load get all images
   useEffect(() => {
@@ -120,27 +139,45 @@ const AdminUI = () => {
         <div className='admin-ui container-full'>
           {/* Image Upload */}
           <h2>Carica immagine</h2>
-          <form className='admin-image-upload'>
-            <label htmlFor='upload-image'>
-              Clicca per scegliere l'immagine da caricare
-            </label>
-            <br />
-            <br />
-            <input
-              type='file'
-              id='upload-image'
-              onChange={handleImageSelection}
-              accept='.png, .jpeg, .jpg'
-            />
-            <br />
-            <br />
-            <Button variant='contained' onClick={handleImageUpload}>
-              Carica Immagine
+          <input
+            accept='image/*'
+            className={classes.input}
+            id='contained-button-file'
+            type='file'
+            onChange={(e) => handleImageUpload(e)}
+          />
+          <label htmlFor='contained-button-file'>
+            <Button
+              variant='contained'
+              component='span'
+              style={{ backgroundColor: '#2e88f2', color: 'white' }}
+            >
+              Carica immagine
             </Button>
-          </form>
+          </label>
+          {imageLoader && (
+            <>
+              <br />
+              <div
+                className='loading'
+                style={{
+                  height: 250,
+                  width: 250,
+                }}
+              >
+                <Image
+                  src='/car.svg'
+                  alt='Caricamento'
+                  layout={'intrinsic'}
+                  width={150}
+                  height={150}
+                />
+                <p>Caricamento...</p>
+              </div>
+            </>
+          )}
 
           <h2>Cerca immagine</h2>
-
           <TextField
             id='outlined-basic'
             label='Scrivi per filtrare le immagini'
