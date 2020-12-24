@@ -38,7 +38,6 @@ const newQuiz = ({ questions }) => {
     let allQuestionsCopy = decrypt(questions.iv, questions.content);
     let allQuestions = JSON.parse(allQuestionsCopy);
 
-    console.log(allQuestions);
     for (let i = 0; i < 40; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
       if (!extracted.includes(rand)) {
