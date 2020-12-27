@@ -32,8 +32,7 @@ const quizArgomenti = ({ questions }) => {
   const [filters, setFilters] = useState([]);
 
   const startQuiz = async () => {
-    let allQuestionsCopy = decrypt(questions);
-    let allQuestions = JSON.parse(allQuestionsCopy);
+    let allQuestions = JSON.parse(questions);
 
     const questsFiltered = allQuestions.filter((item) => {
       return filters.includes(item.category);
@@ -573,12 +572,10 @@ const quizArgomenti = ({ questions }) => {
 
 export async function getStaticProps(context) {
   const questionsRaw = await getQuestions();
-  const questionStr = JSON.stringify(questionsRaw);
-  const questions = JSON.parse(questionStr);
 
   return {
     props: {
-      questions,
+      questions: JSON.stringify(questionsRaw),
     },
   };
 }
