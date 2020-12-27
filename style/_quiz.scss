@@ -252,9 +252,16 @@
         flex-direction: column;
       }
       .quiz_image {
-        margin-top: 10px;
+        height: 120px;
         img {
-          height: 100px;
+          padding-top: 0;
+          height: 120px;
+          width: auto;
+        }
+
+        .modal_img {
+          padding-top: 0;
+          height: 120px;
           width: auto;
         }
       }

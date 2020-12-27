@@ -35,8 +35,9 @@ const newQuiz = ({ questions }) => {
   useEffect(() => {
     const numQuestions = 5736;
     let extracted = [];
-    let allQuestionsCopy = decrypt(questions);
-    allQuestionsCopy = JSON.parse(allQuestionsCopy);
+    // let allQuestionsCopy = decrypt(questions);
+    // allQuestionsCopy = JSON.parse(allQuestionsCopy);
+    let allQuestions = JSON.parse(questions);
 
     for (let i = 0; i < 40; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
@@ -44,7 +45,7 @@ const newQuiz = ({ questions }) => {
         extracted.push(rand);
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
-          allQuestionsCopy[rand],
+          allQuestions[rand],
         ]);
       } else {
         i--;
@@ -404,6 +405,8 @@ const newQuiz = ({ questions }) => {
                   </Link>
                 </div>
 
+                <div>Bocciato</div>
+
                 <div className='wrong_answer_container'>
                   {wrongAnswers.map((wrong, id) => {
                     return <WrongAnswer wrong={wrong} key={id} />;
@@ -433,12 +436,10 @@ const newQuiz = ({ questions }) => {
 
 export async function getStaticProps(context) {
   const questionsRaw = await getQuestions();
-  // const questionStr = JSON.stringify(questionsRaw);
-  // const questions = JSON.parse(questionStr);
 
   return {
     props: {
-      questions: questionsRaw,
+      questions: JSON.stringify(questionsRaw),
     },
   };
 }

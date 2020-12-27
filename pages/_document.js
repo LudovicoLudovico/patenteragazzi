@@ -7,11 +7,8 @@ export default class MyDocument extends Document {
       <Html lang='it'>
         <Head>
           <link rel='shortcut icon' href='/patenteragazzi.ico' />
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
 
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
           <script
             dangerouslySetInnerHTML={{
               __html: `

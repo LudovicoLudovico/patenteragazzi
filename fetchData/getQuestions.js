@@ -22,5 +22,6 @@ export const getQuestions = async () => {
       });
     });
 
-  return encrypt(JSON.stringify(questions));
+  // return encrypt(JSON.stringify(questions));
+  return questions;
 };
