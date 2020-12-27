@@ -33,10 +33,10 @@ const newQuiz = ({ questions }) => {
   //4841
 
   useEffect(() => {
-    const numQuestions = 4841;
+    const numQuestions = 5736;
     let extracted = [];
-    let allQuestionsCopy = decrypt(questions.iv, questions.content);
-    let allQuestions = JSON.parse(allQuestionsCopy);
+    let allQuestionsCopy = decrypt(questions);
+    allQuestionsCopy = JSON.parse(allQuestionsCopy);
 
     for (let i = 0; i < 40; i++) {
       const rand = Math.floor(Math.random() * numQuestions);
@@ -44,7 +44,7 @@ const newQuiz = ({ questions }) => {
         extracted.push(rand);
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
-          allQuestions[rand],
+          allQuestionsCopy[rand],
         ]);
       } else {
         i--;
@@ -182,7 +182,7 @@ const newQuiz = ({ questions }) => {
 
   //If 5 questions are loaded then display UI, in the meantime display
   //a loading screen with rotating icon
-  if (quizQuestions.length > 5) {
+  if (quizQuestions.length !== 0) {
     return (
       <>
         <NextSeo
@@ -433,12 +433,12 @@ const newQuiz = ({ questions }) => {
 
 export async function getStaticProps(context) {
   const questionsRaw = await getQuestions();
-  const questionStr = JSON.stringify(questionsRaw);
-  const questions = JSON.parse(questionStr);
+  // const questionStr = JSON.stringify(questionsRaw);
+  // const questions = JSON.parse(questionStr);
 
   return {
     props: {
-      questions,
+      questions: questionsRaw,
     },
   };
 }

@@ -32,8 +32,7 @@ const quizArgomenti = ({ questions }) => {
   const [filters, setFilters] = useState([]);
 
   const startQuiz = async () => {
-    let allQuestionsCopy = await decrypt(questions.iv, questions.content);
-
+    let allQuestionsCopy = decrypt(questions);
     let allQuestions = JSON.parse(allQuestionsCopy);
 
     const questsFiltered = allQuestions.filter((item) => {
@@ -450,11 +449,6 @@ const quizArgomenti = ({ questions }) => {
             <div className='topic-choice-top'>
               <h2>Scegli argomenti per il quiz</h2>
               <div>
-                <Link href='/'>
-                  <a>
-                    <button className='close_quiz'>X</button>
-                  </a>
-                </Link>
                 <Button
                   variant='contained'
                   className='start'
@@ -462,6 +456,11 @@ const quizArgomenti = ({ questions }) => {
                 >
                   Inizia quiz
                 </Button>
+                <Link href='/'>
+                  <a>
+                    <button className='close_quiz'>X</button>
+                  </a>
+                </Link>
               </div>
             </div>
 

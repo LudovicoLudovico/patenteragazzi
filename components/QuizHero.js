@@ -6,6 +6,7 @@ import Link from 'next/link';
 const QuizHero = () => {
   const { user, login } = useUser();
   const [loading, setLoading] = useState(false);
+  const [loadingTopics, setLoadingTopics] = useState(false);
 
   return (
     <div className='quiz_hero'>
@@ -35,10 +36,12 @@ const QuizHero = () => {
                 background: '#06690d',
               }}
               onClick={(e) => {
-                setLoading(true);
+                setLoadingTopics(true);
               }}
             >
-              {!loading ? 'INIZIA QUIZ ARGOMENTI (BETA)' : 'CARICAMENTO...'}
+              {!loadingTopics
+                ? 'INIZIA QUIZ ARGOMENTI (BETA)'
+                : 'CARICAMENTO...'}
             </Button>
           </a>
         </Link>
