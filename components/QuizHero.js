@@ -39,9 +39,7 @@ const QuizHero = () => {
                 setLoadingTopics(true);
               }}
             >
-              {!loadingTopics
-                ? 'INIZIA QUIZ ARGOMENTI (BETA)'
-                : 'CARICAMENTO...'}
+              {!loadingTopics ? 'INIZIA QUIZ ARGOMENTI' : 'CARICAMENTO...'}
             </Button>
           </a>
         </Link>

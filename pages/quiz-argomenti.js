@@ -4,19 +4,19 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
-import { encrypt, decrypt } from '../lib/enc';
 import { getQuestions } from '../fetchData/getQuestions';
 
 //Material UI
-import { Modal, Button, Checkbox } from '@material-ui/core';
+import { Modal, Button } from '@material-ui/core';
 
 //Context/Fetch
-import { useQuestions } from '../context/questionsContext';
 import TopicQuizSelec from '../components/TopicQuizSelec';
+
 //Components
 import Timer from 'react-compound-timer';
 import WrongAnswer from '../components/quiz/WrongAnswer';
 import QuizBottom from '../components/quiz/QuizBottom';
+import { decrypt } from '../lib/enc';
 
 const quizArgomenti = ({ questions }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
@@ -32,7 +32,8 @@ const quizArgomenti = ({ questions }) => {
   const [filters, setFilters] = useState([]);
 
   const startQuiz = async () => {
-    let allQuestions = JSON.parse(questions);
+    let allQuestionsCopy = decrypt(questions);
+    let allQuestions = JSON.parse(allQuestionsCopy);
 
     const questsFiltered = allQuestions.filter((item) => {
       return filters.includes(item.category);
@@ -467,6 +468,11 @@ const quizArgomenti = ({ questions }) => {
               <TopicQuizSelec
                 filters={filters}
                 setFilters={setFilters}
+                text={"Definizioni generali e doveri nell'uso della strada"}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
                 text={'Segnali di pericolo'}
               />
               <TopicQuizSelec
@@ -478,6 +484,43 @@ const quizArgomenti = ({ questions }) => {
                 filters={filters}
                 setFilters={setFilters}
                 text={'Segnali di obbligo'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnali di precedenza'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnaletica orizzontale e segni sugli ostacoli'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnalazioni semaforiche e degli agenti del traffico'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnali di indicazione'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Segnali complementari, segnali temporanei e di cantiere'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={'Pannelli integrativi dei segnali'}
+              />
+              <TopicQuizSelec
+                filters={filters}
+                setFilters={setFilters}
+                text={
+                  'Limiti di velocità, pericolo e intralcio alla circolazione'
+                }
               />
               <TopicQuizSelec
                 filters={filters}
@@ -575,7 +618,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      questions: JSON.stringify(questionsRaw),
+      questions: questionsRaw,
     },
   };
 }

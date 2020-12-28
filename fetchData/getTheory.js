@@ -1,26 +1,24 @@
 import admin from '../firebase/nodeApp';
-import { encrypt } from '../lib/enc';
 
 export const getQuestions = async () => {
-  const questions = [];
+  const theory = [];
   await admin
     .firestore()
-    .collection('questions')
-    .limit(5842)
+    .collection('theory')
+    .limit(100)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        questions.push({
+        theory.push({
           id: doc.id,
-          num: doc.data().num,
+          title: doc.data().title,
+          timestamp: doc.data().timestamp,
+          theory: doc.data().theory,
           image: doc.data().image,
-          question: doc.data().question,
-          response: doc.data().response,
-          answer: doc.data().answer,
           category: doc.data().category,
         });
       });
     });
 
-  return encrypt(JSON.stringify(questions));
+  return theory;
 };

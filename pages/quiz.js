@@ -4,15 +4,14 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
-import { encrypt, decrypt } from '../lib/enc';
 
 //Material UI
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
-
+import { decrypt } from '../lib/enc';
 //Context/Fetch
-import { useQuestions } from '../context/questionsContext';
 import { getQuestions } from '../fetchData/getQuestions';
+
 //Components
 import Timer from 'react-compound-timer';
 import WrongAnswer from '../components/quiz/WrongAnswer';
@@ -29,18 +28,13 @@ const newQuiz = ({ questions }) => {
   const [ungivenState, setUngivenState] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
 
-  //Onload reset state and get new questions
-  //4841
-
   useEffect(() => {
-    const numQuestions = 5736;
     let extracted = [];
-    // let allQuestionsCopy = decrypt(questions);
-    // allQuestionsCopy = JSON.parse(allQuestionsCopy);
-    let allQuestions = JSON.parse(questions);
+    let allQuestionsCopy = decrypt(questions);
+    let allQuestions = JSON.parse(allQuestionsCopy);
 
     for (let i = 0; i < 40; i++) {
-      const rand = Math.floor(Math.random() * numQuestions);
+      const rand = Math.floor(Math.random() * allQuestions.length);
       if (!extracted.includes(rand)) {
         extracted.push(rand);
         setQuizQuestions((quizQuestions) => [
@@ -397,15 +391,19 @@ const newQuiz = ({ questions }) => {
             {showScore && (
               <div className='score'>
                 <div className='score_top'>
-                  <h1>Risultato {score}/40</h1>
+                  <div>
+                    <h1>
+                      Risultato {score}/40 -
+                      {score >= 36 ? '    Promosso' : '    Bocciato'}
+                    </h1>
+                  </div>
+
                   <Link href='/' passHref>
                     <a className='close_quiz'>
                       <button>X</button>
                     </a>
                   </Link>
                 </div>
-
-                <div>Bocciato</div>
 
                 <div className='wrong_answer_container'>
                   {wrongAnswers.map((wrong, id) => {
@@ -439,7 +437,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      questions: JSON.stringify(questionsRaw),
+      questions: questionsRaw,
     },
   };
 }

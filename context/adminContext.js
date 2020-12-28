@@ -78,7 +78,6 @@ export default function AdminContextComp({ children }) {
         .firestore()
         .collection('theory')
         .orderBy('timestamp', 'desc')
-        .limit(50)
         .onSnapshot((snapshot) => {
           setTheoryList(
             snapshot.docs.map((doc) => ({
