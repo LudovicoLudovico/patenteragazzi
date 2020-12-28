@@ -32,10 +32,7 @@ const quizArgomenti = ({ questions }) => {
   const [filters, setFilters] = useState([]);
 
   const startQuiz = async () => {
-    let allQuestionsCopy = decrypt(questions);
-    let allQuestions = JSON.parse(allQuestionsCopy);
-
-    const questsFiltered = allQuestions.filter((item) => {
+    const questsFiltered = questions.filter((item) => {
       return filters.includes(item.category);
     });
 
@@ -47,7 +44,13 @@ const quizArgomenti = ({ questions }) => {
           extracted.push(rand);
           setQuizQuestions((quizQuestions) => [
             ...quizQuestions,
-            questsFiltered[rand],
+            {
+              question: decrypt(questsFiltered[rand].question),
+              image: decrypt(questsFiltered[rand].image),
+              response: questsFiltered[rand].response,
+              answer: decrypt(questsFiltered[rand].answer),
+              category: questsFiltered[rand].category,
+            },
           ]);
         } else {
           i--;
@@ -618,7 +621,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      questions: questionsRaw,
+      questions: JSON.parse(JSON.stringify(questionsRaw)),
     },
   };
 }

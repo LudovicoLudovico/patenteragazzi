@@ -10,17 +10,18 @@ export const getQuestions = async () => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
+        const questionEnc = encrypt(doc.data().question);
+        const imageEnc = encrypt(doc.data().image);
+        const answerEnc = encrypt(doc.data().answer);
         questions.push({
-          id: doc.id,
-          num: doc.data().num,
-          image: doc.data().image,
-          question: doc.data().question,
+          image: imageEnc,
+          question: questionEnc,
           response: doc.data().response,
-          answer: doc.data().answer,
+          answer: answerEnc,
           category: doc.data().category,
         });
       });
     });
 
-  return encrypt(JSON.stringify(questions));
+  return questions;
 };

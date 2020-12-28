@@ -30,16 +30,20 @@ const newQuiz = ({ questions }) => {
 
   useEffect(() => {
     let extracted = [];
-    let allQuestionsCopy = decrypt(questions);
-    let allQuestions = JSON.parse(allQuestionsCopy);
 
     for (let i = 0; i < 40; i++) {
-      const rand = Math.floor(Math.random() * allQuestions.length);
+      const rand = Math.floor(Math.random() * questions.length);
       if (!extracted.includes(rand)) {
         extracted.push(rand);
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
-          allQuestions[rand],
+          {
+            question: decrypt(questsFiltered[rand].question),
+            image: decrypt(questsFiltered[rand].image),
+            response: questsFiltered[rand].response,
+            answer: decrypt(questsFiltered[rand].answer),
+            category: questsFiltered[rand].category,
+          },
         ]);
       } else {
         i--;
@@ -437,7 +441,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      questions: questionsRaw,
+      questions: JSON.parse(JSON.stringify(questionsRaw)),
     },
   };
 }
