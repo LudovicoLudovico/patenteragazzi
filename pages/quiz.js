@@ -38,11 +38,11 @@ const newQuiz = ({ questions }) => {
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
           {
-            question: decrypt(questsFiltered[rand].question),
-            image: decrypt(questsFiltered[rand].image),
-            response: questsFiltered[rand].response,
-            answer: decrypt(questsFiltered[rand].answer),
-            category: questsFiltered[rand].category,
+            question: decrypt(questions[rand].question),
+            image: decrypt(questions[rand].image),
+            response: questions[rand].response,
+            answer: decrypt(questions[rand].answer),
+            category: questions[rand].category,
           },
         ]);
       } else {
