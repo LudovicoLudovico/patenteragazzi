@@ -6,7 +6,7 @@ export const getQuestions = async () => {
   await admin
     .firestore()
     .collection('questions')
-    .limit(5842)
+    .limit(6881)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {

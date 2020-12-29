@@ -259,11 +259,16 @@ const newQuiz = ({ questions }) => {
                 </div>
 
                 {/* If there are quizQuestions in the state then display question, image and modal */}
-                {quizQuestions.length !== 0 && (
-                  <div className='quiz_content'>
-                    {quizQuestions[questionCounter] && (
+                {quizQuestions.map((question, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`quiz_content ${
+                        index == questionCounter ? 'active' : ''
+                      }`}
+                    >
                       <div className='quiz_image'>
-                        {quizQuestions[questionCounter].image ? (
+                        {question.image ? (
                           <>
                             <Modal
                               open={open}
@@ -278,7 +283,7 @@ const newQuiz = ({ questions }) => {
                               }}
                             >
                               <img
-                                src={quizQuestions[questionCounter].image}
+                                src={question.image}
                                 alt=''
                                 className='modal_img'
                                 style={{
@@ -298,7 +303,7 @@ const newQuiz = ({ questions }) => {
 
                             <img
                               onClick={() => setOpen(true)}
-                              src={quizQuestions[questionCounter].image}
+                              src={question.image}
                               alt=''
                             />
                           </>
@@ -306,38 +311,38 @@ const newQuiz = ({ questions }) => {
                           <div className='modal_img'></div>
                         )}
                       </div>
-                    )}
 
-                    <div className='quiz_right'>
-                      {/* Question */}
-                      <div className='quiz_question'>
-                        <p>{quizQuestions[questionCounter].question}</p>
-                      </div>
+                      <div className='quiz_right'>
+                        {/* Question */}
+                        <div className='quiz_question'>
+                          <p>{question.question}</p>
+                        </div>
 
-                      {/* Buttons for answering */}
-                      <div className='quiz_answer'>
-                        <Button
-                          variant='contained'
-                          className='quiz_answer_btn'
-                          onClick={() => {
-                            getAnswer(questionCounter, true);
-                          }}
-                        >
-                          Vero
-                        </Button>
-                        <Button
-                          variant='contained'
-                          className='quiz_answer_btn'
-                          onClick={() => {
-                            getAnswer(questionCounter, false);
-                          }}
-                        >
-                          Falso
-                        </Button>
+                        {/* Buttons for answering */}
+                        <div className='quiz_answer'>
+                          <Button
+                            variant='contained'
+                            className='quiz_answer_btn'
+                            onClick={() => {
+                              getAnswer(index, true);
+                            }}
+                          >
+                            Vero
+                          </Button>
+                          <Button
+                            variant='contained'
+                            className='quiz_answer_btn'
+                            onClick={() => {
+                              getAnswer(index, false);
+                            }}
+                          >
+                            Falso
+                          </Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })}
                 {/* Bottom Navigation */}
                 <QuizBottom
                   questionCounter={questionCounter}
