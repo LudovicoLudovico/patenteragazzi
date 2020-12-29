@@ -6,18 +6,17 @@ export const getQuestions = async () => {
   await admin
     .firestore()
     .collection('questions')
-    .limit(6881)
+    .limit(process.env.NODE_ENV == 'development' ? 100 : 6881)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const questionEnc = encrypt(doc.data().question);
         const imageEnc = encrypt(doc.data().image);
-        const answerEnc = encrypt(doc.data().answer);
         questions.push({
           image: imageEnc,
           question: questionEnc,
           response: doc.data().response,
-          answer: answerEnc,
+          answer: doc.data().answer,
           category: doc.data().category,
         });
       });

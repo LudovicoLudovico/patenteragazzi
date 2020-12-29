@@ -48,7 +48,7 @@ const quizArgomenti = ({ questions }) => {
               question: decrypt(questsFiltered[rand].question),
               image: decrypt(questsFiltered[rand].image),
               response: questsFiltered[rand].response,
-              answer: decrypt(questsFiltered[rand].answer),
+              answer: questsFiltered[rand].answer,
               category: questsFiltered[rand].category,
             },
           ]);

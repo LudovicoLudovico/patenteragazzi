@@ -10,7 +10,8 @@ import CategoryList from '../../components/CategoryList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAdmin } from '../../context/adminContext';
 import { useUser } from '../../context/userContext';
-
+import UpdateTheory from '../../components/admin/UpdateTheory';
+import MDEditor from '@uiw/react-md-editor';
 const theory = () => {
   const [theoryModal, setTheoryModal] = useState(false);
   const [theoryImage, setTheoryImage] = useState('');
@@ -170,11 +171,7 @@ const theory = () => {
             <br />
             <br />
 
-            <Editor
-              text={theory}
-              setText={(content) => setTheory(content)}
-              height='300'
-            />
+            <MDEditor value={theory} onChange={setTheory} height={500} />
             <br />
             <CategoryList
               category={category}
@@ -194,6 +191,16 @@ const theory = () => {
               Carica Teoria
             </Button>
           </form>
+          <br />
+          <br />
+          <br />
+          <br />
+          <UpdateTheory />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </div>
     );

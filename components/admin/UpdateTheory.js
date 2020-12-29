@@ -54,7 +54,11 @@ const UpdateTheory = () => {
         value={searchTheory}
         variant='outlined'
       />
-      <MDEditor value={theoryToUpdate} onChange={setTheoryToUpdate} />
+      <MDEditor
+        value={theoryToUpdate}
+        onChange={setTheoryToUpdate}
+        height={500}
+      />
 
       <Button
         variant='contained'

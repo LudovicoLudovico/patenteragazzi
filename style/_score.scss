@@ -1,170 +1,135 @@
 .score {
-  display: grid;
-  grid-template-areas: 'Top Top' 'WAContent WAContent';
+  height: 100vh;
+  color: white;
   position: relative;
-  background-color: $blue;
-  color: $white;
+  width: 100%;
+  max-width: 1400px;
 
   .score_top {
-    grid-area: Top;
-    h1 {
-      margin: 10px;
-      color: $white;
-    }
-    a {
-      button {
-        position: absolute;
-        right: 0px;
-        top: 0;
-        margin: 10px;
-        height: 40px;
-        width: 40px;
-        background-color: red;
-        color: white;
-        border: none;
-        border-radius: 5px;
-      }
+    box-sizing: border-box;
+    padding: 30px 10px 0 10px;
+    position: fixed;
+    max-width: inherit;
+    width: inherit;
+    background-color: $blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .close_quiz {
+      height: 40px;
+      width: 40px;
+      background-color: $red;
+      color: white;
+      border: none;
+      border-radius: 5px;
     }
   }
 
+  .separator {
+    display: block;
+    width: 100%;
+    height: 150px;
+  }
   .wrong_answer_container {
-    grid-area: WAContent;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    max-height: 800px;
+    box-sizing: border-box;
+    padding: 0 10px 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    max-width: 100%;
+    height: 70%;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     .wrong_answer {
-      background-color: #ececec;
-      border-radius: 5px;
+      box-sizing: border-box;
+      padding: 20px;
       margin: 10px;
-      color: black;
-      padding: 10px;
+      width: calc(50% - 20px);
+      min-width: 400px;
+      border: 1px solid $white;
       display: grid;
-      grid-template-columns: 150px 1fr;
+
+      &.image {
+        grid-template-columns: 200px 1fr;
+      }
 
       .wrong_answer_image {
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 20px;
 
         img {
-          padding-top: 10px;
-          height: 70px;
-          width: 70px;
+          width: 150px;
+          height: auto;
         }
       }
 
       .wrong_answer_content {
+        p {
+          line-height: 1.5;
+        }
+        .open_theory {
+          height: 40px;
+          width: auto;
+          float: right;
+          cursor: pointer;
+        }
         div {
-          margin-top: 10px;
+          margin-top: 40px;
           display: grid;
           grid-template-columns: 1fr 1fr;
+          p {
+            margin: 5px;
+          }
         }
       }
     }
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .score {
     .wrong_answer_container {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-}
-@media (max-width: 750px) {
-  .score {
-    .wrong_answer_container {
-      grid-template-columns: 1fr;
+      .wrong_answer {
+        width: 100%;
+        min-width: 0;
+        margin: 20px 0;
+
+        &.image {
+          grid-template-columns: 150px 1fr;
+        }
+
+        .open_theory {
+          margin-top: 10px;
+        }
+        .wrong_answer_image {
+          img {
+            width: 100px;
+            height: auto;
+          }
+        }
+      }
     }
   }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 500px) {
   .score {
-    padding-top: 120px;
-    position: relative;
-    padding-bottom: 20px;
     .score_top {
-      position: fixed;
-      z-index: 4;
-      background-color: $blue;
-      height: 70px;
-      width: 100vw;
-      top: 0;
-      left: 0;
-      h1 {
-        grid-area: Title;
-        margin: 10px;
-        color: $white;
-        top: 5px;
-      }
-      a {
-        button {
-          top: 5px;
-          right: 0px;
-          grid-area: Close;
-          margin: 10px;
-          height: 40px;
-          width: 40px;
-          background-color: red;
-          color: white;
-          border: none;
-          border-radius: 5px;
-        }
-      }
+      padding-top: 10px;
     }
 
+    .separator {
+      height: 120px;
+    }
     .wrong_answer_container {
-      margin-top: 50px;
-      .sc-dlfnbm {
-        display: grid;
-        grid-template-columns: 1fr;
-        height: 100%;
-        padding-bottom: 80px;
-        min-height: 400px;
-
-        .sc-bdfBwQ {
-          position: absolute;
-          right: 50%;
-          transform: translateX(50%);
-          bottom: 0;
-        }
-        .wrong_answer {
-          padding: 10px;
-          height: auto;
-          border: 1px solid black;
-          margin: 0;
-
-          &:nth-last-child() {
-            margin-bottom: 100px;
-          }
-          .wrong_answer_top {
-            height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            grid-template-areas: 'Image Content' 'Theory Theory';
-            width: 100%;
-
-            .wrong_answer_image {
-              grid-area: 'Image';
-              height: auto;
-              width: 150px;
-              img {
-                height: auto;
-                width: 150px;
-              }
-            }
-            .wrong_answer_content {
-              grid-area: 'Content';
-              width: 50%;
-              height: 50%;
-            }
-            .wrong_answer_theory {
-              grid-area: 'Theory';
-            }
-          }
-        }
+      height: 80%;
+      .wrong_answer {
+        display: flex;
+        flex-direction: column;
       }
     }
   }

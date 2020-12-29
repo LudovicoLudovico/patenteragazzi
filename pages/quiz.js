@@ -11,13 +11,14 @@ import Modal from '@material-ui/core/Modal';
 import { decrypt } from '../lib/enc';
 //Context/Fetch
 import { getQuestions } from '../fetchData/getQuestions';
+import { getTheory } from '../fetchData/getTheory';
 
 //Components
 import Timer from 'react-compound-timer';
-import WrongAnswer from '../components/quiz/WrongAnswer';
+import Score from '../components/quiz/Score';
 import QuizBottom from '../components/quiz/QuizBottom';
 
-const newQuiz = ({ questions }) => {
+const newQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
@@ -41,7 +42,7 @@ const newQuiz = ({ questions }) => {
             question: decrypt(questions[rand].question),
             image: decrypt(questions[rand].image),
             response: questions[rand].response,
-            answer: decrypt(questions[rand].answer),
+            answer: questions[rand].answer,
             category: questions[rand].category,
           },
         ]);
@@ -270,7 +271,7 @@ const newQuiz = ({ questions }) => {
                       <div className='quiz_image'>
                         {question.image ? (
                           <>
-                            <Modal
+                            {/* <Modal
                               open={open}
                               onClick={() => setOpen(false)}
                               aria-labelledby='simple-modal-title'
@@ -283,7 +284,7 @@ const newQuiz = ({ questions }) => {
                               }}
                             >
                               <img
-                                src={question.image}
+                                src={quizQuestions[index].image}
                                 alt=''
                                 className='modal_img'
                                 style={{
@@ -299,12 +300,12 @@ const newQuiz = ({ questions }) => {
                                   outline: 'none',
                                 }}
                               />
-                            </Modal>
+                            </Modal> */}
 
                             <img
-                              onClick={() => setOpen(true)}
+                              // onClick={() => setOpen(true)}
                               src={question.image}
-                              alt=''
+                              alt='Caricamento...'
                             />
                           </>
                         ) : (
@@ -398,28 +399,11 @@ const newQuiz = ({ questions }) => {
             )}
 
             {showScore && (
-              <div className='score'>
-                <div className='score_top'>
-                  <div>
-                    <h1>
-                      Risultato {score}/40 -
-                      {score >= 36 ? '    Promosso' : '    Bocciato'}
-                    </h1>
-                  </div>
-
-                  <Link href='/' passHref>
-                    <a className='close_quiz'>
-                      <button>X</button>
-                    </a>
-                  </Link>
-                </div>
-
-                <div className='wrong_answer_container'>
-                  {wrongAnswers.map((wrong, id) => {
-                    return <WrongAnswer wrong={wrong} key={id} />;
-                  })}
-                </div>
-              </div>
+              <Score
+                score={score}
+                wrongAnswers={wrongAnswers}
+                theory={theory}
+              />
             )}
           </div>
         </div>
@@ -443,10 +427,12 @@ const newQuiz = ({ questions }) => {
 
 export async function getStaticProps(context) {
   const questionsRaw = await getQuestions();
+  const theoryRaw = await getTheory();
 
   return {
     props: {
       questions: JSON.parse(JSON.stringify(questionsRaw)),
+      theory: JSON.parse(JSON.stringify(theoryRaw)),
     },
   };
 }
