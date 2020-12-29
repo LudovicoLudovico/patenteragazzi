@@ -1,5 +1,5 @@
 import UserProvider from '../context/userContext';
-import QuestionsProvider from '../context/questionsContext';
+
 import AdminProvider from '../context/adminContext';
 import '../main.min.css';
 
@@ -21,9 +21,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <AdminProvider>
       <UserProvider>
-        <QuestionsProvider>
-          <Component {...pageProps} />
-        </QuestionsProvider>
+        <Component {...pageProps} />
       </UserProvider>
     </AdminProvider>
   );

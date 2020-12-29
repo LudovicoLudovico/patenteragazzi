@@ -13,8 +13,12 @@
     color: $white;
 
     .quiz_content {
-      display: grid;
+      display: none;
       grid-template-columns: 1f;
+
+      &.active {
+        display: grid;
+      }
 
       .quiz_image {
         padding-top: 20px;
@@ -171,7 +175,9 @@
       padding: 20px;
       justify-content: space-between;
       .quiz_timer {
+        text-align: center;
         padding: 10px;
+        width: 50px;
         border: 2px solid $white;
         border-radius: 5px;
       }
@@ -247,7 +253,10 @@
       height: auto;
 
       .quiz_content {
-        display: flex;
+        .active {
+          display: flex;
+        }
+        display: none;
         justify-content: center;
         flex-direction: column;
       }
