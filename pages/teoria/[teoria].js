@@ -2,11 +2,12 @@ import React from 'react';
 import { getTheory } from '../../fetchData/getTheory';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
 import { decrypt } from '../../lib/enc';
-import { unslugify } from 'unslugify';
 import slugify from 'slugify';
+import { unslugify } from 'unslugify';
 import Navbar from '../../components/Navbar';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 
 const teoria = ({ theoryItem }) => {
   return (
@@ -37,15 +38,19 @@ const teoria = ({ theoryItem }) => {
       <Navbar />
       <div className='container-full'>
         <div className='theory'>
-          <h2>{decrypt(theoryItem.title)}</h2>
-          {theoryItem.image && (
-            <img
-              src={decrypt(theoryItem.image)}
-              alt={decrypt(theoryItem.title)}
-            />
+          {theoryItem && (
+            <>
+              <h2>{decrypt(theoryItem.title)}</h2>
+              {theoryItem.image && (
+                <img
+                  src={decrypt(theoryItem.image)}
+                  alt={decrypt(theoryItem.title)}
+                />
+              )}
+              <h3>Teoria</h3>
+              <MDEditor.Markdown source={decrypt(theoryItem.theory)} />
+            </>
           )}
-          <h3>Teoria</h3>
-          <MDEditor.Markdown source={decrypt(theoryItem.theory)} />
         </div>
       </div>
     </>
@@ -57,20 +62,18 @@ export async function getStaticPaths() {
 
   const paths = theoryRaw.map((theoryItem) => ({
     params: {
-      teoria: slugify(decrypt(theoryItem.title)),
+      teoria: decrypt(theoryItem.slug),
     },
   }));
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
 export async function getStaticProps(context) {
-  let teoria = unslugify(context.params.teoria).toLowerCase();
-  teoria = teoria.charAt(0).toUpperCase() + teoria.slice(1);
-  const theoryItem = await getTheoryItem(teoria);
+  const theoryItem = await getTheoryItem(context.params.teoria);
 
   return {
     revalidate: 60 * 15,

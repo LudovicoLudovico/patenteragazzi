@@ -5,6 +5,8 @@ import firebase from 'firebase';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
+import slugify from 'slugify';
+import { unslugify } from 'unslugify';
 
 //Material-UI
 import Button from '@material-ui/core/Button';
@@ -64,6 +66,30 @@ const AdminUI = () => {
     }
   };
 
+  // useEffect(() => {
+  //   firebase
+  //     .firestore()
+  //     .collection('theory')
+  //     .get()
+  //     .then(function (querySnapshot) {
+  //       querySnapshot.forEach(function (doc) {
+  //         firebase
+  //           .firestore()
+  //           .collection('theory')
+  //           .doc(doc.id)
+  //           .update({
+  //             slug: slugify(doc.data().title),
+  //           })
+  //           .then(function () {
+  //             console.log('Document successfully updated!');
+  //           })
+  //           .catch(function (error) {
+  //             // The document probably doesn't exist.
+  //             console.error('Error updating document: ', error);
+  //           });
+  //       });
+  //     });
+  // }, []);
   //Handle Image Upload
   // const handleImageUpload = (e) => {
   //   // If there is not image to Upload do nothing

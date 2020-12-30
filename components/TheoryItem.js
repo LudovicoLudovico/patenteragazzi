@@ -2,6 +2,7 @@ import React from 'react';
 import { decrypt } from '../lib/enc';
 import Link from 'next/link';
 import slugify from 'slugify';
+import { unslugify } from 'unslugify';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const TheoryItem = ({ theory, category }) => {
