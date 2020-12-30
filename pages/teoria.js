@@ -33,7 +33,7 @@ const teoria = ({ theory }) => {
 
         <TheoryItem
           theory={theory}
-          category={"Definizioni generali e doveri nell'uso della strada"}
+          category={"Definizioni generali e doveri nell'uso dell strada"}
         />
         <TheoryItem theory={theory} category={'Segnali di pericolo'} />
         <TheoryItem theory={theory} category={'Segnali di divieto'} />
@@ -69,19 +69,11 @@ const teoria = ({ theory }) => {
         />
         <TheoryItem
           theory={theory}
-          category={'Esempi di precedenza (ordine di precedenza agli incroci)'}
+          category={'Ordine di precedenza agli incroci'}
         />
         <TheoryItem theory={theory} category={'Norme sul sorpasso'} />
-        <TheoryItem
-          theory={theory}
-          category={'Fermata, sosta, arresto e partenza'}
-        />
-        <TheoryItem
-          theory={theory}
-          category={
-            'Norme varie (ingombro della carreggiata, circolazione su autostrade e strade extraurbane principali, trasporto di persone, pannelli sui veicoli, etc.)'
-          }
-        />
+        <TheoryItem theory={theory} category={'Fermata, sosta, arresto'} />
+        <TheoryItem theory={theory} category={'Norme varie'} />
         <TheoryItem
           theory={theory}
           category={'Uso delle luci e dei dispositivi acustici, spie e simboli'}
@@ -95,7 +87,7 @@ const teoria = ({ theory }) => {
         <TheoryItem
           theory={theory}
           category={
-            'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti, uso di lenti e altri apparecchi'
+            'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti'
           }
         />
         <TheoryItem

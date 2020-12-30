@@ -13,12 +13,12 @@ export const getTheory = async () => {
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           const titleEnc = encrypt(doc.data().title);
-          const slugEnc = encrypt(doc.data().slug);
+
           const imageEnc = encrypt(doc.data().image);
           const theoryEnc = encrypt(doc.data().theory);
           theory.push({
             id: doc.id,
-            slug: slugEnc,
+            slug: doc.data().slug,
             title: titleEnc,
             theory: theoryEnc,
             image: imageEnc,
@@ -36,10 +36,10 @@ export const getTheory = async () => {
           const titleEnc = encrypt(doc.data().title);
           const imageEnc = encrypt(doc.data().image);
           const theoryEnc = encrypt(doc.data().theory);
-          const slugEnc = encrypt(doc.data().slug);
+
           theory.push({
             id: doc.id,
-            slug: slugEnc,
+            slug: doc.data().slug,
             title: titleEnc,
             theory: theoryEnc,
             image: imageEnc,
