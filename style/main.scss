@@ -10,6 +10,7 @@ $green: #06690d;
 @import 'quizargomenti';
 @import 'quizhero';
 @import 'cards';
+@import 'theory';
 // @import 'stats';
 
 @import 'social';
@@ -56,6 +57,13 @@ body {
 
 .container-full {
   max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.container-small {
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;

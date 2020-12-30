@@ -50,6 +50,11 @@ const Navbar = ({ isAdminNav }) => {
           {!isAdminNav && (
             <>
               <button>
+                <Link href='/'>
+                  <a>HOME</a>
+                </Link>
+              </button>
+              <button>
                 <Link href='/quiz'>
                   <a>QUIZ</a>
                 </Link>
@@ -57,6 +62,11 @@ const Navbar = ({ isAdminNav }) => {
               <button>
                 <Link href='/quiz-argomenti'>
                   <a>QUIZ ARGOMENTI</a>
+                </Link>
+              </button>
+              <button>
+                <Link href='/teoria'>
+                  <a>TEORIA</a>
                 </Link>
               </button>
             </>

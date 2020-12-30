@@ -8,7 +8,7 @@ export const getTheory = async () => {
     await admin
       .firestore()
       .collection('theory')
-      // .limit(100)
+      .limit(100)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {

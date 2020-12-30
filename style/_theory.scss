@@ -1,0 +1,54 @@
+.theory {
+  .wmde-markdown,
+  .wmde-markdown-color {
+    img {
+      height: 200px;
+      width: auto;
+    }
+  }
+}
+
+.theoryList {
+  h1 {
+    color: $blue;
+    margin-top: 50px;
+  }
+  h2 {
+    color: $blue;
+    opacity: 0.7;
+    margin-top: 90px;
+  }
+  .theoryList-item {
+    .theoryList-item-link {
+      background-color: $blue;
+      color: white;
+      margin: 10px;
+      padding: 20px;
+      border-radius: 2px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .theory {
+    .wmde-markdown,
+    .wmde-markdown-color {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      p {
+        width: 100%;
+      }
+      img {
+        display: block;
+        height: auto;
+        width: 100px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
