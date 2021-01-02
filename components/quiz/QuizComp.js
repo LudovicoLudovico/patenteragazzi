@@ -6,60 +6,79 @@ const QuizComp = ({ questionCounter, index, question }) => {
   return (
     <div
       key={index}
-      className={`quiz_content ${question.image ? 'image' : 'no-image'} ${
-        index == questionCounter ? 'active' : ''
-      }`}
+      className={`quiz_content ${index == questionCounter ? 'active' : ''}`}
     >
-      <div
-        className={`quiz_content_wrap ${question.image ? 'image' : 'no-image'}`}
-      >
-        <div className='quiz_image'>
-          {question.image && (
-            <>
-              <Modal
-                open={open}
-                onClick={() => setOpen(false)}
-                aria-labelledby='simple-modal-title'
-                aria-describedby='simple-modal-description'
+      <div className='quiz_image'>
+        {question.image ? (
+          <>
+            <Modal
+              open={open}
+              onClick={() => setOpen(false)}
+              aria-labelledby='simple-modal-title'
+              aria-describedby='simple-modal-description'
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                outline: 'none',
+              }}
+            >
+              <img
+                src={question.image}
+                alt=''
+                className='modal_img'
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  boxSizing: 'border-box',
+                  height: 'auto',
+                  width: '100%',
+                  maxWidth: 700,
+                  padding: 20,
+                  margin: 10,
+                  border: '5px solid white',
+                  borderRadius: 20,
+                  background: '#00408b',
                   outline: 'none',
                 }}
-              >
-                <img
-                  src={question.image}
-                  alt=''
-                  className='modal_img'
-                  style={{
-                    boxSizing: 'border-box',
-                    height: '70%',
-                    maxHeight: '100vw',
-                    width: 'auto',
-                    padding: 20,
-                    margin: 10,
-                    border: '5px solid white',
-                    borderRadius: 20,
-                    background: '#00408b',
-                    outline: 'none',
-                  }}
-                />
-              </Modal>
-
-              <img
-                onClick={() => setOpen(true)}
-                src={question.image}
-                alt='Caricamento...'
               />
-            </>
-          )}
-        </div>
+            </Modal>
+
+            <img
+              onClick={() => setOpen(true)}
+              src={question.image}
+              alt='Caricamento...'
+            />
+          </>
+        ) : (
+          <div className='modal_img'></div>
+        )}
+      </div>
+
+      <div className='quiz_right'>
+        {/* Question */}
         <div className='quiz_question'>
-          <p>
-            {question.question.charAt(0).toUpperCase() +
-              question.question.slice(1)}
-          </p>
+          <p>{question.question}</p>
+        </div>
+
+        {/* Buttons for answering */}
+        <div className='quiz_answer'>
+          <Button
+            variant='contained'
+            className='quiz_answer_btn'
+            onClick={() => {
+              getAnswer(index, true);
+            }}
+          >
+            Vero
+          </Button>
+          <Button
+            variant='contained'
+            className='quiz_answer_btn'
+            onClick={() => {
+              getAnswer(index, false);
+            }}
+          >
+            Falso
+          </Button>
         </div>
       </div>
     </div>

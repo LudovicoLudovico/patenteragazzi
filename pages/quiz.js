@@ -17,6 +17,7 @@ import { getTheory } from '../fetchData/getTheory';
 import Timer from 'react-compound-timer';
 import Score from '../components/quiz/Score';
 import QuizBottom from '../components/quiz/QuizBottom';
+import QuizComp from '../components/quiz/QuizComp';
 
 const newQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
@@ -262,86 +263,11 @@ const newQuiz = ({ questions, theory }) => {
                 {/* If there are quizQuestions in the state then display question, image and modal */}
                 {quizQuestions.map((question, index) => {
                   return (
-                    <div
-                      key={index}
-                      className={`quiz_content ${
-                        index == questionCounter ? 'active' : ''
-                      }`}
-                    >
-                      <div className='quiz_image'>
-                        {question.image ? (
-                          <>
-                            <Modal
-                              open={open}
-                              onClick={() => setOpen(false)}
-                              aria-labelledby='simple-modal-title'
-                              aria-describedby='simple-modal-description'
-                              style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                outline: 'none',
-                              }}
-                            >
-                              <img
-                                src={question.image}
-                                alt=''
-                                className='modal_img'
-                                style={{
-                                  boxSizing: 'border-box',
-                                  height: 'auto',
-                                  width: '100%',
-                                  maxWidth: 700,
-                                  padding: 20,
-                                  margin: 10,
-                                  border: '5px solid white',
-                                  borderRadius: 20,
-                                  background: '#00408b',
-                                  outline: 'none',
-                                }}
-                              />
-                            </Modal>
-
-                            <img
-                              onClick={() => setOpen(true)}
-                              src={question.image}
-                              alt='Caricamento...'
-                            />
-                          </>
-                        ) : (
-                          <div className='modal_img'></div>
-                        )}
-                      </div>
-
-                      <div className='quiz_right'>
-                        {/* Question */}
-                        <div className='quiz_question'>
-                          <p>{question.question}</p>
-                        </div>
-
-                        {/* Buttons for answering */}
-                        <div className='quiz_answer'>
-                          <Button
-                            variant='contained'
-                            className='quiz_answer_btn'
-                            onClick={() => {
-                              getAnswer(index, true);
-                            }}
-                          >
-                            Vero
-                          </Button>
-                          <Button
-                            variant='contained'
-                            className='quiz_answer_btn'
-                            onClick={() => {
-                              getAnswer(index, false);
-                            }}
-                          >
-                            Falso
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <QuizComp
+                      questionCounter={questionCounter}
+                      index={index}
+                      question={question}
+                    />
                   );
                 })}
                 {/* Bottom Navigation */}
