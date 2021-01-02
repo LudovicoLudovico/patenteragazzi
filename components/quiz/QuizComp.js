@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Button } from '@material-ui/core';
 
-const QuizComp = ({ questionCounter, index, question }) => {
+const QuizComp = ({
+  questionCounter,
+  index,
+  question,
+  getTrueAnswer,
+  getFalseAnswer,
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -64,18 +70,14 @@ const QuizComp = ({ questionCounter, index, question }) => {
           <Button
             variant='contained'
             className='quiz_answer_btn'
-            onClick={() => {
-              getAnswer(index, true);
-            }}
+            onClick={getTrueAnswer}
           >
             Vero
           </Button>
           <Button
             variant='contained'
             className='quiz_answer_btn'
-            onClick={() => {
-              getAnswer(index, false);
-            }}
+            onClick={getFalseAnswer}
           >
             Falso
           </Button>

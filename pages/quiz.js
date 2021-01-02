@@ -267,6 +267,12 @@ const newQuiz = ({ questions, theory }) => {
                       questionCounter={questionCounter}
                       index={index}
                       question={question}
+                      getTrueAnswer={() => {
+                        getAnswer(index, true);
+                      }}
+                      getFalseAnswer={() => {
+                        getAnswer(index, false);
+                      }}
                     />
                   );
                 })}
