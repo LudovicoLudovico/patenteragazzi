@@ -4,7 +4,7 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <div className='footer'>
-      <div className='container'>
+      <div className='container-full'>
         <p>Copryright 2020</p>
         <div className='footer_contact'>
           <a

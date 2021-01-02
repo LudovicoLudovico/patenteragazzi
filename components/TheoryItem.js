@@ -8,7 +8,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 const TheoryItem = ({ theory, category }) => {
   return (
     <>
-      <div className='theoryList-item' id={category}>
+      <div className='theoryList-item' id={slugify(category, { lower: true })}>
         <h2>{category}</h2>
         {theory
           .filter((ti) => {

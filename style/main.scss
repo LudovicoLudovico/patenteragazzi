@@ -1,9 +1,11 @@
 // COLORS
 $blue: #00408b;
+$dark-blue: #011328;
 $white: #f4f4f4;
 $red: #9d0606;
 $green: #06690d;
 
+@import 'index';
 @import 'navbar';
 @import 'admin';
 @import 'quiz';

@@ -39,7 +39,7 @@ const WrongAnswer = ({ wrong, theory }) => {
               flexWrap: 'wrap',
               justifyContent: 'center',
               maxWidth: 900,
-              maxHeight: '80vh',
+              maxHeight: '70vh',
               overflow: 'scroll',
               padding: 20,
             }}

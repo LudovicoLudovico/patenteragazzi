@@ -271,7 +271,7 @@ const newQuiz = ({ questions, theory }) => {
                       <div className='quiz_image'>
                         {question.image ? (
                           <>
-                            {/* <Modal
+                            <Modal
                               open={open}
                               onClick={() => setOpen(false)}
                               aria-labelledby='simple-modal-title'
@@ -284,7 +284,7 @@ const newQuiz = ({ questions, theory }) => {
                               }}
                             >
                               <img
-                                src={quizQuestions[index].image}
+                                src={question.image}
                                 alt=''
                                 className='modal_img'
                                 style={{
@@ -300,10 +300,10 @@ const newQuiz = ({ questions, theory }) => {
                                   outline: 'none',
                                 }}
                               />
-                            </Modal> */}
+                            </Modal>
 
                             <img
-                              // onClick={() => setOpen(true)}
+                              onClick={() => setOpen(true)}
                               src={question.image}
                               alt='Caricamento...'
                             />

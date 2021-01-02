@@ -44,7 +44,7 @@ const slug = ({ theoryItem }) => {
               {theoryItem && (
                 <>
                   <h2>{decrypt(theoryItem.title)}</h2>
-                  {theoryItem.image && (
+                  {decrypt(theoryItem.image) && (
                     <img
                       src={decrypt(theoryItem.image)}
                       alt={decrypt(theoryItem.title)}

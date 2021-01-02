@@ -1,29 +1,23 @@
 .footer {
+  color: white;
+  margin: 0;
+  padding: 40px 0 20px 0;
   background-color: $blue;
 
-  .container {
-    padding: 0 20px;
+  .container-full {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    flex-direction: row;
+
+    p {
+      margin: 0;
+    }
 
     .footer_contact {
+      width: 200px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 180px;
-    }
-  }
-}
-
-@media (max-width: 510px) {
-  .footer {
-    .container {
-      font-size: 1rem;
-      .footer_contact {
-        width: 130px;
-      }
+      justify-content: space-around;
     }
   }
 }
