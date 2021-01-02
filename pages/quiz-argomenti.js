@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import { getQuestions } from '../fetchData/getQuestions';
+import { getTheory } from '../fetchData/getTheory';
 
 //Material UI
 import { Modal, Button } from '@material-ui/core';
@@ -16,9 +17,10 @@ import TopicQuizSelec from '../components/TopicQuizSelec';
 import Timer from 'react-compound-timer';
 import WrongAnswer from '../components/quiz/WrongAnswer';
 import QuizBottom from '../components/quiz/QuizBottom';
+import Score from '../components/quiz/Score';
 import { decrypt } from '../lib/enc';
 
-const quizArgomenti = ({ questions }) => {
+const quizArgomenti = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
@@ -408,22 +410,11 @@ const quizArgomenti = ({ questions }) => {
             )}
 
             {showScore && showQuiz && (
-              <div className='score'>
-                <div className='score_top'>
-                  <h1>Risultato {score}/40</h1>
-                  <Link href='/' passHref>
-                    <a className='close_quiz'>
-                      <button>X</button>
-                    </a>
-                  </Link>
-                </div>
-
-                <div className='wrong_answer_container'>
-                  {wrongAnswers.map((wrong, id) => {
-                    return <WrongAnswer wrong={wrong} key={id} />;
-                  })}
-                </div>
-              </div>
+              <Score
+                score={score}
+                wrongAnswers={wrongAnswers}
+                theory={theory}
+              />
             )}
           </div>
         </div>
@@ -622,10 +613,12 @@ const quizArgomenti = ({ questions }) => {
 
 export async function getStaticProps(context) {
   const questionsRaw = await getQuestions();
+  const theoryRaw = await getTheory();
 
   return {
     props: {
       questions: JSON.parse(JSON.stringify(questionsRaw)),
+      theory: JSON.parse(JSON.stringify(theoryRaw)),
     },
   };
 }
