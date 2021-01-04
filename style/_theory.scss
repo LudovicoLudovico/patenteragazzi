@@ -21,9 +21,9 @@
   }
 
   .theoryList-item {
+    margin-bottom: 40px;
     h2 {
-      padding-top: 140px;
-      margin-top: -90px;
+      padding-top: 20px;
       color: $blue;
       opacity: 0.7;
     }
@@ -33,7 +33,6 @@
 
       h2 {
         padding: 0;
-        margin-top: 40px;
       }
     }
     .theoryList-item-link {

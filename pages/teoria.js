@@ -33,7 +33,7 @@ const teoria = ({ theory }) => {
       <Navbar active={'teoria'} />
       <div className='container theoryList main_content'>
         <h1>Teoria</h1>
-
+        <br />
         <TextField
           id='outlined-basic'
           label='Trova teoria...'
@@ -45,6 +45,9 @@ const teoria = ({ theory }) => {
           }}
           value={filters}
         />
+
+        <br />
+        <br />
         <TheoryItem
           theory={filteredTheory}
           filters={filters}

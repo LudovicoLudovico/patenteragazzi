@@ -34,27 +34,27 @@ body.light-mode {
     background-color: $blue;
   }
 }
-body.dark-mode {
-  .quiz {
-    background-color: $dark-blue;
-  }
-  .topic-choice {
-    background-color: $dark-blue;
-    .topic-choice-top {
-      background-color: $dark-blue;
-    }
-  }
+// body.dark-mode {
+//   .quiz {
+//     background-color: $dark-blue;
+//   }
+//   .topic-choice {
+//     background-color: $dark-blue;
+//     .topic-choice-top {
+//       background-color: $dark-blue;
+//     }
+//   }
 
-  .loading {
-    background-color: $dark-blue;
-  }
+//   .loading {
+//     background-color: $dark-blue;
+//   }
 
-  .score {
-    .score_top {
-      background-color: $dark-blue;
-    }
-  }
-}
+//   .score {
+//     .score_top {
+//       background-color: $dark-blue;
+//     }
+//   }
+// }
 
 .main_content {
   padding-top: 150px;
