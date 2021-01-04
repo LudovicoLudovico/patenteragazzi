@@ -74,10 +74,10 @@ const theory = () => {
         <Head>
           <title>Admin Area - Teoria</title>
         </Head>
-        <Navbar isAdminNav={true} />
-        <div className='container-full'>
+        <Navbar isAdminNav={true} active={'teoria'} />
+        <div className='container-full main_content'>
           <br />
-          <h1>Carica teoria</h1>
+          <h2>Carica teoria</h2>
           <form className='admin-theory'>
             <Button
               variant='contained'
@@ -192,8 +192,7 @@ const theory = () => {
             </Button>
           </form>
           <br />
-          <br />
-          <br />
+
           <br />
           <UpdateTheory />
           <br />

@@ -45,6 +45,21 @@
           padding: 10px;
           margin: 10px;
           font-size: 1.2rem;
+          &:hover {
+            text-decoration: underline;
+          }
+
+          &.active {
+            text-decoration: underline;
+          }
+          &.disabled {
+            opacity: 0.5;
+            cursor: auto;
+
+            &:hover {
+              text-decoration: none;
+            }
+          }
         }
       }
       .index_logo {
@@ -90,7 +105,7 @@
             background-color: $blue;
           }
           &:nth-child(2) {
-            background-color: $red;
+            background-color: $yellow;
           }
           &:nth-child(3) {
             background-color: $green;
@@ -127,6 +142,16 @@
       padding: 0;
     }
 
+    .theory_link {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: underline;
+
+      svg {
+        margin-left: 10px;
+      }
+    }
     a {
       text-decoration: none;
     }
@@ -187,7 +212,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .index {
     .container {
       .index_navbar {
@@ -222,7 +247,7 @@
   }
 }
 
-@media (max-width: 970px) {
+@media (max-width: 1020px) {
   .index {
     .container {
       .index_navbar {
@@ -244,7 +269,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .index {
     .container {
       position: relative;
@@ -289,8 +314,8 @@
           align-items: center;
           justify-content: center;
           width: 0;
-          padding: 50px 0;
-          height: calc(100% + 50px);
+          padding: 10px 0;
+          height: calc(100%);
           overflow: hidden;
           position: absolute;
           background-color: $blue;
@@ -301,7 +326,7 @@
           z-index: 1;
 
           a {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             padding: 10px 40px;
           }
           span {

@@ -15,6 +15,7 @@ import TopicQuizSelec from '../components/TopicQuizSelec';
 
 //Components
 import Timer from 'react-compound-timer';
+import QuizComp from '../components/quiz/QuizComp';
 import WrongAnswer from '../components/quiz/WrongAnswer';
 import QuizBottom from '../components/quiz/QuizBottom';
 import Score from '../components/quiz/Score';
@@ -273,86 +274,17 @@ const quizArgomenti = ({ questions, theory }) => {
 
                 {quizQuestions.map((question, index) => {
                   return (
-                    <div
-                      key={index}
-                      className={`quiz_content ${
-                        index == questionCounter ? 'active' : ''
-                      }`}
-                    >
-                      <div className='quiz_image'>
-                        {question.image ? (
-                          <>
-                            <Modal
-                              open={open}
-                              onClick={() => setOpen(false)}
-                              aria-labelledby='simple-modal-title'
-                              aria-describedby='simple-modal-description'
-                              style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                outline: 'none',
-                              }}
-                            >
-                              <img
-                                src={question.image}
-                                alt=''
-                                className='modal_img'
-                                style={{
-                                  boxSizing: 'border-box',
-                                  height: 'auto',
-                                  width: '100%',
-                                  maxWidth: 700,
-                                  padding: 20,
-                                  margin: 10,
-                                  border: '5px solid white',
-                                  borderRadius: 20,
-                                  background: '#00408b',
-                                  outline: 'none',
-                                }}
-                              />
-                            </Modal>
-
-                            <img
-                              onClick={() => setOpen(true)}
-                              src={question.image}
-                              alt=''
-                            />
-                          </>
-                        ) : (
-                          <div className='modal_img'></div>
-                        )}
-                      </div>
-
-                      <div className='quiz_right'>
-                        {/* Question */}
-                        <div className='quiz_question'>
-                          <p>{question.question}</p>
-                        </div>
-
-                        {/* Buttons for answering */}
-                        <div className='quiz_answer'>
-                          <Button
-                            variant='contained'
-                            className='quiz_answer_btn'
-                            onClick={() => {
-                              getAnswer(index, true);
-                            }}
-                          >
-                            Vero
-                          </Button>
-                          <Button
-                            variant='contained'
-                            className='quiz_answer_btn'
-                            onClick={() => {
-                              getAnswer(index, false);
-                            }}
-                          >
-                            Falso
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <QuizComp
+                      questionCounter={questionCounter}
+                      index={index}
+                      question={question}
+                      getTrueAnswer={() => {
+                        getAnswer(index, true);
+                      }}
+                      getFalseAnswer={() => {
+                        getAnswer(index, false);
+                      }}
+                    />
                   );
                 })}
                 {/* Bottom Navigation */}

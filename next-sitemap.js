@@ -1,5 +1,5 @@
 module.exports = {
   siteUrl: 'https://patenteragazzi.it',
   generateRobotsTxt: true,
-  exclude: ['/admin', '/admin/questions', '/admin/theory'],
+  exclude: ['/admin', '/admin/questions', '/admin/theory', '/admin/post'],
 };

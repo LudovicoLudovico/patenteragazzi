@@ -136,8 +136,8 @@ export default function questions() {
         <Head>
           <title>Admin Area - Domande</title>
         </Head>
-        <div className='container-full'>
-          <Navbar isAdminNav={true} />
+        <div className='container-full main_content'>
+          <Navbar isAdminNav={true} active={'domande'} />
           <br />
 
           <h2>Numero domande: {counter}</h2>

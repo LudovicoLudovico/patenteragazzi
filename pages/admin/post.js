@@ -187,8 +187,8 @@ const post = () => {
         <Head>
           <title>Admin Area - Post</title>
         </Head>
-        <Navbar isAdminNav={true} />
-        <div className='container-full'>
+        <Navbar isAdminNav={true} active={'post'} />
+        <div className='container-full main_content'>
           <br />
           <h1>Post</h1>
 

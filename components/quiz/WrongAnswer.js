@@ -63,9 +63,13 @@ const WrongAnswer = ({ wrong, theory }) => {
       <div className='wrong_answer_content'>
         <p>{wrong.question}</p>
         <div>
-          <p>Risposta corretta:</p>
+          <p>
+            <strong>Risposta corretta:</strong>
+          </p>
           <p className='right'>{wrong.response ? 'VERO' : 'FALSO'}</p>
-          <p>La tua risposta: </p>
+          <p>
+            <strong>La tua risposta:</strong>
+          </p>
           <p className='wrong'>
             {(() => {
               if (wrong.userResponse === true) {

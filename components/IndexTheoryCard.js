@@ -11,7 +11,9 @@ const IndexTheoryCard = ({ title, image, slug }) => {
         <h3>{title}</h3>
         <Link href={`/teoria#${slugify(slug, { lower: true })}`}>
           <a>
-            <Button variant='contained'>Scopri di più</Button>
+            <Button variant='contained' aria-label={`Scopri di più: ${title}`}>
+              Scopri di più
+            </Button>
           </a>
         </Link>
       </div>

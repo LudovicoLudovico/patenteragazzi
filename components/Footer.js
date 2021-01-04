@@ -11,6 +11,7 @@ const Footer = () => {
             href='https://www.instagram.com/patenteragazzi/'
             target='_blank'
             rel='noopener noreferrer'
+            aria-label='Instagram'
           >
             <Image
               src='/instagram.svg'
@@ -28,13 +29,14 @@ const Footer = () => {
             <Image
               src='/tiktok.svg'
               alt='Tiktok'
+              aria-label='Tiktok'
               layout={'intrinsic'}
               width={22}
               height={22}
             />
           </a>
 
-          <a href='mailto:patenteragazzi@gmail.com'>
+          <a href='mailto:patenteragazzi@gmail.com' aria-label='Email'>
             <Image
               src='/mail.svg'
               alt='Email'

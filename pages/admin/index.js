@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../../context/userContext';
 import { useAdmin } from '../../context/adminContext';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -66,63 +66,6 @@ const AdminUI = () => {
     }
   };
 
-  // useEffect(() => {
-  //   firebase
-  //     .firestore()
-  //     .collection('theory')
-  //     .get()
-  //     .then(function (querySnapshot) {
-  //       querySnapshot.forEach(function (doc) {
-  //         firebase
-  //           .firestore()
-  //           .collection('theory')
-  //           .doc(doc.id)
-  //           .update({
-  //             slug: slugify(doc.data().title),
-  //           })
-  //           .then(function () {
-  //             console.log('Document successfully updated!');
-  //           })
-  //           .catch(function (error) {
-  //             // The document probably doesn't exist.
-  //             console.error('Error updating document: ', error);
-  //           });
-  //       });
-  //     });
-  // }, []);
-  //Handle Image Upload
-  // const handleImageUpload = (e) => {
-  //   // If there is not image to Upload do nothing
-  //   if (!imageToUpload) {
-  //     return;
-  //   }
-
-  //   e.preventDefault();
-
-  //   //Create a reference in the storage and save the downloadURl to db
-  //   firebase
-  //     .storage()
-  //     .ref(`images/${imageToUpload.name}`)
-  //     .put(imageToUpload)
-  //     .then(() => {
-  //       firebase
-  //         .storage()
-  //         .ref('images')
-  //         .child(imageToUpload.name)
-  //         .getDownloadURL()
-  //         .then((url) => {
-  //           firebase.firestore().collection('images').add({
-  //             imageUrl: url,
-  //             name: imageToUpload.name,
-  //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //           });
-
-  //           //State reset
-  //           setImageToUpload(null);
-  //         });
-  //     });
-  // };
-
   const handleImageUpload = (e) => {
     const image = e.target.files[0];
     setImageLoader(true);
@@ -161,8 +104,8 @@ const AdminUI = () => {
           <link rel='shortcut icon' href='/patenteragazzi.ico' />
         </Head>
         {/* Navbar */}
-        <Navbar isAdminNav={true} />
-        <div className='admin-ui container-full'>
+        <Navbar isAdminNav={true} active={'immagini'} />
+        <div className='admin-ui container-full main_content'>
           {/* Image Upload */}
           <h2>Carica immagine</h2>
           <input
@@ -219,7 +162,7 @@ const AdminUI = () => {
               images
                 .filter((image) => image.name.includes(filterImage))
                 .map((image) => (
-                  <div className='image_item'>
+                  <div className='image_item' key={image.imageUrl}>
                     <h2>{image.name}</h2>
                     <img src={image.imageUrl} alt='' />
                     <p>{image.imageUrl}</p>

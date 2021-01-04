@@ -6,7 +6,11 @@ import Image from 'next/image';
 
 import { useUser } from '../context/userContext';
 
+import useDarkMode from 'use-dark-mode';
+
 import { Button } from '@material-ui/core';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 //Componentsv
 import Footer from '../components/Footer';
@@ -14,8 +18,10 @@ import IndexTheoryCard from '../components/IndexTheoryCard';
 import FaqAccordion from '../components/FaqAccordion';
 
 export default function Home() {
+  const darkMode = useDarkMode(false);
   const [loading, setLoading] = useState(false);
   const [loadingTopics, setLoadingTopics] = useState(false);
+  const [loadingSim, setLoadingSim] = useState(false);
   const { user, login, logout } = useUser();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +41,7 @@ export default function Home() {
     <>
       <NextSeo
         title='Patenteragazzi - Quiz Patente Online AM/B'
-        description='Più di 7000 domande della patente AM/B'
+        description="Più di 7000 domande della patente AM/B, su cui allenarsi per passare al meglio l'esame di teoria. Puoi trovare anche tutta la teoria di cui hai bisogno"
         canonical='https://patenteragazzi.it/'
         openGraph={{
           url: 'https://patenteragazzi.it/',
@@ -62,18 +68,28 @@ export default function Home() {
             </div>
 
             <div className='index_menu'>
+              <Link href='/'>
+                <a className='active'>HOME</a>
+              </Link>
               <Link href='/quiz'>
                 <a>QUIZ</a>
               </Link>
-              <Link href='/#faq'>
-                <a>FAQ</a>
+              <Link href='/'>
+                <a className='disabled'>FAQ</a>
               </Link>
-              <Link href='/post'>
-                <a>POST</a>
+              <Link href='/'>
+                <a className='disabled'>POST</a>
               </Link>
               <Link href='/teoria'>
                 <a>TEORIA</a>
               </Link>
+              {/* <Brightness4Icon
+                onClick={darkMode.value ? darkMode.disable : darkMode.enable}
+                style={{
+                  cursor: 'pointer',
+                }}
+              /> */}
+
               <span></span>
               <a
                 aria-label='Tiktok link'
@@ -83,13 +99,7 @@ export default function Home() {
                 aria-label='Tiktok'
                 className='social'
               >
-                <Image
-                  src='/tiktok.svg'
-                  alt='Tiktok'
-                  layout={'intrinsic'}
-                  width={22}
-                  height={22}
-                />
+                <Image src='/tiktok.svg' alt='Tiktok' width={22} height={22} />
               </a>
               <a
                 aria-label='Instagram'
@@ -102,20 +112,19 @@ export default function Home() {
                 <Image
                   src='/instagram.svg'
                   alt='Instagram'
-                  layout={'intrinsic'}
                   width={25}
                   height={25}
                 />
               </a>
               <span></span>
               {!user && <div onClick={login}>Accedi</div>}
-              {user && (
+              {user && user.picture && (
                 <Image
                   src={user.picture}
                   alt='Instagram'
-                  layout={'intrinsic'}
                   width={40}
                   height={40}
+                  onClick={logout}
                   className='profile_image'
                 />
               )}
@@ -142,9 +151,23 @@ export default function Home() {
                 </a>
               </Link>
 
-              <Button variant='contained' disabled={true}>
-                WORK IN PROGRESS
-              </Button>
+              <Link href='/simulazione-quiz'>
+                <a>
+                  <Button
+                    variant='contained'
+                    style={{
+                      background: '#b35600',
+                    }}
+                    onClick={(e) => {
+                      setLoadingSim(true);
+                    }}
+                  >
+                    {!loadingSim
+                      ? "SIMULAZIONE QUIZ D'ESAME"
+                      : 'CARICAMENTO...'}
+                  </Button>
+                </a>
+              </Link>
 
               <Link href='/quiz-argomenti'>
                 <a>
@@ -176,8 +199,9 @@ export default function Home() {
               <h2>TEORIA</h2>
 
               <Link href='/teoria'>
-                <a>
-                  <Button variant='contained'>Vai alla teoria</Button>
+                <a className='theory_link'>
+                  Vai alla teoria
+                  <ArrowForwardIcon />
                 </a>
               </Link>
             </div>

@@ -27,7 +27,8 @@
     "slugify": "^1.4.6",
     "styled-components": "^5.2.1",
     "suneditor-react": "^2.14.10",
-    "unslugify": "^1.0.2"
+    "unslugify": "^1.0.2",
+    "use-dark-mode": "^2.3.1"
   },
   "license": "MIT"
 }

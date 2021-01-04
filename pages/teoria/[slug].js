@@ -16,7 +16,7 @@ const slug = ({ theoryItem }) => {
         <>
           <NextSeo
             title={`${decrypt(theoryItem.title)} - Patenteragazzi`}
-            description="Tutta la teoria necessaria a passare l'esame di teoria"
+            description={decrypt(theoryItem.title)}
             canonical={`https://patenteragazzi.it/teoria/${slugify(
               decrypt(theoryItem.title)
             )}`}
@@ -39,7 +39,7 @@ const slug = ({ theoryItem }) => {
             }}
           />
           <Navbar />
-          <div className='container-full'>
+          <div className='container-full main_content'>
             <div className='theory'>
               {theoryItem && (
                 <>

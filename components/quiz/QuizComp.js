@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from '@material-ui/core';
+import slugify from 'slugify';
 
 const QuizComp = ({
   questionCounter,
@@ -9,9 +10,10 @@ const QuizComp = ({
   getFalseAnswer,
 }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div
-      key={index}
+      key={slugify(`${question.question}${index}`, { lower: true })}
       className={`quiz_content ${index == questionCounter ? 'active' : ''}`}
     >
       <div className='quiz_image'>
@@ -62,7 +64,10 @@ const QuizComp = ({
       <div className='quiz_right'>
         {/* Question */}
         <div className='quiz_question'>
-          <p>{question.question}</p>
+          <p>
+            {question.question.charAt(0).toUpperCase() +
+              question.question.slice(1)}
+          </p>
         </div>
 
         {/* Buttons for answering */}
