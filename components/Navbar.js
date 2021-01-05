@@ -3,9 +3,8 @@ import { useUser } from '../context/userContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
-import useDarkMode from 'use-dark-mode';
+
 const Navbar = ({ isAdminNav, active }) => {
-  const darkMode = useDarkMode(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
