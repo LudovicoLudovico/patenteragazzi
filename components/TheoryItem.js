@@ -23,9 +23,8 @@ const TheoryItem = ({ theory, category, filters }) => {
           <h2>{category}</h2>
           {theory
             .filter((ti) => {
-              return (
-                ti.category == category && decrypt(ti.title).includes(filters)
-              );
+              let title = decrypt(ti.title).toString().toLowerCase();
+              return ti.category == category && title.includes(filters);
             })
             .map((theoryItem, index) => {
               return (

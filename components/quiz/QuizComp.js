@@ -14,7 +14,9 @@ const QuizComp = ({
   return (
     <div
       key={slugify(`${question.question}${index}`, { lower: true })}
-      className={`quiz_content ${index == questionCounter ? 'active' : ''}`}
+      className={`quiz_content ${index == questionCounter ? 'active' : ''} ${
+        question.image ? 'image' : 'no-image'
+      }`}
     >
       <div className='quiz_image'>
         {question.image ? (
@@ -61,32 +63,30 @@ const QuizComp = ({
         )}
       </div>
 
-      <div className='quiz_right'>
-        {/* Question */}
-        <div className='quiz_question'>
-          <p>
-            {question.question.charAt(0).toUpperCase() +
-              question.question.slice(1)}
-          </p>
-        </div>
+      {/* Question */}
+      <div className='quiz_question'>
+        <p>
+          {question.question.charAt(0).toUpperCase() +
+            question.question.slice(1)}
+        </p>
+      </div>
 
-        {/* Buttons for answering */}
-        <div className='quiz_answer'>
-          <Button
-            variant='contained'
-            className='quiz_answer_btn'
-            onClick={getTrueAnswer}
-          >
-            Vero
-          </Button>
-          <Button
-            variant='contained'
-            className='quiz_answer_btn'
-            onClick={getFalseAnswer}
-          >
-            Falso
-          </Button>
-        </div>
+      {/* Buttons for answering */}
+      <div className='quiz_answer'>
+        <Button
+          variant='contained'
+          className='quiz_answer_btn'
+          onClick={getTrueAnswer}
+        >
+          Vero
+        </Button>
+        <Button
+          variant='contained'
+          className='quiz_answer_btn'
+          onClick={getFalseAnswer}
+        >
+          Falso
+        </Button>
       </div>
     </div>
   );

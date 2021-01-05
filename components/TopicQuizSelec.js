@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 const TopicQuizSelec = ({ filters, setFilters, text }) => {
+  const [isSelected, setIsSelected] = useState(false);
   return (
     <Button
       className='topic-list-item'
-      endIcon={filters.includes(text) ? <img src='/check.svg' /> : ''}
+      variant='contained'
+      endIcon={isSelected ? <img src='/check.svg' /> : ''}
       onClick={() => {
-        if (!filters.includes(text)) {
+        if (!isSelected) {
           setFilters((filters) => [...filters, text]);
+          setIsSelected(true);
         } else {
           const filterCopy = [...filters];
           const removedCopy = filterCopy.filter((item) => {
@@ -15,6 +18,7 @@ const TopicQuizSelec = ({ filters, setFilters, text }) => {
           });
 
           setFilters(removedCopy);
+          setIsSelected(false);
         }
       }}
     >

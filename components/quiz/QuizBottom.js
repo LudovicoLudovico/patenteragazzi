@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 
 const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [navDisp, setNavDisp] = useState(5);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    if (width < 500) {
+      setNavDisp(3);
+    } else {
+      setNavDisp(5);
+    }
+  }, [window.innerWidth]);
+
+  useEffect(() => {
+    window.scrollTo(0, 90);
+  }, []);
   return (
     <div className='quiz_bottom'>
       <div className='quiz_bottom_menu' onClick={(e) => {}}>
@@ -12,8 +27,8 @@ const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
                 questionCounter === index ? 'active' : ''
               }
                           ${
-                            questionCounter - 5 < index &&
-                            index < questionCounter + 5
+                            questionCounter - navDisp < index &&
+                            index < questionCounter + navDisp
                               ? 'visible'
                               : ''
                           }

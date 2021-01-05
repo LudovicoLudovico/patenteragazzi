@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Editor from '../../components/admin/Editor';
+import MDEditor from '@uiw/react-md-editor';
 import Navbar from '../../components/Navbar';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -287,51 +287,10 @@ const post = () => {
           />
           <br />
           <br />
-          <Editor text={text} setText={(content) => setText(content)} />
+
+          <MDEditor value={text} onChange={setText} height={500} />
           <br />
-          <div>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checked}
-                  onChange={() => setChecked(!checked)}
-                  name='È una FAQ?'
-                  inputProps={{ 'aria-label': 'È una FAQ?' }}
-                  style={{
-                    color: '#00408b',
-                  }}
-                />
-              }
-              label='È una FAQ?'
-            />
-            <br />
-            {checked && (
-              <>
-                <TextField
-                  id='outlined-basic'
-                  label='Inserisci la domanda'
-                  variant='outlined'
-                  style={{ minWidth: '500px' }}
-                  onChange={(e) => {
-                    setFaqQuestion(e.target.value);
-                  }}
-                  value={faqQuestion}
-                />
-                <br />
-                <br />
-                <TextField
-                  id='outlined-basic'
-                  label='Inserisci una breve risposta'
-                  variant='outlined'
-                  style={{ minWidth: '500px' }}
-                  onChange={(e) => {
-                    setFaqAnswer(e.target.value);
-                  }}
-                  value={faqAnswer}
-                />
-              </>
-            )}
-          </div>
+
           <br />
           <br />
           <Button

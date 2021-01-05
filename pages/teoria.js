@@ -5,6 +5,7 @@ import { getTheory } from '../fetchData/getTheory';
 import { decrypt } from '../lib/enc';
 import TheoryItem from '../components/TheoryItem';
 import { TextField } from '@material-ui/core';
+import slugify from 'slugify';
 
 const teoria = ({ theory }) => {
   const [filteredTheory, setFilteredTheory] = useState([...theory]);
@@ -39,8 +40,10 @@ const teoria = ({ theory }) => {
           label='Trova teoria...'
           variant='outlined'
           style={{ width: '100%', maxWidth: 800 }}
+          inputProps={{
+            autoComplete: 'off',
+          }}
           onChange={(e) => {
-            console.log(e.target.value);
             setFilters(e.target.value);
           }}
           value={filters}
@@ -53,6 +56,7 @@ const teoria = ({ theory }) => {
           filters={filters}
           category={"Definizioni generali e doveri nell'uso dell strada"}
         />
+
         <TheoryItem
           theory={filteredTheory}
           filters={filters}

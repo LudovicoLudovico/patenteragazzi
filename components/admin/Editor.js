@@ -16,7 +16,7 @@ const Editor = ({ text, setText, height }) => {
             ['formatBlock', 'removeFormat'],
             ['bold', 'italic', 'underline'],
             ['list'],
-            ['image', 'video'],
+            ['image', 'video', 'link'],
             ['horizontalRule'],
           ],
         }}

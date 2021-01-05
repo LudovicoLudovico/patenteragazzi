@@ -6,6 +6,7 @@ import MDEditor from '@uiw/react-md-editor';
 
 const UpdateTheory = () => {
   const [searchTheory, setSearchTheory] = useState('');
+  const [searchImage, setSearchImage] = useState('');
   const [theoryToUpdate, setTheoryToUpdate] = useState('');
   const [theoryId, setTheoryId] = useState('');
   return (
@@ -22,6 +23,8 @@ const UpdateTheory = () => {
         value={searchTheory}
         variant='outlined'
       />
+      <br />
+      <br />
       <Button
         variant='contained'
         onClick={() => {
@@ -34,6 +37,7 @@ const UpdateTheory = () => {
               querySnapshot.forEach(function (doc) {
                 setTheoryToUpdate(doc.data().theory);
                 setTheoryId(doc.id);
+                setSearchImage(doc.data().image);
               });
             })
             .catch(function (error) {
@@ -43,31 +47,42 @@ const UpdateTheory = () => {
       >
         Cerca teoria
       </Button>
-
+      <br />
+      <br />
+      <img src={searchImage} alt='' />
       <TextField
         id='outlined-multiline-flexible'
-        label='Cerca teoria (titolo)
+        label='Link immagine
           '
-        multiline
-        rowsMax={10}
-        onChange={(e) => setSearchTheory(e.target.value)}
-        value={searchTheory}
+        style={{
+          width: '100%',
+        }}
+        onChange={(e) => setSearchImage(e.target.value)}
+        value={searchImage}
         variant='outlined'
       />
+      <br />
+      <br />
+      <br />
+      <br />
       <MDEditor
         value={theoryToUpdate}
         onChange={setTheoryToUpdate}
         height={500}
       />
 
+      <br />
+
       <Button
         variant='contained'
         onClick={() => {
           firebase.firestore().collection('theory').doc(theoryId).update({
             theory: theoryToUpdate,
+            image: searchImage,
           });
 
           setTheoryId('');
+          setSearchImage('');
           setTheoryToUpdate('');
           setSearchTheory('');
         }}

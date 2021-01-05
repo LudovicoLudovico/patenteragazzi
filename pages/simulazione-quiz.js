@@ -413,7 +413,6 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 })}
               </div>
             </div>
-
             {quizQuestions.map((question, index) => {
               return (
                 <QuizSimComp
@@ -430,7 +429,6 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 />
               );
             })}
-
             <div className='quiz-sim_bottom'>
               <div className='quiz-sim_timer'>
                 <p>Tempo a disposizione</p>
@@ -485,6 +483,10 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 </div>
               </div>
             </div>
+            <br />
+            <Link href='/'>
+              <a>Torna alla home</a>
+            </Link>
 
             <div className='quiz-sim_correct' onClick={correct}>
               Correggi

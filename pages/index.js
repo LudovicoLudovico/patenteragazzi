@@ -6,19 +6,17 @@ import Image from 'next/image';
 
 import { useUser } from '../context/userContext';
 
-import useDarkMode from 'use-dark-mode';
-
 import { Button } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { getFaq } from '../fetchData/getFaq';
 
 //Componentsv
 import Footer from '../components/Footer';
 import IndexTheoryCard from '../components/IndexTheoryCard';
 import FaqAccordion from '../components/FaqAccordion';
 
-export default function Home() {
-  const darkMode = useDarkMode(false);
+export default function Home({ faq }) {
   const [loading, setLoading] = useState(false);
   const [loadingTopics, setLoadingTopics] = useState(false);
   const [loadingSim, setLoadingSim] = useState(false);
@@ -74,8 +72,8 @@ export default function Home() {
               <Link href='/quiz'>
                 <a>QUIZ</a>
               </Link>
-              <Link href='/'>
-                <a className='disabled'>FAQ</a>
+              <Link href='/#faq'>
+                <a>FAQ</a>
               </Link>
               <Link href='/'>
                 <a className='disabled'>POST</a>
@@ -146,7 +144,7 @@ export default function Home() {
                       setLoading(true);
                     }}
                   >
-                    {!loading ? 'INIZIA QUIZ PATENTE A/B' : 'CARICAMENTO...'}
+                    {!loading ? 'INIZIA QUIZ PATENTE AM/B' : 'CARICAMENTO...'}
                   </Button>
                 </a>
               </Link>
@@ -156,7 +154,7 @@ export default function Home() {
                   <Button
                     variant='contained'
                     style={{
-                      background: '#b35600',
+                      background: '#06690d',
                     }}
                     onClick={(e) => {
                       setLoadingSim(true);
@@ -174,7 +172,7 @@ export default function Home() {
                   <Button
                     variant='contained'
                     style={{
-                      background: '#06690d',
+                      background: '#b35600',
                     }}
                     onClick={(e) => {
                       setLoadingTopics(true);
@@ -230,8 +228,28 @@ export default function Home() {
           </div>
         </div>
 
+        <div className='index_faq index_section'>
+          <div className='container-full'>
+            <div className='index_faq_top' id='faq'>
+              <h2>FAQ</h2>
+            </div>
+            <FaqAccordion faq={faq} />
+          </div>
+        </div>
+
         <Footer />
       </div>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const faqRaw = await getFaq();
+
+  return {
+    props: {
+      faq: JSON.parse(JSON.stringify(faqRaw)),
+    },
+    revalidate: 60 * 10,
+  };
 }

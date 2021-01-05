@@ -8,6 +8,7 @@ import Navbar from '../../components/Navbar';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const slug = ({ theoryItem }) => {
   return (
@@ -41,9 +42,17 @@ const slug = ({ theoryItem }) => {
           <Navbar />
           <div className='container-full main_content'>
             <div className='theory'>
+              <Link href='/teoria'>
+                <a className='theory_back'>
+                  <ArrowBackIcon />
+                  Torna indietro
+                </a>
+              </Link>
+
               {theoryItem && (
                 <>
                   <h2>{decrypt(theoryItem.title)}</h2>
+
                   {decrypt(theoryItem.image) && (
                     <img
                       src={decrypt(theoryItem.image)}
@@ -86,6 +95,7 @@ export async function getStaticProps({ params }) {
     props: {
       theoryItem: theoryItem || null,
     },
+    revalidate: 60 * 5,
   };
 }
 export default slug;

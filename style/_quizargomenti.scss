@@ -43,7 +43,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    cursor: pointer;
     width: 100%;
 
     .topic-list-item {
@@ -98,9 +97,16 @@
 @media (max-width: 500px) {
   .topic-choice {
     .topic-choice-top {
+      box-sizing: border-box;
+      width: 100vw;
+      margin-left: -20px;
       padding-top: 0;
       display: flex;
       flex-direction: column;
+
+      .close_quiz {
+        margin-right: 0;
+      }
     }
 
     .topics-list {
