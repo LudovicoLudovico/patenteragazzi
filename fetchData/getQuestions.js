@@ -13,6 +13,7 @@ export const getQuestions = async () => {
         const questionEnc = encrypt(doc.data().question);
         const imageEnc = encrypt(doc.data().image);
         questions.push({
+          id: doc.id,
           image: imageEnc,
           question: questionEnc,
           response: doc.data().response,

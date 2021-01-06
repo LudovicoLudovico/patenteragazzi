@@ -103,9 +103,6 @@ const Navbar = ({ isAdminNav, active }) => {
 
           {isAdminNav && (
             <>
-              <Link href='/'>
-                <a>HOME</a>
-              </Link>
               <Link href='/admin'>
                 <a className={active == 'immagini' ? 'active' : ''}>IMMAGINI</a>
               </Link>
@@ -123,6 +120,9 @@ const Navbar = ({ isAdminNav, active }) => {
               </Link>
               <Link href='/admin/faq'>
                 <a className={active == 'faq' ? 'active' : ''}>FAQ</a>
+              </Link>
+              <Link href='/admin/problems'>
+                <a className={active == 'problems' ? 'active' : ''}>PROBLEMI</a>
               </Link>
               <span></span>
 

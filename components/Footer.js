@@ -15,7 +15,7 @@ const Footer = () => {
           >
             <Image
               src='/instagram.svg'
-              alt='Instagram'
+              alt='Footer - Instagram'
               layout={'intrinsic'}
               width={25}
               height={25}
@@ -28,7 +28,7 @@ const Footer = () => {
           >
             <Image
               src='/tiktok.svg'
-              alt='Tiktok'
+              alt='Footer - Tiktok'
               aria-label='Tiktok'
               layout={'intrinsic'}
               width={22}
@@ -39,7 +39,7 @@ const Footer = () => {
           <a href='mailto:patenteragazzi@gmail.com' aria-label='Email'>
             <Image
               src='/mail.svg'
-              alt='Email'
+              alt='Footer - Email'
               layout={'intrinsic'}
               width={22}
               height={22}

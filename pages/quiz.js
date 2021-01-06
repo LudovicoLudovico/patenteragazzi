@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
+import firebase from 'firebase/app';
 
 //Material UI
 import Button from '@material-ui/core/Button';
@@ -12,6 +13,7 @@ import { decrypt } from '../lib/enc';
 //Context/Fetch
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
+import WarningIcon from '@material-ui/icons/Warning';
 
 //Components
 import Timer from 'react-compound-timer';
@@ -29,6 +31,7 @@ const newQuiz = ({ questions, theory }) => {
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const [canReport, setCanReport] = useState([]);
 
   useEffect(() => {
     let extracted = [];
@@ -40,6 +43,7 @@ const newQuiz = ({ questions, theory }) => {
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
           {
+            questionId: questions[rand].id,
             question: decrypt(questions[rand].question),
             image: decrypt(questions[rand].image),
             response: questions[rand].response,
@@ -52,6 +56,28 @@ const newQuiz = ({ questions, theory }) => {
       }
     }
   }, []);
+
+  const setProblem = () => {
+    if (!canReport.includes(questionCounter)) {
+      const question = quizQuestions[questionCounter];
+      console.log(question);
+      firebase
+        .firestore()
+        .collection('problems')
+        .add({
+          type: 'question',
+          questionId: question.questionId,
+          question: question.question,
+          category: question.category,
+          image: question.image,
+          answer: question.answer,
+          response: question.response,
+        })
+        .then(() => {
+          setCanReport((canReport) => [...canReport, questionCounter]);
+        });
+    }
+  };
 
   //This func loops through the answers and check if there are
   //any undefined or null valuse. Then is stores their index in an array
@@ -213,32 +239,48 @@ const newQuiz = ({ questions, theory }) => {
             {!showScore && (
               <div className='standard_quiz'>
                 <div className='quiz_top'>
-                  <div className='quiz_timer'>
-                    {/* Timer */}
-                    {/* Timer value should be  1800000 (30:00) */}
-                    <Timer
-                      initialTime={1800000}
-                      startImmediately={true}
-                      direction='backward'
-                      checkpoints={[
-                        {
-                          time: 0,
-                          callback: () => correct(),
-                        },
-                      ]}
+                  <div className='quiz_top_left'>
+                    <div className='quiz_timer'>
+                      {/* Timer */}
+                      {/* Timer value should be  1800000 (30:00) */}
+                      <Timer
+                        initialTime={1800000}
+                        startImmediately={true}
+                        direction='backward'
+                        checkpoints={[
+                          {
+                            time: 0,
+                            callback: () => correct(),
+                          },
+                        ]}
+                      >
+                        <Timer.Minutes
+                          formatValue={(value) =>
+                            `${value < 10 ? `0${value}` : value}`
+                          }
+                        />
+                        :
+                        <Timer.Seconds
+                          formatValue={(value) =>
+                            `${value < 10 ? `0${value}` : value}`
+                          }
+                        />
+                      </Timer>
+                    </div>
+                    <Button
+                      className='quiz_problem active'
+                      onClick={setProblem}
+                      disabled={!canReport}
+                      variant='contained'
+                      style={{
+                        background: 'red',
+                        color: 'white',
+                      }}
                     >
-                      <Timer.Minutes
-                        formatValue={(value) =>
-                          `${value < 10 ? `0${value}` : value}`
-                        }
-                      />
-                      :
-                      <Timer.Seconds
-                        formatValue={(value) =>
-                          `${value < 10 ? `0${value}` : value}`
-                        }
-                      />
-                    </Timer>
+                      <p>Segnala domanda</p>
+
+                      <WarningIcon />
+                    </Button>
                   </div>
 
                   {/* Top right section of the quiz, contains correct btn and close btn */}
@@ -310,6 +352,7 @@ const newQuiz = ({ questions, theory }) => {
                       >
                         Correggi
                       </Button>
+                      <p className='correct_back'>Torna al quiz</p>
                     </>
                   )}
 
@@ -324,6 +367,7 @@ const newQuiz = ({ questions, theory }) => {
                       >
                         Correggi
                       </Button>
+                      <p className='correct_back'>Torna al quiz</p>
                     </>
                   )}
                 </div>

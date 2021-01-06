@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getTheory } from '../../fetchData/getTheory';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
 import { decrypt } from '../../lib/enc';
@@ -9,21 +9,44 @@ import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import { Button } from '@material-ui/core';
+import WarningIcon from '@material-ui/icons/Warning';
+import firebase from 'firebase/app';
 const slug = ({ theoryItem }) => {
+  const [canReport, setCanReport] = useState(true);
+
+  const setProblem = () => {
+    if (canReport) {
+      firebase
+        .firestore()
+        .collection('problems')
+        .add({
+          type: 'theory',
+          theoryId: theoryItem.id,
+          theory: theoryItem.theory,
+          title: theoryItem.title,
+          category: theoryItem.category,
+          image: theoryItem.image,
+        })
+        .then(() => {
+          setCanReport(false);
+        });
+    }
+  };
+
   return (
     <>
       {theoryItem && (
         <>
           <NextSeo
-            title={`${decrypt(theoryItem.title)} - Patenteragazzi`}
-            description={decrypt(theoryItem.title)}
+            title={`${theoryItem.title} - Patenteragazzi`}
+            description={theoryItem.title}
             canonical={`https://patenteragazzi.it/teoria/${slugify(
-              decrypt(theoryItem.title)
+              theoryItem.title
             )}`}
             openGraph={{
               url: `https://patenteragazzi.it/teoria/${slugify(
-                decrypt(theoryItem.title)
+                theoryItem.title
               )}`,
               title: 'Patenteragazzi',
               description:
@@ -51,22 +74,38 @@ const slug = ({ theoryItem }) => {
 
               {theoryItem && (
                 <>
-                  <h2>{decrypt(theoryItem.title)}</h2>
+                  <h2>{theoryItem.title}</h2>
 
-                  {decrypt(theoryItem.image) && (
-                    <img
-                      src={decrypt(theoryItem.image)}
-                      alt={decrypt(theoryItem.title)}
-                    />
+                  {theoryItem.image && (
+                    <img src={theoryItem.image} alt={theoryItem.title} />
                   )}
                   <h3>Teoria</h3>
-                  <MDEditor.Markdown source={decrypt(theoryItem.theory)} />
+                  <MDEditor.Markdown source={theoryItem.theory} />
                 </>
               )}
+
+              <br />
+              <br />
+              <br />
+              <Button
+                className='quiz_problem active'
+                onClick={setProblem}
+                disabled={!canReport}
+                variant='contained'
+                style={{
+                  background: 'red',
+                  color: 'white',
+                }}
+              >
+                <p>Segnala problema nella teoria</p>
+
+                <WarningIcon style={{ marginLeft: 20 }} />
+              </Button>
             </div>
           </div>
         </>
       )}
+      {!theoryItem && <div>Error</div>}
     </>
   );
 };
@@ -74,6 +113,7 @@ const slug = ({ theoryItem }) => {
 export async function getStaticPaths() {
   const theoryRaw = await getTheory();
   const paths = [];
+
   theoryRaw.map((theoryItem) => {
     paths.push({
       params: {

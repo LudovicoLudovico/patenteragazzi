@@ -12,14 +12,11 @@ export const getTheoryItem = async (slug) => {
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        const titleEnc = encrypt(doc.data().title);
-        const imageEnc = encrypt(doc.data().image);
-        const theoryEnc = encrypt(doc.data().theory);
         docRes = {
           id: doc.id,
-          title: titleEnc,
-          theory: theoryEnc,
-          image: imageEnc,
+          title: doc.data().title,
+          theory: doc.data().theory,
+          image: doc.data().image,
           category: doc.data().category,
         };
       });

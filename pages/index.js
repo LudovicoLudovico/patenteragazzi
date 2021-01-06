@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -8,13 +7,22 @@ import { useUser } from '../context/userContext';
 
 import { Button } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
+// import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { getFaq } from '../fetchData/getFaq';
 
 //Componentsv
-import Footer from '../components/Footer';
-import IndexTheoryCard from '../components/IndexTheoryCard';
-import FaqAccordion from '../components/FaqAccordion';
+
+import dynamic from 'next/dynamic';
+
+const IndexTheoryCard = dynamic(() => import('../components/IndexTheoryCard'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const FaqAccordion = dynamic(() => import('../components/FaqAccordion'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Footer = dynamic(() => import('../components/Footer'), {
+  loading: () => <p>Caricamento...</p>,
+});
 
 export default function Home({ faq }) {
   const [loading, setLoading] = useState(false);

@@ -2,10 +2,87 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { NextSeo } from 'next-seo';
 import { getTheory } from '../fetchData/getTheory';
-import { decrypt } from '../lib/enc';
-import TheoryItem from '../components/TheoryItem';
 import { TextField } from '@material-ui/core';
-import slugify from 'slugify';
+import dynamic from 'next/dynamic';
+
+const Theory1 = dynamic(() => import('../components/theory/Theory1'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory2 = dynamic(() => import('../components/theory/Theory2'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory3 = dynamic(() => import('../components/theory/Theory3'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory4 = dynamic(() => import('../components/theory/Theory4'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory5 = dynamic(() => import('../components/theory/Theory5'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory6 = dynamic(() => import('../components/theory/Theory6'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory7 = dynamic(() => import('../components/theory/Theory7'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory8 = dynamic(() => import('../components/theory/Theory8'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory9 = dynamic(() => import('../components/theory/Theory9'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory10 = dynamic(() => import('../components/theory/Theory10'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory11 = dynamic(() => import('../components/theory/Theory11'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory12 = dynamic(() => import('../components/theory/Theory12'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory13 = dynamic(() => import('../components/theory/Theory13'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory14 = dynamic(() => import('../components/theory/Theory14'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory15 = dynamic(() => import('../components/theory/Theory15'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory16 = dynamic(() => import('../components/theory/Theory16'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory17 = dynamic(() => import('../components/theory/Theory17'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory18 = dynamic(() => import('../components/theory/Theory18'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory19 = dynamic(() => import('../components/theory/Theory19'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory20 = dynamic(() => import('../components/theory/Theory20'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory21 = dynamic(() => import('../components/theory/Theory21'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory22 = dynamic(() => import('../components/theory/Theory22'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory23 = dynamic(() => import('../components/theory/Theory23'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory24 = dynamic(() => import('../components/theory/Theory24'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory25 = dynamic(() => import('../components/theory/Theory25'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Theory26 = dynamic(() => import('../components/theory/Theory26'), {
+  loading: () => <p>Caricamento...</p>,
+});
 
 const teoria = ({ theory }) => {
   const [filteredTheory, setFilteredTheory] = useState([...theory]);
@@ -48,141 +125,34 @@ const teoria = ({ theory }) => {
           }}
           value={filters}
         />
-
         <br />
         <br />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={"Definizioni generali e doveri nell'uso dell strada"}
-        />
-
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Segnali di pericolo'}
-        />
-        <TheoryItem theory={filteredTheory} category={'Segnali di divieto'} />
-        <TheoryItem theory={filteredTheory} category={'Segnali di obbligo'} />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Segnali di precedenza'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Segnaletica orizzontale e segni sugli ostacoli'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Segnalazioni semaforiche e degli agenti del traffico'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Segnali di indicazione'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Segnali complementari, segnali temporanei e di cantiere'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Pannelli integrativi dei segnali'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            'Limiti di velocità, pericolo e intralcio alla circolazione'
-          }
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Distanza di sicurezza'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Norme sulla circolazione dei veicoli'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Ordine di precedenza agli incroci'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Norme sul sorpasso'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Fermata, sosta, arresto'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Norme varie'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Uso delle luci e dei dispositivi acustici, spie e simboli'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza'
-          }
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti'
-          }
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={'Incidenti stradali e comportamenti in caso di incidente'}
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
-          }
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            'Responsabilità civile, penale e amministrativa, assicurazione r.c.a. e altre forme assicurative legate al veicolo'
-          }
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            "Limitazione dei consumi, rispetto dell'ambiente e inquinamento"
-          }
-        />
-        <TheoryItem
-          theory={filteredTheory}
-          filters={filters}
-          category={
-            'Elementi costitutivi del veicolo, manutenzione ed uso, stabilità e tenuta di strada, comportamenti e cautele di guida'
-          }
-        />
+        <Theory1 filteredTheory={filteredTheory} filters={filters} />
+        <Theory2 filteredTheory={filteredTheory} filters={filters} />
+        <Theory3 filteredTheory={filteredTheory} filters={filters} />
+        <Theory4 filteredTheory={filteredTheory} filters={filters} />
+        <Theory5 filteredTheory={filteredTheory} filters={filters} />
+        <Theory6 filteredTheory={filteredTheory} filters={filters} />
+        <Theory7 filteredTheory={filteredTheory} filters={filters} />
+        <Theory8 filteredTheory={filteredTheory} filters={filters} />
+        <Theory9 filteredTheory={filteredTheory} filters={filters} />
+        <Theory10 filteredTheory={filteredTheory} filters={filters} />
+        <Theory11 filteredTheory={filteredTheory} filters={filters} />
+        <Theory12 filteredTheory={filteredTheory} filters={filters} />
+        <Theory13 filteredTheory={filteredTheory} filters={filters} />
+        <Theory14 filteredTheory={filteredTheory} filters={filters} />
+        <Theory15 filteredTheory={filteredTheory} filters={filters} />
+        <Theory16 filteredTheory={filteredTheory} filters={filters} />
+        <Theory17 filteredTheory={filteredTheory} filters={filters} />
+        <Theory18 filteredTheory={filteredTheory} filters={filters} />
+        <Theory19 filteredTheory={filteredTheory} filters={filters} />
+        <Theory20 filteredTheory={filteredTheory} filters={filters} />
+        <Theory21 filteredTheory={filteredTheory} filters={filters} />
+        <Theory22 filteredTheory={filteredTheory} filters={filters} />
+        <Theory23 filteredTheory={filteredTheory} filters={filters} />
+        <Theory24 filteredTheory={filteredTheory} filters={filters} />
+        <Theory25 filteredTheory={filteredTheory} filters={filters} />
+        <Theory26 filteredTheory={filteredTheory} filters={filters} />
       </div>
     </>
   );

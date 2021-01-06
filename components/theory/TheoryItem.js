@@ -1,5 +1,5 @@
 import React from 'react';
-import { decrypt } from '../lib/enc';
+import { decrypt } from '../../lib/enc';
 import Link from 'next/link';
 import slugify from 'slugify';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -27,14 +27,15 @@ const TheoryItem = ({ theory, category, filters }) => {
               return ti.category == category && title.includes(filters);
             })
             .map((theoryItem, index) => {
+              const titleItem = decrypt(theoryItem.title);
               return (
                 <div key={index}>
                   <Link
                     href='/teoria/[teoria]'
-                    as={`/teoria/${slugify(decrypt(theoryItem.title))}`}
+                    as={`/teoria/${slugify(titleItem)}`}
                   >
                     <a className='theoryList-item-link'>
-                      {decrypt(theoryItem.title)} <ArrowForwardIosIcon />
+                      {titleItem} <ArrowForwardIosIcon />
                     </a>
                   </Link>
                 </div>
