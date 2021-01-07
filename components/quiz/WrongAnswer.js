@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { decrypt } from '../../lib/enc';
 import MDEditor from '@uiw/react-md-editor';
 
-const WrongAnswer = ({ wrong, theory }) => {
+const WrongAnswer = ({ wrong, theory, answers, isAllQuestions, index }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -72,12 +72,22 @@ const WrongAnswer = ({ wrong, theory }) => {
           </p>
           <p className='wrong'>
             {(() => {
-              if (wrong.userResponse === true) {
-                return 'VERO';
-              } else if (wrong.userResponse === false) {
-                return 'FALSO';
+              if (!isAllQuestions) {
+                if (wrong.userResponse === true) {
+                  return 'VERO';
+                } else if (wrong.userResponse === false) {
+                  return 'FALSO';
+                } else {
+                  return 'NON DATA';
+                }
               } else {
-                return 'NON DATA';
+                if (answers[index] === true) {
+                  return 'VERO';
+                } else if (answers[index] === false) {
+                  return 'FALSO';
+                } else {
+                  return 'NON DATA';
+                }
               }
             })()}
           </p>
@@ -89,6 +99,8 @@ const WrongAnswer = ({ wrong, theory }) => {
           className='open_theory'
           onClick={() => setOpen(true)}
         />
+        {isAllQuestions && <p> {index + 1} / 40</p>}
+        {!isAllQuestions && <p> {wrong.num + 1} / 40</p>}
       </div>
     </div>
   );

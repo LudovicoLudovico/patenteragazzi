@@ -547,7 +547,13 @@ const simulazioneQuiz = ({ questions, theory }) => {
           </Modal>
         )}
         {showScore && (
-          <Score score={score} wrongAnswers={wrongAnswers} theory={theory} />
+          <Score
+            score={score}
+            wrongAnswers={wrongAnswers}
+            theory={theory}
+            quizQuestions={quizQuestions}
+            answers={answers}
+          />
         )}
       </div>
     </>

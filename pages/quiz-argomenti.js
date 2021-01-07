@@ -346,6 +346,8 @@ const quizArgomenti = ({ questions, theory }) => {
                 score={score}
                 wrongAnswers={wrongAnswers}
                 theory={theory}
+                quizQuestions={quizQuestions}
+                answers={answers}
               />
             )}
           </div>

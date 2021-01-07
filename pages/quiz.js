@@ -376,6 +376,8 @@ const newQuiz = ({ questions, theory }) => {
 
             {showScore && (
               <Score
+                quizQuestions={quizQuestions}
+                answers={answers}
                 score={score}
                 wrongAnswers={wrongAnswers}
                 theory={theory}

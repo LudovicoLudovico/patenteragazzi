@@ -152,7 +152,7 @@ export default function Home({ faq }) {
                       setLoading(true);
                     }}
                   >
-                    {!loading ? 'INIZIA QUIZ PATENTE AM/B' : 'CARICAMENTO...'}
+                    {!loading ? 'QUIZ PATENTE AM/B' : 'CARICAMENTO...'}
                   </Button>
                 </a>
               </Link>
@@ -186,9 +186,7 @@ export default function Home({ faq }) {
                       setLoadingTopics(true);
                     }}
                   >
-                    {!loadingTopics
-                      ? 'INIZIA QUIZ ARGOMENTI'
-                      : 'CARICAMENTO...'}
+                    {!loadingTopics ? 'QUIZ ARGOMENTI' : 'CARICAMENTO...'}
                   </Button>
                 </a>
               </Link>
@@ -204,7 +202,7 @@ export default function Home({ faq }) {
             <div className='index_theory_top'>
               <h2>TEORIA</h2>
 
-              <Link href='/teoria'>
+              <Link href='/teoria' passHref={true}>
                 <a className='theory_link'>
                   Vai alla teoria
                   <ArrowForwardIcon />
