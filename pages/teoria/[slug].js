@@ -12,6 +12,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Button } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
 import firebase from 'firebase/app';
+import dynamic from 'next/dynamic';
+
+const AdBanner = dynamic(() => import('../../components/AdBanner'), {
+  ssr: false,
+});
 const slug = ({ theoryItem }) => {
   const [canReport, setCanReport] = useState(true);
 
@@ -101,6 +106,11 @@ const slug = ({ theoryItem }) => {
 
                 <WarningIcon style={{ marginLeft: 20 }} />
               </Button>
+
+              <br />
+              <br />
+              <br />
+              <AdBanner />
             </div>
           </div>
         </>

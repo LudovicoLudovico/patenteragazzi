@@ -24,6 +24,9 @@ const AdminUI = () => {
   const [imageToUpload, setImageToUpload] = useState(null);
   const [filterImage, setFilterImage] = useState('');
   const [imageLoader, setImageLoader] = useState(false);
+  const [imageToChange, setImageToChange] = useState('');
+  const [newImage, setNewImage] = useState('');
+  const [isLoadingChange, setIsLoadingChange] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     modal: {
@@ -95,6 +98,32 @@ const AdminUI = () => {
     getImages();
   }, []);
 
+  const changeImage = () => {
+    setIsLoadingChange(true);
+    console.log(imageToChange);
+    console.log(newImage);
+
+    if (imageToChange !== '' && newImage !== '') {
+      firebase
+        .firestore()
+        .collection('questions')
+        .where('image', '==', imageToChange)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach(function (doc) {
+            firebase.firestore().collection('questions').doc(doc.id).update({
+              image: newImage,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+
+            setImageToChange('');
+            setNewImage('');
+            setIsLoadingChange(false);
+          });
+        });
+    }
+  };
+
   if (isAdmin) {
     return (
       <>
@@ -106,6 +135,39 @@ const AdminUI = () => {
         {/* Navbar */}
         <Navbar isAdminNav={true} active={'immagini'} />
         <div className='admin-ui container-full main_content'>
+          {/* Image Change */}
+          <h2>Sostituisci immagine</h2>
+          <TextField
+            id='outlined-basic'
+            label='Scrivi il link del immagine da sostituire'
+            variant='outlined'
+            style={{ minWidth: '500px' }}
+            onChange={(e) => setImageToChange(e.target.value)}
+            value={imageToChange}
+          />
+          <img src={imageToChange} alt='' />
+          <br />
+          <br />
+          <TextField
+            id='outlined-basic'
+            label='Scrivi il link del immagine nuova'
+            variant='outlined'
+            style={{ minWidth: '500px' }}
+            onChange={(e) => setNewImage(e.target.value)}
+            value={newImage}
+          />
+          <img src={newImage} alt='' />
+          <br />
+          <br />
+          <Button
+            variant='contained'
+            component='span'
+            onClick={changeImage}
+            style={{ backgroundColor: '#2e88f2', color: 'white' }}
+          >
+            {!isLoadingChange ? 'Sostituisci immagine' : 'Caricamento...'}
+          </Button>
+
           {/* Image Upload */}
           <h2>Carica immagine</h2>
           <input

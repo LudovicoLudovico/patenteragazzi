@@ -16,7 +16,7 @@ const ProblemItem = ({ theoryId, id, image, title, theory, category }) => {
       .firestore()
       .collection('theory')
       .doc(theoryId)
-      .set({
+      .update({
         image: newImage,
         title: newTitle,
         category: newCategory,

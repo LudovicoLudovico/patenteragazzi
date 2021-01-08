@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import firebase from 'firebase/app';
+import dynamic from 'next/dynamic';
 
 //Material UI
 import Button from '@material-ui/core/Button';
@@ -17,9 +18,12 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 //Components
 import Timer from 'react-compound-timer';
-import Score from '../components/quiz/Score';
 import QuizBottom from '../components/quiz/QuizBottom';
 import QuizComp from '../components/quiz/QuizComp';
+
+const Score = dynamic(() => import('../components/quiz/Score'), {
+  loading: () => <p>Caricamento...</p>,
+});
 
 const newQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
@@ -31,7 +35,6 @@ const newQuiz = ({ questions, theory }) => {
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const [canReport, setCanReport] = useState([]);
 
   useEffect(() => {
     let extracted = [];
@@ -56,28 +59,6 @@ const newQuiz = ({ questions, theory }) => {
       }
     }
   }, []);
-
-  const setProblem = () => {
-    if (!canReport.includes(questionCounter)) {
-      const question = quizQuestions[questionCounter];
-      console.log(question);
-      firebase
-        .firestore()
-        .collection('problems')
-        .add({
-          type: 'question',
-          questionId: question.questionId,
-          question: question.question,
-          category: question.category,
-          image: question.image,
-          answer: question.answer,
-          response: question.response,
-        })
-        .then(() => {
-          setCanReport((canReport) => [...canReport, questionCounter]);
-        });
-    }
-  };
 
   //This func loops through the answers and check if there are
   //any undefined or null valuse. Then is stores their index in an array
@@ -267,20 +248,6 @@ const newQuiz = ({ questions, theory }) => {
                         />
                       </Timer>
                     </div>
-                    <Button
-                      className='quiz_problem active'
-                      onClick={setProblem}
-                      disabled={!canReport}
-                      variant='contained'
-                      style={{
-                        background: 'red',
-                        color: 'white',
-                      }}
-                    >
-                      <p>Segnala domanda</p>
-
-                      <WarningIcon />
-                    </Button>
                   </div>
 
                   {/* Top right section of the quiz, contains correct btn and close btn */}
@@ -294,9 +261,11 @@ const newQuiz = ({ questions, theory }) => {
                       Correggi
                     </Button>
 
-                    <Link href='/'>
-                      <a>
-                        <button className='close_quiz'>x</button>
+                    <Link href='/' passHref={true}>
+                      <a style={{ textDecoration: 'none' }}>
+                        <Button variant='contained' className='close_quiz'>
+                          Esci
+                        </Button>
                       </a>
                     </Link>
                   </div>
@@ -404,6 +373,7 @@ const newQuiz = ({ questions, theory }) => {
 };
 
 export async function getStaticProps(context) {
+  console.log(context);
   const questionsRaw = await getQuestions();
   const theoryRaw = await getTheory();
 

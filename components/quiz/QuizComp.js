@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from '@material-ui/core';
 import slugify from 'slugify';
 import firebase from 'firebase/app';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const QuizComp = ({
   questionCounter,
@@ -32,6 +33,19 @@ const QuizComp = ({
 
   return (
     <>
+      <Button
+        className={`quiz_problem  ${index == questionCounter ? 'active' : ''}`}
+        onClick={setProblem}
+        disabled={!canReport}
+        variant='contained'
+        style={{
+          background: 'red',
+          color: 'white',
+        }}
+      >
+        <p>Segnala domanda</p>
+        <WarningIcon />
+      </Button>
       <div
         key={slugify(`${question.question}${index}`, { lower: true })}
         className={`quiz_content ${index == questionCounter ? 'active' : ''} ${

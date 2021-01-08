@@ -23,7 +23,7 @@ const ProblemItem = ({
       .firestore()
       .collection('questions')
       .doc(questionId)
-      .set({
+      .update({
         image: newImage,
         question: newQuestion,
         category: newCategory,

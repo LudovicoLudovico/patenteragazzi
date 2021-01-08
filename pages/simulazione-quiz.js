@@ -6,9 +6,13 @@ import { decrypt } from '../lib/enc';
 import Timer from 'react-compound-timer';
 import uuid from 'react-uuid';
 import { Button, Modal } from '@material-ui/core';
-import Score from '../components/quiz/Score';
 import Link from 'next/link';
 import QuizSimComp from '../components/quizSim/QuizSimComp';
+
+import dynamic from 'next/dynamic';
+const Score = dynamic(() => import('../components/quiz/Score'), {
+  loading: () => <p>Caricamento...</p>,
+});
 
 const simulazioneQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);

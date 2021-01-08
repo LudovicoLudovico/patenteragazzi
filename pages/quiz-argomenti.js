@@ -15,11 +15,16 @@ import TopicQuizSelec from '../components/TopicQuizSelec';
 
 //Components
 import Timer from 'react-compound-timer';
-import QuizComp from '../components/quiz/QuizComp';
-import WrongAnswer from '../components/quiz/WrongAnswer';
-import QuizBottom from '../components/quiz/QuizBottom';
-import Score from '../components/quiz/Score';
 import { decrypt } from '../lib/enc';
+
+import dynamic from 'next/dynamic';
+const Score = dynamic(() => import('../components/quiz/Score'), {
+  loading: () => <p>Caricamento...</p>,
+});
+import QuizComp from '../components/quiz/QuizComp';
+const QuizBottom = dynamic(() => import('../components/quiz/QuizBottom'), {
+  loading: () => <p>Caricamento...</p>,
+});
 
 const quizArgomenti = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);

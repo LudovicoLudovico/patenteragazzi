@@ -43,7 +43,7 @@ const QuizTop = ({ correct, quizQuestions }) => {
 
         <Link href='/'>
           <a>
-            <button className='close_quiz'>x</button>
+            <button className='close_quiz'>Esci</button>
           </a>
         </Link>
       </div>
