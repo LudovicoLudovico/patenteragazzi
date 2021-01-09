@@ -3,7 +3,6 @@ import { Modal, Button } from '@material-ui/core';
 import slugify from 'slugify';
 import firebase from 'firebase/app';
 import WarningIcon from '@material-ui/icons/Warning';
-import uuid from 'react-uuid';
 
 const QuizComp = ({
   questionCounter,
@@ -22,6 +21,7 @@ const QuizComp = ({
       .add({
         type: 'question',
         question: question.question,
+        questionId: question.questionId,
         category: question.category,
         image: question.image,
         answer: question.answer,

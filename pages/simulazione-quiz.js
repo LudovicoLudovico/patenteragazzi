@@ -144,6 +144,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
     checkUngiven();
 
     if (ungivenState.position.length === 0) {
+      console.log('here');
       let quizQuestionsCopy = [...quizQuestions];
 
       for (let i = 0; i < 40; i++) {
@@ -477,6 +478,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
           ungivenState={ungivenState}
           correct={correct}
           forceCorrect={forceCorrect}
+          correctPopup={correctPopup}
           setCorrectPopup={(e) => setCorrectPopup(e)}
         />
 

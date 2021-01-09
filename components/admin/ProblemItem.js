@@ -18,6 +18,8 @@ const ProblemItem = ({
   const [newCategory, setNewCategory] = useState(category);
   const [newAnswer, setNewAnswer] = useState(answer);
 
+  console.log(questionId);
+
   const saveProblem = () => {
     firebase
       .firestore()

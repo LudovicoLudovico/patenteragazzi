@@ -59,6 +59,7 @@ const quizArgomenti = ({ questions, theory }) => {
           setQuizQuestions((quizQuestions) => [
             ...quizQuestions,
             {
+              questionId: questions[rand].id,
               question: decrypt(questsFiltered[rand].question),
               image: decrypt(questsFiltered[rand].image),
               response: questsFiltered[rand].response,
@@ -226,6 +227,7 @@ const quizArgomenti = ({ questions, theory }) => {
                 {quizQuestions.map((question, index) => {
                   return (
                     <QuizComp
+                      key={index}
                       questionCounter={questionCounter}
                       index={index}
                       question={question}
