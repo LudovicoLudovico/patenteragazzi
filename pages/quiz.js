@@ -1,37 +1,39 @@
 //Next/React imports
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Head from 'next/head';
 import Image from 'next/image';
-import { NextSeo } from 'next-seo';
-import firebase from 'firebase/app';
 import dynamic from 'next/dynamic';
 
-//Material UI
-import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
+// Decryption
 import { decrypt } from '../lib/enc';
-//Context/Fetch
+
+// Context/Fetch
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
-import WarningIcon from '@material-ui/icons/Warning';
 
-//Components
-import Timer from 'react-compound-timer';
+// Components
+import Seo from '../components/Seo';
 import QuizBottom from '../components/quiz/QuizBottom';
+import QuizTop from '../components/quiz/QuizTop';
 import QuizComp from '../components/quiz/QuizComp';
 
+// Dynamic Components
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'), {
+  loading: () => <p>Caricamento...</p>,
+});
 const Score = dynamic(() => import('../components/quiz/Score'), {
   loading: () => <p>Caricamento...</p>,
 });
 
+// Css Import
+import '../quiz.min.css';
+
+// Quiz Function
 const newQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState([]);
-  const [open, setOpen] = useState(false);
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
@@ -122,6 +124,7 @@ const newQuiz = ({ questions, theory }) => {
                 response: quizQuestionsCopy[i].response,
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
+                category: quizQuestionsCopy[i].category,
                 num: i,
               },
             ]);
@@ -134,6 +137,7 @@ const newQuiz = ({ questions, theory }) => {
                 response: quizQuestionsCopy[i].response,
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
+                category: quizQuestionsCopy[i].category,
                 num: i,
               },
             ]);
@@ -165,6 +169,7 @@ const newQuiz = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
+              category: quizQuestionsCopy[i].category,
               num: i,
             },
           ]);
@@ -177,6 +182,7 @@ const newQuiz = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
+              category: quizQuestionsCopy[i].category,
               num: i,
             },
           ]);
@@ -193,88 +199,24 @@ const newQuiz = ({ questions, theory }) => {
   if (quizQuestions.length !== 0) {
     return (
       <>
-        <NextSeo
-          title='Patenteragazzi - Quiz Patente Online AM/B'
-          description='Più di 7000 domande della patente AM/B'
+        <Seo
+          title='Quiz Patente Online AM/B'
+          description="Con i nostri quiz contenti 7000 domande della patente AM/B, puoi allenarti sulle stesse domande che troverai all'esame"
           canonical='https://patenteragazzi.it/quiz'
-          openGraph={{
-            url: 'https://patenteragazzi.it/quiz',
-            title: 'Patenteragazzi',
-            description: 'Più di 7000 domande della patente AM/B',
-            images: [
-              {
-                url: 'https://patenteragazzi.it/patenteragazzi-square.png',
-                width: 600,
-                height: 600,
-                alt: 'Patenteragazzi Logo',
-              },
-            ],
-            site_name: 'Patenteragazzi',
-          }}
         />
-        <Head>
-          <link rel='shortcut icon' href='/patenteragazzi.ico' />
-        </Head>
+
         <div className='quiz' id='quiz'>
           <div className='container'>
             {!showScore && (
               <div className='standard_quiz'>
-                <div className='quiz_top'>
-                  <div className='quiz_top_left'>
-                    <div className='quiz_timer'>
-                      {/* Timer */}
-                      {/* Timer value should be  1800000 (30:00) */}
-                      <Timer
-                        initialTime={1800000}
-                        startImmediately={true}
-                        direction='backward'
-                        checkpoints={[
-                          {
-                            time: 0,
-                            callback: () => correct(),
-                          },
-                        ]}
-                      >
-                        <Timer.Minutes
-                          formatValue={(value) =>
-                            `${value < 10 ? `0${value}` : value}`
-                          }
-                        />
-                        :
-                        <Timer.Seconds
-                          formatValue={(value) =>
-                            `${value < 10 ? `0${value}` : value}`
-                          }
-                        />
-                      </Timer>
-                    </div>
-                  </div>
-
-                  {/* Top right section of the quiz, contains correct btn and close btn */}
-                  <div className='quiz_top_right'>
-                    <Button
-                      variant='contained'
-                      className='correct_btn'
-                      onClick={correct}
-                      disabled={quizQuestions.length !== 40}
-                    >
-                      Correggi
-                    </Button>
-
-                    <Link href='/' passHref={true}>
-                      <a style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' className='close_quiz'>
-                          Esci
-                        </Button>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
+                {/* Quiz Top */}
+                <QuizTop correct={correct} quizQuestions={quizQuestions} />
 
                 {/* If there are quizQuestions in the state then display question, image and modal */}
                 {quizQuestions.map((question, index) => {
                   return (
                     <QuizComp
+                      key={index}
                       questionCounter={questionCounter}
                       index={index}
                       question={question}
@@ -287,6 +229,7 @@ const newQuiz = ({ questions, theory }) => {
                     />
                   );
                 })}
+
                 {/* Bottom Navigation */}
                 <QuizBottom
                   questionCounter={questionCounter}
@@ -296,62 +239,21 @@ const newQuiz = ({ questions, theory }) => {
               </div>
             )}
 
-            {ungivenState && (
-              <Modal
-                open={correctPopup}
-                onClick={() => setCorrectPopup(false)}
-                aria-labelledby='simple-modal-title'
-                aria-describedby='simple-modal-description'
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  outline: 'none',
-                }}
-              >
-                <div className='correct_popup'>
-                  {ungivenState.number !== 0 && (
-                    <>
-                      <h3>Non hai risposto a {ungivenState.number} domande</h3>
-                      <p>Vuoi consegnarlo comunque?</p>
-                      <Button
-                        variant='contained'
-                        className='correct_btn'
-                        onClick={forceCorrect}
-                      >
-                        Correggi
-                      </Button>
-                      <p className='correct_back'>Torna al quiz</p>
-                    </>
-                  )}
+            <UngivenModal
+              ungivenState={ungivenState}
+              correctPopup={correctPopup}
+              forceCorrect={forceCorrect}
+              setCorrectPopup={(e) => setCorrectPopup(e)}
+            />
 
-                  {ungivenState.number === 0 && (
-                    <>
-                      <h3>Hai completato il quiz!</h3>
-                      <p>Vuoi correggerlo?</p>
-                      <Button
-                        variant='contained'
-                        className='correct_btn'
-                        onClick={forceCorrect}
-                      >
-                        Correggi
-                      </Button>
-                      <p className='correct_back'>Torna al quiz</p>
-                    </>
-                  )}
-                </div>
-              </Modal>
-            )}
-
-            {showScore && (
-              <Score
-                quizQuestions={quizQuestions}
-                answers={answers}
-                score={score}
-                wrongAnswers={wrongAnswers}
-                theory={theory}
-              />
-            )}
+            <Score
+              showScore={showScore}
+              quizQuestions={quizQuestions}
+              answers={answers}
+              score={score}
+              wrongAnswers={wrongAnswers}
+              theory={theory}
+            />
           </div>
         </div>
       </>
@@ -372,8 +274,8 @@ const newQuiz = ({ questions, theory }) => {
   }
 };
 
+//Getting data during build
 export async function getStaticProps(context) {
-  console.log(context);
   const questionsRaw = await getQuestions();
   const theoryRaw = await getTheory();
 

@@ -1,16 +1,35 @@
 import React, { useState } from 'react';
-import uuid from 'react-uuid';
-import Modal from '@material-ui/core/Modal';
+import { Modal, Button } from '@material-ui/core';
 import { decrypt } from '../../lib/enc';
 import MDEditor from '@uiw/react-md-editor';
+import firebase from 'firebase/app';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const WrongAnswer = ({ wrong, theory, answers, isAllQuestions, index }) => {
   const [open, setOpen] = useState(false);
+  const [canReport, setCanReport] = useState(true);
+
+  const setProblem = () => {
+    firebase
+      .firestore()
+      .collection('problems')
+      .add({
+        type: 'question',
+        question: wrong.question,
+        category: wrong.category,
+        image: wrong.image,
+        answer: wrong.answer,
+        response: wrong.response,
+      })
+      .then(() => {
+        setCanReport(false);
+      });
+  };
 
   return (
     <div
       className={`wrong_answer ${wrong.image ? 'image' : 'no-image'}`}
-      key={uuid()}
+      style={{ position: 'relative' }}
     >
       <div className='wrong_answer_image'>
         {wrong.image && <img src={wrong.image} alt='' />}
@@ -92,15 +111,32 @@ const WrongAnswer = ({ wrong, theory, answers, isAllQuestions, index }) => {
             })()}
           </p>
         </div>
+      </div>
 
-        <img
-          src='/book.svg'
-          alt=''
-          className='open_theory'
-          onClick={() => setOpen(true)}
-        />
+      <div className='wrong_bottom'>
         {isAllQuestions && <p> {index + 1} / 40</p>}
         {!isAllQuestions && <p> {wrong.num + 1} / 40</p>}
+
+        <div>
+          <Button
+            className='quiz_problem active'
+            onClick={setProblem}
+            disabled={!canReport}
+            variant='contained'
+            style={{
+              background: 'red',
+              color: 'white',
+            }}
+          >
+            <WarningIcon />
+          </Button>
+          <img
+            src='/book.svg'
+            alt=''
+            className='open_theory'
+            onClick={() => setOpen(true)}
+          />
+        </div>
       </div>
     </div>
   );

@@ -12,6 +12,8 @@ import { useAdmin } from '../../context/adminContext';
 import { useUser } from '../../context/userContext';
 import UpdateTheory from '../../components/admin/UpdateTheory';
 import MDEditor from '@uiw/react-md-editor';
+
+import '../../admin.min.css';
 const theory = () => {
   const [theoryModal, setTheoryModal] = useState(false);
   const [theoryImage, setTheoryImage] = useState('');

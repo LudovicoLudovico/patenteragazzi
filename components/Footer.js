@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
+import '../footer.min.css';
 
 const Footer = () => {
+  useEffect(() => {
+    (function (w, d) {
+      var loader = function () {
+        var s = d.createElement('script'),
+          tag = d.getElementsByTagName('script')[0];
+        s.src = 'https://cdn.iubenda.com/iubenda.js';
+        tag.parentNode.insertBefore(s, tag);
+      };
+      if (w.addEventListener) {
+        w.addEventListener('load', loader, false);
+      } else if (w.attachEvent) {
+        w.attachEvent('onload', loader);
+      } else {
+        w.onload = loader;
+      }
+    })(window, document);
+  }, []);
   return (
     <div className='footer'>
       <div className='container-full'>
@@ -44,6 +62,14 @@ const Footer = () => {
               width={22}
               height={22}
             />
+          </a>
+
+          <a
+            href='https://www.iubenda.com/privacy-policy/49097191'
+            className='iubenda-white iubenda-embed'
+            title='Privacy Policy '
+          >
+            Privacy Policy
           </a>
         </div>
       </div>

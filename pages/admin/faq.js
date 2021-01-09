@@ -11,6 +11,8 @@ import Navbar from '../../components/Navbar';
 import firebase from 'firebase/app';
 import MDEditor from '@uiw/react-md-editor';
 
+import '../../admin.min.css';
+
 const faq = () => {
   const [faqQuestion, setFaqQuestion] = useState('');
   const [faqAnswer, setFaqAnswer] = useState('');

@@ -1,3 +1,17 @@
+/*
+  COLORS
+*/
+$blue: #00408b;
+$dark-blue: #011328;
+$white: #f4f4f4;
+$red: #9d0606;
+$green: #06690d;
+$yellow: #b35600;
+$sim-green: #cfe6d6;
+
+/*
+  SCORE
+*/
 .score {
   height: 95vh;
   margin-top: -3vh;
@@ -74,40 +88,72 @@
       width: calc(50% - 20px);
       min-width: 400px;
       border: 1px solid $white;
-      display: grid;
 
-      &.image {
-        grid-template-columns: 200px 1fr;
-      }
+      display: grid;
+      grid-template-areas: 'WrongImage WrongContent' 'WrongBottom WrongBottom';
+      padding-right: 20px;
 
       .wrong_answer_image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-right: 20px;
-
         img {
           width: 150px;
           height: auto;
+          grid-area: WrongImage;
+        }
+
+        .wrong_answer_content {
+          grid-area: WrongContent;
+
+          p {
+            display: inline;
+            line-height: 1.5;
+          }
         }
       }
 
-      .wrong_answer_content {
-        p {
-          line-height: 1.5;
+      .wrong_bottom {
+        grid-area: WrongBottom;
+        margin-top: 30px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div {
+          width: 140px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
         .open_theory {
           height: 40px;
           width: auto;
-          float: right;
+          margin: 0;
           cursor: pointer;
         }
+      }
+
+      .wrong_answer_content {
+        padding-left: 20px;
         div {
-          margin-top: 40px;
           display: grid;
+          grid-template-rows: 1fr 1fr;
           grid-template-columns: 1fr 1fr;
-          p {
-            margin: 5px;
+        }
+
+        p {
+          line-height: 1.5;
+        }
+
+        .wrong_bottom {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          .open_theory {
+            height: 40px;
+            width: auto;
+
+            cursor: pointer;
           }
         }
       }
@@ -177,6 +223,11 @@
       .wrong_answer {
         display: flex;
         flex-direction: column;
+
+        .wrong_answer_image {
+          display: flex;
+          justify-content: center;
+        }
       }
     }
   }

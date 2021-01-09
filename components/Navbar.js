@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useUser } from '../context/userContext';
 import Image from 'next/image';
 import Link from 'next/link';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
+
+import '../navbar.min.css';
 
 const Navbar = ({ isAdminNav, active }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ const Navbar = ({ isAdminNav, active }) => {
     }
   };
 
-  const { loadingUser, user, login, logout } = useUser();
+  const { user, login, logout } = useUser();
 
   return (
     <div className='navbar'>

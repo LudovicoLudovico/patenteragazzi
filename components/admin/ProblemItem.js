@@ -37,7 +37,7 @@ const ProblemItem = ({
 
   return (
     <div className='problems_item' key={id}>
-      <img src={image} alt='Nessun immagine' />
+      <img src={newImage} alt='Nessun immagine' />
       <br />
       <br />
       <TextField

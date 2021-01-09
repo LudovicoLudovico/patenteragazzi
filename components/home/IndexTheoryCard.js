@@ -1,13 +1,16 @@
 import React from 'react';
 import slugify from 'slugify';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@material-ui/core';
 
 const IndexTheoryCard = ({ title, image, slug }) => {
   return (
     <div className='index_theory_card'>
-      <img src={image} alt='' />
-      <div>
+      <div className='index_theory_card_image'>
+        <Image src={image} height={250} width={250} layout={'intrinsic'} />
+      </div>
+      <div className='index_theory_card_content'>
         <h3>{title}</h3>
         <Link href={`/teoria#${slugify(slug, { lower: true })}`}>
           <a>

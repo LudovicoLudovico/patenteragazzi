@@ -1,6 +1,12 @@
 import React from 'react';
+import { Modal, Button } from '@material-ui/core';
 
-const UngivenModal = ({ ungivenState, correctPopup, forceCorrect }) => {
+const UngivenModal = ({
+  ungivenState,
+  correctPopup,
+  forceCorrect,
+  setCorrectPopup,
+}) => {
   return (
     <div>
       {ungivenState && (
@@ -28,6 +34,7 @@ const UngivenModal = ({ ungivenState, correctPopup, forceCorrect }) => {
                 >
                   Correggi
                 </Button>
+                <p>Torna al quiz</p>
               </>
             )}
 
@@ -42,6 +49,7 @@ const UngivenModal = ({ ungivenState, correctPopup, forceCorrect }) => {
                 >
                   Correggi
                 </Button>
+                <p>Torna al quiz</p>
               </>
             )}
           </div>

@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { NextSeo } from 'next-seo';
 import { getTheory } from '../fetchData/getTheory';
-import { TextField } from '@material-ui/core';
+
 import dynamic from 'next/dynamic';
 
+const SearchBox = dynamic(() => import('../components/SearchBox'), {
+  ssr: false,
+  loading: () => <p>Caricamento...</p>,
+});
 const Theory1 = dynamic(() => import('../components/theory/Theory1'), {
   loading: () => <p>Caricamento...</p>,
 });
@@ -84,47 +88,23 @@ const Theory26 = dynamic(() => import('../components/theory/Theory26'), {
   loading: () => <p>Caricamento...</p>,
 });
 
+import Seo from '../components/Seo';
+
 const teoria = ({ theory }) => {
   const [filteredTheory, setFilteredTheory] = useState([...theory]);
   const [filters, setFilters] = useState('');
   return (
     <>
-      <NextSeo
-        title='Patenteragazzi - Teoria'
+      <Seo
+        title='Teoria'
         description="Tutta la teoria necessaria a passare l'esame di teoria"
         canonical='https://patenteragazzi.it/teoria'
-        openGraph={{
-          url: 'https://patenteragazzi.it/teoria',
-          title: 'Patenteragazzi',
-          description: "Tutta la teoria necessaria a passare l'esame di teoria",
-          images: [
-            {
-              url: 'https://patenteragazzi.it/patenteragazzi-square.png',
-              width: 600,
-              height: 600,
-              alt: 'Patenteragazzi Logo',
-            },
-          ],
-          site_name: 'Patenteragazzi',
-        }}
       />
       <Navbar active={'teoria'} />
       <div className='container theoryList main_content'>
         <h1>Teoria</h1>
         <br />
-        <TextField
-          id='outlined-basic'
-          label='Trova teoria...'
-          variant='outlined'
-          style={{ width: '100%', maxWidth: 800 }}
-          inputProps={{
-            autoComplete: 'off',
-          }}
-          onChange={(e) => {
-            setFilters(e.target.value);
-          }}
-          value={filters}
-        />
+        <SearchBox filters={filters} setFilters={(e) => setFilters(e)} />
         <br />
         <br />
         <Theory1 filteredTheory={filteredTheory} filters={filters} />

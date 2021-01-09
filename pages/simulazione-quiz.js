@@ -10,9 +10,16 @@ import Link from 'next/link';
 import QuizSimComp from '../components/quizSim/QuizSimComp';
 
 import dynamic from 'next/dynamic';
+import Seo from '../components/Seo';
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'), {
+  loading: () => <p>Caricamento...</p>,
+});
+
 const Score = dynamic(() => import('../components/quiz/Score'), {
   loading: () => <p>Caricamento...</p>,
 });
+
+import '../quizSim.min.css';
 
 const simulazioneQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
@@ -103,26 +110,6 @@ const simulazioneQuiz = ({ questions, theory }) => {
     }
   };
 
-  const shuffleArray = () => {
-    var array = [...quizQuestions];
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    setQuizQuestions(array);
-  };
   useEffect(() => {
     filterAndSet('Segnali di pericolo', 2);
     filterAndSet('Segnali di divieto', 2);
@@ -172,6 +159,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 response: quizQuestionsCopy[i].response,
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
+                category: quizQuestionsCopy[i].category,
                 num: i,
               },
             ]);
@@ -184,6 +172,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 response: quizQuestionsCopy[i].response,
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
+                category: quizQuestionsCopy[i].category,
                 num: i,
               },
             ]);
@@ -215,6 +204,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
+              category: quizQuestionsCopy[i].category,
               num: i,
             },
           ]);
@@ -227,6 +217,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
+              category: quizQuestionsCopy[i].category,
               num: i,
             },
           ]);
@@ -276,25 +267,10 @@ const simulazioneQuiz = ({ questions, theory }) => {
   };
   return (
     <>
-      <NextSeo
-        title='Simulazione Esame AM/B - Patenteragazzi'
+      <Seo
+        title='Simulazione Esame AM/B'
         description="Simulazione d'esame con il layout della scheda che ti sarà presentata all'esame"
         canonical='https://patenteragazzi.it/simulazione-quiz'
-        openGraph={{
-          url: 'https://patenteragazzi.it/simulazione-quiz',
-          title: 'Patenteragazzi',
-          description:
-            "Simulazione d'esame con il layout della scheda che ti sarà presentata all'esame",
-          images: [
-            {
-              url: 'https://patenteragazzi.it/patenteragazzi-square.png',
-              width: 600,
-              height: 600,
-              alt: 'Patenteragazzi Logo',
-            },
-          ],
-          site_name: 'Patenteragazzi',
-        }}
       />
 
       <div className='quiz-sim'>
@@ -497,68 +473,21 @@ const simulazioneQuiz = ({ questions, theory }) => {
             </div>
           </div>
         )}
-        {ungivenState && (
-          <Modal
-            open={correctPopup}
-            onClick={() => setCorrectPopup(false)}
-            aria-labelledby='simple-modal-title'
-            aria-describedby='simple-modal-description'
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              outline: 'none',
-            }}
-          >
-            <div className='correct_popup'>
-              {ungivenState.number !== 0 && (
-                <>
-                  <h3>
-                    Non hai risposto a {ungivenState.number} domande. Vuoi
-                    consegnarlo comunque?
-                  </h3>
+        <UngivenModal
+          ungivenState={ungivenState}
+          correct={correct}
+          forceCorrect={forceCorrect}
+          setCorrectPopup={(e) => setCorrectPopup(e)}
+        />
 
-                  <Button
-                    variant='contained'
-                    className='correct_btn'
-                    onClick={forceCorrect}
-                  >
-                    Correggi
-                  </Button>
-                  <p
-                    className='correct_popup_back'
-                    onClick={() => setShowScore(false)}
-                  >
-                    Torna al quiz
-                  </p>
-                </>
-              )}
-
-              {ungivenState.number === 0 && (
-                <>
-                  <h3>Hai completato il quiz!</h3>
-                  <p>Vuoi correggerlo?</p>
-                  <Button
-                    variant='contained'
-                    className='correct_btn'
-                    onClick={forceCorrect}
-                  >
-                    Correggi
-                  </Button>
-                </>
-              )}
-            </div>
-          </Modal>
-        )}
-        {showScore && (
-          <Score
-            score={score}
-            wrongAnswers={wrongAnswers}
-            theory={theory}
-            quizQuestions={quizQuestions}
-            answers={answers}
-          />
-        )}
+        <Score
+          showScore={showScore}
+          score={score}
+          wrongAnswers={wrongAnswers}
+          theory={theory}
+          quizQuestions={quizQuestions}
+          answers={answers}
+        />
       </div>
     </>
   );

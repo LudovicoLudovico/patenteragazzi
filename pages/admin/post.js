@@ -3,16 +3,13 @@ import MDEditor from '@uiw/react-md-editor';
 import Navbar from '../../components/Navbar';
 import Head from 'next/head';
 import Image from 'next/image';
-import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Button,
-} from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 
 import firebase from 'firebase/app';
 import { useUser } from '../../context/userContext';
 import { makeStyles } from '@material-ui/core/styles';
+
+import '../../admin.min.css';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {

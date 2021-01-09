@@ -3,7 +3,9 @@ import Navbar from '../../components/Navbar';
 import firebase from 'firebase/app';
 import ProblemItem from '../../components/admin/ProblemItem';
 import TheoryProblemItem from '../../components/admin/TheoryProblemItem';
-import { Button, TextField } from '@material-ui/core';
+
+import '../../admin.min.css';
+
 const problems = () => {
   const [questionsProblems, setQuestionsProblems] = useState([]);
   const [theoryProblems, setTheoryProblems] = useState([]);

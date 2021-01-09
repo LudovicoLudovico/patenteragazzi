@@ -1,38 +1,44 @@
 //Next/React imports
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Head from 'next/head';
-import Image from 'next/image';
-import { NextSeo } from 'next-seo';
+import dynamic from 'next/dynamic';
+
+//Getting data
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
 
 //Material UI
-import { Modal, Button } from '@material-ui/core';
-
-//Context/Fetch
-import TopicQuizSelec from '../components/TopicQuizSelec';
+import { Button } from '@material-ui/core';
 
 //Components
-import Timer from 'react-compound-timer';
 import { decrypt } from '../lib/enc';
 
-import dynamic from 'next/dynamic';
-const Score = dynamic(() => import('../components/quiz/Score'), {
-  loading: () => <p>Caricamento...</p>,
-});
+//Components
+import QuizTop from '../components/quiz/QuizTop';
+import Seo from '../components/Seo';
 import QuizComp from '../components/quiz/QuizComp';
+import QuizTopicsList from '../components/quiz/QuizTopicsList';
+
 const QuizBottom = dynamic(() => import('../components/quiz/QuizBottom'), {
   loading: () => <p>Caricamento...</p>,
 });
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'), {
+  loading: () => <p>Caricamento...</p>,
+});
+const Score = dynamic(() => import('../components/quiz/Score'), {
+  loading: () => <p>Caricamento...</p>,
+});
 
+//Style
+import '../quizTopics.min.css';
+
+//Topic Quiz Function
 const quizArgomenti = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState([]);
-  const [open, setOpen] = useState(false);
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -132,6 +138,7 @@ const quizArgomenti = ({ questions, theory }) => {
                 response: quizQuestionsCopy[i].response,
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
+                category: quizQuestionsCopy[i].category,
                 num: i,
               },
             ]);
@@ -144,6 +151,7 @@ const quizArgomenti = ({ questions, theory }) => {
                 response: quizQuestionsCopy[i].response,
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
+                category: quizQuestionsCopy[i].category,
                 num: i,
               },
             ]);
@@ -175,6 +183,7 @@ const quizArgomenti = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
+              category: quizQuestionsCopy[i].category,
               num: i,
             },
           ]);
@@ -187,6 +196,7 @@ const quizArgomenti = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
+              category: quizQuestionsCopy[i].category,
               num: i,
             },
           ]);
@@ -198,85 +208,21 @@ const quizArgomenti = ({ questions, theory }) => {
     setCorrectPopup(false);
   };
 
-  //If 5 questions are loaded then display UI, in the meantime display
-  //a loading screen with rotating icon
-  if (showQuiz) {
-    return (
-      <>
-        <NextSeo
-          title='Patenteragazzi - Quiz Patente Online AM/B'
-          description='Più di 7000 domande della patente AM/B'
-          canonical='https://patenteragazzi.it/quiz-argomenti'
-          openGraph={{
-            url: 'https://patenteragazzi.it/quiz-argomenti',
-            title: 'Patenteragazzi',
-            description: 'Più di 7000 domande della patente AM/B',
-            images: [
-              {
-                url: 'https://patenteragazzi.it/patenteragazzi-square.png',
-                width: 600,
-                height: 600,
-                alt: 'Patenteragazzi Logo',
-              },
-            ],
-            site_name: 'Patenteragazzi',
-          }}
-        />
-        <Head>
-          <link rel='shortcut icon' href='/patenteragazzi.ico' />
-        </Head>
+  return (
+    <>
+      <Seo
+        title='Quiz Argomenti Patente Online AM/B'
+        description='Più di 7000 domande della patente AM/B'
+        canonical='https://patenteragazzi.it/quiz-argomenti'
+      />
+
+      {/* Do quiz */}
+      {showQuiz && (
         <div className='quiz quiz-argomenti' id='quiz'>
           <div className='container'>
             {!showScore && showQuiz && (
               <div className='standard_quiz'>
-                <div className='quiz_top'>
-                  <div className='quiz_timer'>
-                    {/* Timer */}
-                    {/* Timer value should be  1800000 (30:00) */}
-                    <Timer
-                      initialTime={1800000}
-                      startImmediately={true}
-                      direction='backward'
-                      checkpoints={[
-                        {
-                          time: 0,
-                          callback: () => correct(),
-                        },
-                      ]}
-                    >
-                      <Timer.Minutes
-                        formatValue={(value) =>
-                          `${value < 10 ? `0${value}` : value}`
-                        }
-                      />
-                      :
-                      <Timer.Seconds
-                        formatValue={(value) =>
-                          `${value < 10 ? `0${value}` : value}`
-                        }
-                      />
-                    </Timer>
-                  </div>
-
-                  {/* Top right section of the quiz, contains correct btn and close btn */}
-                  <div className='quiz_top_right'>
-                    <Button
-                      variant='contained'
-                      className='correct_btn'
-                      onClick={correct}
-                      disabled={quizQuestions.length !== 40}
-                    >
-                      Correggi
-                    </Button>
-
-                    <Link href='/'>
-                      <a>
-                        <button className='close_quiz'>x</button>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-
+                <QuizTop correct={correct} quizQuestions={quizQuestions} />
                 {quizQuestions.map((question, index) => {
                   return (
                     <QuizComp
@@ -301,53 +247,16 @@ const quizArgomenti = ({ questions, theory }) => {
               </div>
             )}
 
-            {ungivenState && (
-              <Modal
-                open={correctPopup}
-                onClick={() => setCorrectPopup(false)}
-                aria-labelledby='simple-modal-title'
-                aria-describedby='simple-modal-description'
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  outline: 'none',
-                }}
-              >
-                <div className='correct_popup'>
-                  {ungivenState.number !== 0 && (
-                    <>
-                      <h3>Non hai risposto a {ungivenState.number} domande</h3>
-                      <p>Vuoi consegnarlo comunque?</p>
-                      <Button
-                        variant='contained'
-                        className='correct_btn'
-                        onClick={forceCorrect}
-                      >
-                        Correggi
-                      </Button>
-                    </>
-                  )}
-
-                  {ungivenState.number === 0 && (
-                    <>
-                      <h3>Hai completato il quiz!</h3>
-                      <p>Vuoi correggerlo?</p>
-                      <Button
-                        variant='contained'
-                        className='correct_btn'
-                        onClick={forceCorrect}
-                      >
-                        Correggi
-                      </Button>
-                    </>
-                  )}
-                </div>
-              </Modal>
-            )}
+            <UngivenModal
+              ungivenState={ungivenState}
+              correctPopup={correctPopup}
+              forceCorrect={forceCorrect}
+              setCorrectPopup={(e) => setCorrectPopup(e)}
+            />
 
             {showScore && showQuiz && (
               <Score
+                showScore={showScore}
                 score={score}
                 wrongAnswers={wrongAnswers}
                 theory={theory}
@@ -357,30 +266,10 @@ const quizArgomenti = ({ questions, theory }) => {
             )}
           </div>
         </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <NextSeo
-          title='Quiz Patente Argomenti - Patenteragazzi'
-          description='Più di 7000 domande della patente AM/B'
-          canonical='https://patenteragazzi.it/quiz-argomenti'
-          openGraph={{
-            url: 'https://patenteragazzi.it/quiz-argomenti',
-            title: 'Patenteragazzi',
-            description: 'Più di 7000 domande della patente AM/B',
-            images: [
-              {
-                url: 'https://patenteragazzi.it/patenteragazzi-square.png',
-                width: 600,
-                height: 600,
-                alt: 'Patenteragazzi Logo',
-              },
-            ],
-            site_name: 'Patenteragazzi',
-          }}
-        />
+      )}
+
+      {/* Chose the topics of the quiz */}
+      {!showQuiz && (
         <div className='topic-choice '>
           <div className='container-full'>
             <div className='topic-choice-top'>
@@ -393,163 +282,28 @@ const quizArgomenti = ({ questions, theory }) => {
                 >
                   Inizia quiz
                 </Button>
-                <Link href='/'>
-                  <a>
-                    <button className='close_quiz'>X</button>
+                <Link href='/' passHref>
+                  <a style={{ textDecoration: 'none' }}>
+                    <Button variant='contained' className='close_quiz'>
+                      Esci
+                    </Button>
                   </a>
                 </Link>
               </div>
             </div>
-
-            <div className='topics-list'>
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={"Definizioni generali e doveri nell'uso della strada"}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnali di pericolo'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnali di divieto'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnali di obbligo'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnali di precedenza'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnaletica orizzontale e segni sugli ostacoli'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnalazioni semaforiche e degli agenti del traffico'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnali di indicazione'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Segnali complementari, segnali temporanei e di cantiere'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Pannelli integrativi dei segnali'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Limiti di velocità, pericolo e intralcio alla circolazione'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Distanza di sicurezza'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Norme sulla circolazione dei veicolio'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Esempi di precedenza (ordine di precedenza agli incroci)'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Fermata, sosta, arresto e partenza'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Norme varie (ingombro della carreggiata, circolazione su autostrade e strade extraurbane principali, trasporto di persone, pannelli sui veicoli, etc.)'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Uso delle luci e dei dispositivi acustici, spie e simboli'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti, uso di lenti e altri apparecchi'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={'Incidenti stradali e comportamenti in caso di incidente'}
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Responsabilità civile, penale e amministrativa, assicurazione r.c.a. e altre forme assicurative legate al veicolo'
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  "Limitazione dei consumi, rispetto dell'ambiente e inquinamento"
-                }
-              />
-              <TopicQuizSelec
-                filters={filters}
-                setFilters={setFilters}
-                text={
-                  'Elementi costitutivi del veicolo, manutenzione ed uso, stabilità e tenuta di strada, comportamenti e cautele di guida'
-                }
-              />
-            </div>
+            {/* Theory List */}
+            <QuizTopicsList
+              filters={filters}
+              setFilters={(e) => setFilters(e)}
+            />
           </div>
         </div>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 };
 
+// Getting data at build time
 export async function getStaticProps(context) {
   const questionsRaw = await getQuestions();
   const theoryRaw = await getTheory();

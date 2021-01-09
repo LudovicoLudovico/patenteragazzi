@@ -42,8 +42,8 @@ const QuizTop = ({ correct, quizQuestions }) => {
         </Button>
 
         <Link href='/'>
-          <a>
-            <button className='close_quiz'>Esci</button>
+          <a style={{ textDecoration: 'none' }}>
+            <Button className='close_quiz'>Esci</Button>
           </a>
         </Link>
       </div>
