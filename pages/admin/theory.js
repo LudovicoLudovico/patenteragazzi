@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
 import firebase from 'firebase/app';
-import Editor from '../../components/admin/Editor';
 import Navbar from '../../components/Navbar';
 import { TextField, Modal, Button, Backdrop, Fade } from '@material-ui/core';
 import { PaginatedList } from 'react-paginated-list';
@@ -9,7 +8,6 @@ import { PaginatedList } from 'react-paginated-list';
 import CategoryList from '../../components/CategoryList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAdmin } from '../../context/adminContext';
-import { useUser } from '../../context/userContext';
 import UpdateTheory from '../../components/admin/UpdateTheory';
 import MDEditor from '@uiw/react-md-editor';
 

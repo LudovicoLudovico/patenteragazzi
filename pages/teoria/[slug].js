@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getTheory } from '../../fetchData/getTheory';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
+import { getTheoryQuestions } from '../../fetchData/getTheoryQuestions';
 import { decrypt } from '../../lib/enc';
 import slugify from 'slugify';
 import { unslugify } from 'unslugify';
@@ -17,7 +18,7 @@ import dynamic from 'next/dynamic';
 const AdBanner = dynamic(() => import('../../components/AdBanner'), {
   ssr: false,
 });
-const slug = ({ theoryItem }) => {
+const slug = ({ theoryItem, questions }) => {
   const [canReport, setCanReport] = useState(true);
 
   const setProblem = () => {
@@ -111,6 +112,28 @@ const slug = ({ theoryItem }) => {
               <br />
               <br />
               <AdBanner />
+
+              <h2>Domande</h2>
+
+              <div className='theory_questions'>
+                <div className='theory_questions_table'>
+                  {questions.map((question) => {
+                    return (
+                      <div className='theory_questions_item' key={question.id}>
+                        <div>{decrypt(question.question)}</div>
+                        <p
+                          className={`theory_questions_item_response  ${
+                            question.response ? 'true' : 'false'
+                          }`}
+                        >
+                          {question.response ? 'Vero' : 'Falso'}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <AdBanner />
             </div>
           </div>
         </>
@@ -140,12 +163,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const theoryItem = await getTheoryItem(params.slug);
+  const questions = await getTheoryQuestions(theoryItem.id);
 
   return {
     props: {
       theoryItem: theoryItem || null,
+      questions: questions || null,
     },
-    revalidate: 60 * 5,
   };
 }
 export default slug;

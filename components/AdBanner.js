@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 
-const AdBanner = () => {
+const AdBanner = (props) => {
   useEffect(() => {
+    console.log('ran');
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [props.currentPath]);
 
   return (
     <>

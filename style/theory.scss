@@ -23,6 +23,36 @@ $sim-green: #cfe6d6;
     right: 0;
   }
 
+  .theory_questions {
+    .theory_questions_item {
+      background-color: $blue;
+      color: white;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      margin: 10px 0;
+      div {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .theory_questions_item_response {
+        margin: 0;
+        padding: 20px;
+        background-color: $dark-blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.true {
+          background-color: $green;
+        }
+        &.false {
+          background-color: $red;
+        }
+      }
+    }
+  }
   h2 {
     padding-top: 20px;
   }
