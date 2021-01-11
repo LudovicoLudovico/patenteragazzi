@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import Navbar from '../../components/Navbar';
 import { TextField, Modal, Button, Backdrop, Fade } from '@material-ui/core';
 import { PaginatedList } from 'react-paginated-list';
-
+import { useUser } from '../../context/userContext';
 import CategoryList from '../../components/CategoryList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAdmin } from '../../context/adminContext';
