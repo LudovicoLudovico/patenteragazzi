@@ -49,11 +49,11 @@ const IndexNavbar = () => {
         <Link href='/#faq'>
           <a title='faq'>FAQ</a>
         </Link>
-        <Link href='/'>
+        {/* <Link href='/'>
           <a className='disabled' title='post'>
             POST
           </a>
-        </Link>
+        </Link> */}
         <Link href='/teoria'>
           <a title='teoria'>TEORIA</a>
         </Link>

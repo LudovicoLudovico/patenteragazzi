@@ -13,14 +13,26 @@ $sim-green: #cfe6d6;
   SCORE
 */
 .score {
-  height: 95vh;
-  margin-top: -3vh;
+  height: 93vh;
+  margin-top: 3vh;
   color: white;
   position: relative;
   width: 100%;
   max-width: 1400px;
   overflow-x: hidden;
   overflow-y: hidden;
+  padding-bottom: 90px;
+
+  .score {
+    .score_banner {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+    }
+  }
 
   .score_top {
     box-sizing: border-box;
@@ -164,6 +176,7 @@ $sim-green: #cfe6d6;
 @media (max-width: 900px) {
   .score {
     .wrong_answer_container {
+      height: 60vh;
       .wrong_answer {
         width: 100%;
         min-width: 0;
@@ -219,7 +232,7 @@ $sim-green: #cfe6d6;
       }
     }
     .wrong_answer_container {
-      height: 80%;
+      height: 70vh;
       .wrong_answer {
         display: flex;
         flex-direction: column;

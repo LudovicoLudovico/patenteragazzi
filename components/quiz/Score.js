@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import WrongAnswer from './WrongAnswer';
 import Link from 'next/link';
 import '../../score.min.css';
+import dynamic from 'next/dynamic';
+const AdBanner = dynamic(() => import('../AdBanner'), {
+  ssr: false,
+});
 
 const Score = ({
   showScore,
@@ -104,6 +108,10 @@ const Score = ({
                 })}
               </>
             )}
+          </div>
+
+          <div className='score_banner'>
+            <AdBanner />
           </div>
         </div>
       )}

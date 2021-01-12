@@ -43,10 +43,10 @@ const Navbar = ({ isAdminNav, active }) => {
               <Link href='/#faq'>
                 <a className={active == 'faq' ? 'active' : ''}>FAQ</a>
               </Link>
-              <Link href='/post'>
+              {/* <Link href='/post'>
                 <a className='disabled'>POST</a>
-                {/* className={active == 'post' ? 'active' : ''} */}
-              </Link>
+                className={active == 'post' ? 'active' : ''}
+              </Link> */}
               <Link href='/teoria'>
                 <a className={active == 'teoria' ? 'active' : ''}>TEORIA</a>
               </Link>
@@ -124,6 +124,9 @@ const Navbar = ({ isAdminNav, active }) => {
               </Link>
               <Link href='/admin/problems'>
                 <a className={active == 'problems' ? 'active' : ''}>PROBLEMI</a>
+              </Link>
+              <Link href='/admin/videos'>
+                <a className={active == 'videos' ? 'active' : ''}>VIDEO</a>
               </Link>
               <span></span>
 

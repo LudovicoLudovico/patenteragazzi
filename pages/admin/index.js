@@ -5,8 +5,6 @@ import firebase from 'firebase/app';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
-import slugify from 'slugify';
-import { unslugify } from 'unslugify';
 
 //Material-UI
 import Button from '@material-ui/core/Button';
@@ -62,15 +60,6 @@ const AdminUI = () => {
 
   const classes = useStyles();
 
-  //Handle Image Selection
-  const handleImageSelection = (e) => {
-    if (e.target.files[0]) {
-      setImageToUpload(e.target.files[0]);
-    } else {
-      setImageToUpload(null);
-    }
-  };
-
   const handleImageUpload = (e) => {
     const image = e.target.files[0];
     setImageLoader(true);
@@ -96,9 +85,6 @@ const AdminUI = () => {
   };
 
   //On page load get all images
-  useEffect(() => {
-    getImages();
-  }, []);
 
   const changeImage = () => {
     setIsLoadingChange(true);
@@ -124,6 +110,10 @@ const AdminUI = () => {
           });
         });
     }
+  };
+
+  const loadImages = () => {
+    getImages();
   };
 
   if (isAdmin) {
@@ -221,6 +211,16 @@ const AdminUI = () => {
           />
           <br />
           <br />
+
+          <Button
+            variant='contained'
+            component='span'
+            style={{ backgroundColor: '#2e88f2', color: 'white' }}
+            onClick={loadImages}
+          >
+            Immagini
+          </Button>
+
           <div className='image_item_container'>
             {images &&
               images
