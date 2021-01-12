@@ -11,14 +11,15 @@ const ProblemItem = ({
   response,
   category,
   answer,
+  hasProblemAnswer,
+  hasProblemImage,
+  hasProblemQuestion,
 }) => {
   const [newImage, setNewImage] = useState(image);
   const [newQuestion, setNewQuestion] = useState(question);
   const [newResponse, setNewResponse] = useState(response);
   const [newCategory, setNewCategory] = useState(category);
   const [newAnswer, setNewAnswer] = useState(answer);
-
-  console.log(questionId);
 
   const saveProblem = () => {
     firebase
@@ -39,6 +40,12 @@ const ProblemItem = ({
 
   return (
     <div className='problems_item' key={id}>
+      <h3>Tiplogia di problemi:</h3>
+      <ul>
+        {hasProblemImage && <li>Immagine</li>}
+        {hasProblemAnswer && <li>Risposta</li>}
+        {hasProblemQuestion && <li>Domanda</li>}
+      </ul>
       <img src={newImage} alt='Nessun immagine' />
       <br />
       <br />

@@ -28,6 +28,9 @@ const problems = () => {
               answer: doc.data().answer,
               response: doc.data().response,
               image: doc.data().image,
+              hasProblemAnswer: doc.data().hasProblemAnswer,
+              hasProblemImage: doc.data().hasProblemImage,
+              hasProblemQuestion: doc.data().hasProblemQuestion,
             },
           ]);
         });
@@ -75,6 +78,9 @@ const problems = () => {
                 response={prob.response}
                 category={prob.category}
                 answer={prob.answer}
+                hasProblemAnswer={prob.hasProblemAnswer}
+                hasProblemQuestion={prob.hasProblemQuestion}
+                hasProblemImage={prob.hasProblemImage}
               />
             );
           })}
