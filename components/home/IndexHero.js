@@ -13,7 +13,7 @@ const IndexHero = () => {
     <div className='index_hero'>
       <div className='index_hero_button'>
         <Link href='/quiz'>
-          <a>
+          <a title='Quiz'>
             <Button
               variant='contained'
               onClick={(e) => {
@@ -26,7 +26,7 @@ const IndexHero = () => {
         </Link>
 
         <Link href='/simulazione-quiz'>
-          <a>
+          <a title='Quiz Simulazione Esame'>
             <Button
               variant='contained'
               style={{
@@ -42,7 +42,7 @@ const IndexHero = () => {
         </Link>
 
         <Link href='/quiz-argomenti'>
-          <a>
+          <a title='Quiz Su Argomenti'>
             <Button
               variant='contained'
               style={{

@@ -17,12 +17,8 @@ import QuizTop from '../components/quiz/QuizTop';
 import QuizComp from '../components/quiz/QuizComp';
 
 // Dynamic Components
-const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'), {
-  loading: () => <p>Caricamento...</p>,
-});
-const Score = dynamic(() => import('../components/quiz/Score'), {
-  loading: () => <p>Caricamento...</p>,
-});
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
+const Score = dynamic(() => import('../components/quiz/Score'));
 
 // Css Import
 import '../quiz.min.css';

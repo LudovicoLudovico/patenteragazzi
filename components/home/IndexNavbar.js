@@ -34,7 +34,7 @@ const IndexNavbar = () => {
           height={138}
           layout={'intrinsic'}
         />
-        <h1>Patenteragazzi</h1>
+        <h1>PatenteRagazzi</h1>
       </div>
 
       <div className='index_menu'>
@@ -86,7 +86,7 @@ const IndexNavbar = () => {
         {user && user.picture && (
           <Image
             src={user.picture}
-            alt='Instagram'
+            alt='Foto utente'
             width={40}
             height={40}
             onClick={logout}

@@ -28,7 +28,7 @@ const Navbar = ({ isAdminNav, active }) => {
       <div className='container-full'>
         <div className='logo'>
           <img src='/patenteragazzi.png' alt='Logo' />
-          <h1>Patenteragazzi</h1>
+          <h1>PatenteRagazzi</h1>
         </div>
 
         <div className='menu'>

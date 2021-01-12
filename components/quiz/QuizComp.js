@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from '@material-ui/core';
+import { Modal, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import slugify from 'slugify';
 import firebase from 'firebase/app';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -13,6 +13,10 @@ const QuizComp = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [canReport, setCanReport] = useState(true);
+  const [hasProblemImage, setHasProblemImage] = useState(false);
+  const [hasProblemQuestion, setHasProblemQuestion] = useState(false);
+  const [hasProblemAnswer, setHasProblemAnswer] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const setProblem = () => {
     firebase
@@ -26,14 +30,72 @@ const QuizComp = ({
         image: question.image,
         answer: question.answer,
         response: question.response,
+        hasProblemImage,
+        hasProblemQuestion,
+        hasProblemAnswer,
       })
       .then(() => {
+        setOpenModal(false);
         setCanReport(false);
       });
   };
 
-  return (
-    <>
+  const reportPopup = (
+    <div
+      className='report_popup'
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        background: 'white',
+        padding: 20,
+        width: '100%',
+        height: '50%',
+        maxWidth: 500,
+        maxHeight: 300,
+      }}
+    >
+      <h2>Segnale errore nella domanda:</h2>
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='image'
+            checked={hasProblemImage}
+            onChange={() => {
+              setHasProblemImage(!hasProblemImage);
+            }}
+          />
+        }
+        label='Immagine'
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='question'
+            checked={hasProblemQuestion}
+            onChange={() => {
+              setHasProblemQuestion(!hasProblemQuestion);
+            }}
+          />
+        }
+        label='Domanda'
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='answer'
+            checked={hasProblemAnswer}
+            onChange={() => {
+              setHasProblemAnswer(!hasProblemAnswer);
+            }}
+          />
+        }
+        label='Risposta'
+      />
+
+      <br />
+      <br />
+
       <Button
         className={`quiz_problem  ${index == questionCounter ? 'active' : ''}`}
         onClick={setProblem}
@@ -44,9 +106,42 @@ const QuizComp = ({
           color: 'white',
         }}
       >
+        <p>Invia segnalazione</p>
+        <WarningIcon style={{ marginLeft: 20 }} />
+      </Button>
+    </div>
+  );
+  return (
+    <>
+      <Button
+        className={`quiz_problem  ${index == questionCounter ? 'active' : ''}`}
+        onClick={() => setOpenModal(true)}
+        disabled={!canReport}
+        variant='contained'
+        style={{
+          background: 'red',
+          color: 'white',
+        }}
+      >
         <p>Segnala domanda</p>
         <WarningIcon />
       </Button>
+
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        aria-labelledby='Segnalazione errore domanda'
+        aria-describedby='Puoi segnalarci un errore nella domanda'
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          outline: 'none',
+        }}
+      >
+        {reportPopup}
+      </Modal>
+
       <div
         key={slugify(`${question.question}${index}`, { lower: true })}
         className={`quiz_content ${index == questionCounter ? 'active' : ''} ${

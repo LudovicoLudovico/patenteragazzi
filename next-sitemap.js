@@ -8,5 +8,6 @@ module.exports = {
     '/admin/post',
     '/admin/faq',
     '/admin/problems',
+    '/admin/videos',
   ],
 };
