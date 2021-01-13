@@ -63,6 +63,7 @@ const Score = ({
                 {wrongAnswers.map((wrong, index) => {
                   return (
                     <WrongAnswer
+                      key={index}
                       wrong={wrong}
                       index={index}
                       theory={theory.filter((theory) => {
@@ -80,6 +81,7 @@ const Score = ({
                   .map((wrong, index) => {
                     return (
                       <WrongAnswer
+                        key={index}
                         wrong={wrong}
                         index={index}
                         theory={theory.filter((theory) => {
@@ -96,6 +98,7 @@ const Score = ({
                 {quizQuestions.map((wrong, index) => {
                   return (
                     <WrongAnswer
+                      key={index}
                       index={index}
                       wrong={wrong}
                       isAllQuestions={true}

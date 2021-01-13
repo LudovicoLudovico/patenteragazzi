@@ -121,6 +121,7 @@ const newQuiz = ({ questions, theory }) => {
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
+                questionId: quizQuestionsCopy[i].questionId,
                 num: i,
               },
             ]);
@@ -134,6 +135,7 @@ const newQuiz = ({ questions, theory }) => {
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
+                questionId: quizQuestionsCopy[i].questionId,
                 num: i,
               },
             ]);
@@ -166,6 +168,7 @@ const newQuiz = ({ questions, theory }) => {
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
               category: quizQuestionsCopy[i].category,
+              questionId: quizQuestionsCopy[i].questionId,
               num: i,
             },
           ]);
@@ -174,6 +177,7 @@ const newQuiz = ({ questions, theory }) => {
             ...wrongAnswers,
             {
               userResponse: !quizQuestionsCopy[i].response,
+              questionId: quizQuestionsCopy[i].questionId,
               question: quizQuestionsCopy[i].question,
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
