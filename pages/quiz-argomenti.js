@@ -140,6 +140,7 @@ const quizArgomenti = ({ questions, theory }) => {
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
+                questionId: quizQuestionsCopy[i].questionId,
                 num: i,
               },
             ]);
@@ -153,6 +154,7 @@ const quizArgomenti = ({ questions, theory }) => {
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
+                questionId: quizQuestionsCopy[i].questionId,
                 num: i,
               },
             ]);
@@ -184,7 +186,7 @@ const quizArgomenti = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
-              questionId: questions[rand].id,
+              questionId: quizQuestionsCopy[i].questionId,
               category: quizQuestionsCopy[i].category,
               num: i,
             },
@@ -198,7 +200,7 @@ const quizArgomenti = ({ questions, theory }) => {
               response: quizQuestionsCopy[i].response,
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
-              questionId: questions[rand].id,
+              questionId: quizQuestionsCopy[i].questionId,
               category: quizQuestionsCopy[i].category,
               num: i,
             },
