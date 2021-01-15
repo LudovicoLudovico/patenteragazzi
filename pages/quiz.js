@@ -12,11 +12,11 @@ import { getTheory } from '../fetchData/getTheory';
 
 // Components
 import Seo from '../components/Seo';
-import QuizBottom from '../components/quiz/QuizBottom';
-import QuizTop from '../components/quiz/QuizTop';
-import QuizComp from '../components/quiz/QuizComp';
+import QuizCompFirst from '../components/quiz/QuizCompFirst';
 
-// Dynamic Components
+const QuizComp = dynamic(() => import('../components/quiz/QuizComp'));
+const QuizBottom = dynamic(() => import('../components/quiz/QuizBottom'));
+const QuizTop = dynamic(() => import('../components/quiz/QuizTop'));
 const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
 const Score = dynamic(() => import('../components/quiz/Score'));
 
@@ -212,22 +212,36 @@ const newQuiz = ({ questions, theory }) => {
                 {/* Quiz Top */}
                 <QuizTop correct={correct} quizQuestions={quizQuestions} />
 
+                <QuizCompFirst
+                  key={0}
+                  questionCounter={questionCounter}
+                  index={0}
+                  question={quizQuestions[0]}
+                  getTrueAnswer={() => {
+                    getAnswer(0, true);
+                  }}
+                  getFalseAnswer={() => {
+                    getAnswer(0, false);
+                  }}
+                />
                 {/* If there are quizQuestions in the state then display question, image and modal */}
                 {quizQuestions.map((question, index) => {
-                  return (
-                    <QuizComp
-                      key={index}
-                      questionCounter={questionCounter}
-                      index={index}
-                      question={question}
-                      getTrueAnswer={() => {
-                        getAnswer(index, true);
-                      }}
-                      getFalseAnswer={() => {
-                        getAnswer(index, false);
-                      }}
-                    />
-                  );
+                  if (index !== 0) {
+                    return (
+                      <QuizComp
+                        key={index}
+                        questionCounter={questionCounter}
+                        index={index}
+                        question={question}
+                        getTrueAnswer={() => {
+                          getAnswer(index, true);
+                        }}
+                        getFalseAnswer={() => {
+                          getAnswer(index, false);
+                        }}
+                      />
+                    );
+                  }
                 })}
 
                 {/* Bottom Navigation */}

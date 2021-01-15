@@ -31,7 +31,6 @@ const ProblemItem = ({
         question: newQuestion,
         category: newCategory,
         response: newResponse,
-        answer: newAnswer,
       })
       .then(() => {
         firebase.firestore().collection('problems').doc(id).delete();
@@ -92,7 +91,7 @@ const ProblemItem = ({
         <MenuItem value='false'>Falso</MenuItem>
       </Select>
 
-      <p>ID_TEORIA: {answer}</p>
+      <p>TEORIA: {answer[0].title}</p>
 
       <Button
         variant='contained'

@@ -19,7 +19,7 @@ const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
   }, []);
   return (
     <div className='quiz_bottom'>
-      <div className='quiz_bottom_menu' onClick={(e) => {}}>
+      <nav className='quiz_bottom_menu' onClick={(e) => {}}>
         {quizQuestions.map((question, index) => {
           return (
             <div
@@ -42,7 +42,7 @@ const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
             </div>
           );
         })}
-      </div>
+      </nav>
 
       {/* Buttons for moving  */}
       <div className='quiz_nav_small'>

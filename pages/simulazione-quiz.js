@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { NextSeo } from 'next-seo';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+//Get Datqa
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
+
+//Decryption
 import { decrypt } from '../lib/enc';
-import Timer from 'react-compound-timer';
-import uuid from 'react-uuid';
-import { Button, Modal } from '@material-ui/core';
-import Link from 'next/link';
-import QuizSimComp from '../components/quizSim/QuizSimComp';
 
-import dynamic from 'next/dynamic';
+//Components
 import Seo from '../components/Seo';
-const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'), {
-  loading: () => <p>Caricamento...</p>,
-});
-
-const Score = dynamic(() => import('../components/quiz/Score'), {
-  loading: () => <p>Caricamento...</p>,
-});
+import QuizSimComp from '../components/quizSim/QuizSimComp';
+const QuizSimNav = dynamic(() => import('../components/quizSim/QuizSimNav'));
+const QuizSimBottom = dynamic(() =>
+  import('../components/quizSim/QuizSimBottom')
+);
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
+const Score = dynamic(() => import('../components/quiz/Score'));
 
 import '../quizSim.min.css';
 
@@ -27,7 +27,6 @@ const simulazioneQuiz = ({ questions, theory }) => {
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState([]);
-  const [open, setOpen] = useState(false);
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
@@ -102,6 +101,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
             response: sdp[rand].response,
             answer: sdp[rand].answer,
             category: sdp[rand].category,
+            questionId: sdp[rand].id,
           },
         ]);
       } else {
@@ -161,6 +161,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
+                questionId: quizQuestionsCopy[i].questionId,
                 num: i,
               },
             ]);
@@ -174,6 +175,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 image: quizQuestionsCopy[i].image,
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
+                questionId: quizQuestionsCopy[i].questionId,
                 num: i,
               },
             ]);
@@ -206,6 +208,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
               category: quizQuestionsCopy[i].category,
+              questionId: quizQuestionsCopy[i].questionId,
               num: i,
             },
           ]);
@@ -219,6 +222,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
               category: quizQuestionsCopy[i].category,
+              questionId: quizQuestionsCopy[i].questionId,
               num: i,
             },
           ]);
@@ -277,123 +281,11 @@ const simulazioneQuiz = ({ questions, theory }) => {
       <div className='quiz-sim'>
         {!showScore && (
           <div className='quiz-sim_container'>
-            <div className='quiz-sim_nav'>
-              <div
-                className='quiz-sim_bigger'
-                onClick={(e) => {
-                  if (e.target.id) {
-                    setQuestionCounter(parseInt(e.target.id));
-                  }
-                }}
-              >
-                <div
-                  id={0}
-                  className={` ${
-                    questionCounter >= 0 && questionCounter < 10 ? 'active' : ''
-                  }`}
-                >
-                  Domande da 1 a 10
-                </div>
-                <div
-                  id={10}
-                  className={`${
-                    questionCounter >= 10 && questionCounter < 20
-                      ? 'active'
-                      : ''
-                  }`}
-                >
-                  Domande da 11 a 20
-                </div>
-                <div
-                  id={20}
-                  className={`${
-                    questionCounter >= 20 && questionCounter < 30
-                      ? 'active'
-                      : ''
-                  }`}
-                >
-                  Domande da 21 a 30
-                </div>
-                <div
-                  id={30}
-                  className={`${
-                    questionCounter >= 30 && questionCounter < 40
-                      ? 'active'
-                      : ''
-                  }`}
-                >
-                  Domande da 31 a 40
-                </div>
-              </div>
-
-              <div
-                className='quiz-sim_small'
-                onClick={(e) => {
-                  if (e.target.id) {
-                    setQuestionCounter(parseInt(e.target.id));
-                  }
-                }}
-              >
-                {quizQuestions.map((question, index) => {
-                  return (
-                    <div
-                      key={uuid()}
-                      id={index}
-                      className={`${questionCounter == index ? 'active' : ''}
-                    ${questionCounter < 10 && index < 10 ? 'display' : ''}
-                    ${
-                      questionCounter >= 10 &&
-                      index >= 10 &&
-                      questionCounter < 20 &&
-                      index < 20
-                        ? 'display'
-                        : ''
-                    }
-                    ${
-                      questionCounter >= 20 &&
-                      index >= 20 &&
-                      questionCounter < 30 &&
-                      index < 30
-                        ? 'display'
-                        : ''
-                    }
-                    ${
-                      questionCounter >= 30 &&
-                      index >= 30 &&
-                      questionCounter < 40 &&
-                      index < 40
-                        ? 'display'
-                        : ''
-                    }
-                    
-                    `}
-                    >
-                      {index + 1}
-                    </div>
-                  );
-                })}
-              </div>
-              <div
-                className='quiz-sim_smaller'
-                onClick={(e) => {
-                  if (e.target.id) {
-                    setQuestionCounter(parseInt(e.target.id));
-                  }
-                }}
-              >
-                {quizQuestions.map((question, index) => {
-                  return (
-                    <div
-                      key={uuid()}
-                      id={index}
-                      className={`${questionCounter == index ? 'active' : ''}`}
-                    >
-                      {index + 1}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <QuizSimNav
+              questionCounter={questionCounter}
+              setQuestionCounter={(e) => setQuestionCounter(e)}
+              quizQuestions={quizQuestions}
+            />
             {quizQuestions.map((question, index) => {
               return (
                 <QuizSimComp
@@ -410,60 +302,11 @@ const simulazioneQuiz = ({ questions, theory }) => {
                 />
               );
             })}
-            <div className='quiz-sim_bottom'>
-              <div className='quiz-sim_timer'>
-                <p>Tempo a disposizione</p>
-                {/* Timer */}
-                {/* Timer value should be  1800000 (30:00) */}
-                <Timer
-                  initialTime={1800000}
-                  startImmediately={true}
-                  direction='backward'
-                  checkpoints={[
-                    {
-                      time: 0,
-                      callback: () => forceCorrect(),
-                    },
-                  ]}
-                >
-                  <Timer.Minutes
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value}`
-                    }
-                  />
-                  :
-                  <Timer.Seconds
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value}`
-                    }
-                  />
-                </Timer>
-              </div>
-
-              <div className='quiz-sim_bottom_right'>
-                <div className='quiz-sim_summary'></div>
-                <div className='quiz-sim_prev'>
-                  <img
-                    src='/sim-arrow.svg'
-                    alt=''
-                    onClick={() => {
-                      if (questionCounter !== 0) {
-                        setQuestionCounter((prevState) => prevState - 1);
-                      }
-                    }}
-                  />
-                  <img
-                    src='/sim-arrow.svg'
-                    alt=''
-                    onClick={() => {
-                      if (questionCounter !== 39) {
-                        setQuestionCounter((prevState) => prevState + 1);
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+            <QuizSimBottom
+              forceCorrect={() => forceCorrect()}
+              setQuestionCounter={(e) => setQuestionCounter(e)}
+              questionCounter={questionCounter}
+            />
             <br />
             <Link href='/'>
               <a>Torna alla home</a>

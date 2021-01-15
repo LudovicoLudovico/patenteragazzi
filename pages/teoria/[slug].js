@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { getTheory } from '../../fetchData/getTheory';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
 import { getTheoryQuestions } from '../../fetchData/getTheoryQuestions';
-import { decrypt } from '../../lib/enc';
 import slugify from 'slugify';
-import { unslugify } from 'unslugify';
 import Navbar from '../../components/Navbar';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
@@ -18,6 +16,9 @@ import dynamic from 'next/dynamic';
 const AdBanner = dynamic(() => import('../../components/AdBanner'), {
   ssr: false,
 });
+const TheoryQuestions = dynamic(() =>
+  import('../../components/theory/TheoryQuestions')
+);
 const slug = ({ theoryItem, questions }) => {
   const [canReport, setCanReport] = useState(true);
 
@@ -71,10 +72,17 @@ const slug = ({ theoryItem, questions }) => {
           <Navbar />
           <div className='container-full main_content'>
             <div className='theory'>
-              <Link href='/teoria'>
+              <Link
+                href={`/teoria#${slugify(theoryItem.category, {
+                  lower: true,
+                })}`}
+                scroll={false}
+              >
                 <a className='theory_back'>
-                  <ArrowBackIcon />
-                  Torna indietro
+                  <>
+                    <ArrowBackIcon />
+                    Torna indietro
+                  </>
                 </a>
               </Link>
 
@@ -115,24 +123,7 @@ const slug = ({ theoryItem, questions }) => {
 
               <h2>Domande</h2>
 
-              <div className='theory_questions'>
-                <div className='theory_questions_table'>
-                  {questions.map((question) => {
-                    return (
-                      <div className='theory_questions_item' key={question.id}>
-                        <div>{decrypt(question.question)}</div>
-                        <p
-                          className={`theory_questions_item_response  ${
-                            question.response ? 'true' : 'false'
-                          }`}
-                        >
-                          {question.response ? 'Vero' : 'Falso'}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <TheoryQuestions questions={questions} />
               <AdBanner />
             </div>
           </div>

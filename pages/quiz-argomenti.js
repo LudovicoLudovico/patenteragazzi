@@ -14,20 +14,14 @@ import { Button } from '@material-ui/core';
 import { decrypt } from '../lib/enc';
 
 //Components
-import QuizTop from '../components/quiz/QuizTop';
 import Seo from '../components/Seo';
-import QuizComp from '../components/quiz/QuizComp';
 import QuizTopicsList from '../components/quiz/QuizTopicsList';
 
-const QuizBottom = dynamic(() => import('../components/quiz/QuizBottom'), {
-  loading: () => <p>Caricamento...</p>,
-});
-const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'), {
-  loading: () => <p>Caricamento...</p>,
-});
-const Score = dynamic(() => import('../components/quiz/Score'), {
-  loading: () => <p>Caricamento...</p>,
-});
+const QuizBottom = dynamic(() => import('../components/quiz/QuizBottom'));
+const QuizTop = dynamic(() => import('../components/quiz/QuizTop'));
+const QuizComp = dynamic(() => import('../components/quiz/QuizComp'));
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
+const Score = dynamic(() => import('../components/quiz/Score'));
 
 //Style
 import '../quizTopics.min.css';

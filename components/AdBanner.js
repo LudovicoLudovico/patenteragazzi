@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 const AdBanner = (props) => {
   useEffect(() => {
-    console.log('ran');
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {

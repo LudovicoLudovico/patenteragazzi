@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import ProblemItem from '../../components/admin/ProblemItem';
 import TheoryProblemItem from '../../components/admin/TheoryProblemItem';
 import { useUser } from '../../context/userContext';
+import { useAdmin } from '../../context/adminContext';
 import '../../admin.min.css';
 
 const problems = () => {
@@ -11,7 +12,10 @@ const problems = () => {
   const [theoryProblems, setTheoryProblems] = useState([]);
   const { isAdmin } = useUser();
 
+  const { theoryList, getTheoryList } = useAdmin();
+
   useEffect(() => {
+    getTheoryList();
     firebase
       .firestore()
       .collection('problems')
@@ -69,6 +73,9 @@ const problems = () => {
             <p>Non ci sono problemi segnalati</p>
           )}
           {questionsProblems.map((prob) => {
+            const theory = theoryList.filter((theoryItem) => {
+              return theoryItem.id == prob.theory;
+            });
             return (
               <ProblemItem
                 questionId={prob.questionId}
@@ -78,6 +85,7 @@ const problems = () => {
                 response={prob.response}
                 category={prob.category}
                 answer={prob.answer}
+                theory={theory}
                 hasProblemAnswer={prob.hasProblemAnswer}
                 hasProblemQuestion={prob.hasProblemQuestion}
                 hasProblemImage={prob.hasProblemImage}

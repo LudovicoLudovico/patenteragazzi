@@ -104,7 +104,10 @@ const teoria = ({ theory }) => {
       <div className='container theoryList main_content'>
         <h1>Teoria</h1>
         <br />
-        <SearchBox filters={filters} setFilters={(e) => setFilters(e)} />
+        <SearchBox
+          filters={filters}
+          setFilters={(e) => setFilters(e.charAt(0).toUpperCase() + e.slice(1))}
+        />
         <br />
         <br />
         <Theory1 filteredTheory={filteredTheory} filters={filters} />

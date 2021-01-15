@@ -3,10 +3,11 @@ import { decrypt } from '../../lib/enc';
 import Link from 'next/link';
 import slugify from 'slugify';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { unslugify } from 'unslugify';
 
 const TheoryItem = ({ theory, category, filters }) => {
   const isDisplayed = theory.filter((ti) => {
-    return ti.category == category && decrypt(ti.title).includes(filters);
+    return ti.category == category && unslugify(ti.slug).includes(filters);
   });
 
   return (
@@ -23,8 +24,10 @@ const TheoryItem = ({ theory, category, filters }) => {
           <h2>{category}</h2>
           {theory
             .filter((ti) => {
-              let title = decrypt(ti.title).toString().toLowerCase();
-              return ti.category == category && title.includes(filters);
+              return (
+                ti.category == category &&
+                unslugify(ti.slug).toLowerCase().includes(filters.slice(1))
+              );
             })
             .map((theoryItem, index) => {
               const titleItem = decrypt(theoryItem.title);
@@ -32,7 +35,7 @@ const TheoryItem = ({ theory, category, filters }) => {
                 <div key={index}>
                   <Link
                     href='/teoria/[teoria]'
-                    as={`/teoria/${slugify(titleItem)}`}
+                    as={`/teoria/${theoryItem.slug}`}
                   >
                     <a className='theoryList-item-link'>
                       {titleItem} <ArrowForwardIosIcon />
