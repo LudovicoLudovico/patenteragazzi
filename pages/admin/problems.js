@@ -54,6 +54,9 @@ const problems = () => {
               category: doc.data().category,
               title: doc.data().title,
               image: doc.data().image,
+              hasProblemContent: doc.data().hasProblemContent,
+              hasProblemImage: doc.data().hasProblemImage,
+              hasProblemTypo: doc.data().hasProblemTypo,
             },
           ]);
         });
@@ -104,6 +107,9 @@ const problems = () => {
                 title={prob.title}
                 theory={prob.theory}
                 category={prob.category}
+                hasProblemContent={prob.hasProblemContent}
+                hasProblemTypo={prob.hasProblemTypo}
+                hasProblemImage={prob.hasProblemImage}
               />
             );
           })}

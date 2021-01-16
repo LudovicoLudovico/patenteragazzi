@@ -5,7 +5,17 @@ import firebase from 'firebase/app';
 import MDEditor from '@uiw/react-md-editor';
 import slugify from 'slugify';
 
-const ProblemItem = ({ theoryId, id, image, title, theory, category }) => {
+const ProblemItem = ({
+  theoryId,
+  id,
+  image,
+  title,
+  theory,
+  category,
+  hasProblemTypo,
+  hasProblemContent,
+  hasProblemImage,
+}) => {
   const [newImage, setNewImage] = useState(image);
   const [newCategory, setNewCategory] = useState(category);
   const [newTitle, setNewTitle] = useState(title);
@@ -30,6 +40,12 @@ const ProblemItem = ({ theoryId, id, image, title, theory, category }) => {
 
   return (
     <div className='problems_item' key={id}>
+      <h2>Problema con:</h2>
+      <ul>
+        {hasProblemImage && <li>Immagine</li>}
+        {hasProblemTypo && <li>Battitura</li>}
+        {hasProblemContent && <li>Contenuto</li>}
+      </ul>
       <img src={image} alt='Nessun immagine' />
       <br />
       <br />

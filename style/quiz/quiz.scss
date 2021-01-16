@@ -12,8 +12,9 @@ $sim-green: #cfe6d6;
 /*
   QUIZ
 */
+
 .quiz {
-  height: 95vh;
+  height: calc(95vh);
   padding-top: 5vh;
   color: white;
   display: flex;

@@ -8,7 +8,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Button } from '@material-ui/core';
+import { Button, Modal, FormControlLabel, Checkbox } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
 import firebase from 'firebase/app';
 import dynamic from 'next/dynamic';
@@ -21,6 +21,10 @@ const TheoryQuestions = dynamic(() =>
 );
 const slug = ({ theoryItem, questions }) => {
   const [canReport, setCanReport] = useState(true);
+  const [hasProblemImage, setHasProblemImage] = useState(false);
+  const [hasProblemTypo, setHasProblemTypo] = useState(false);
+  const [hasProblemContent, setHasProblemContent] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const setProblem = () => {
     if (canReport) {
@@ -34,12 +38,89 @@ const slug = ({ theoryItem, questions }) => {
           title: theoryItem.title,
           category: theoryItem.category,
           image: theoryItem.image,
+          hasProblemImage,
+          hasProblemTypo,
+          hasProblemContent,
         })
         .then(() => {
           setCanReport(false);
+          setOpenModal(false);
         });
     }
   };
+
+  const reportPopup = (
+    <div
+      className='report_popup'
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        background: 'white',
+        padding: 20,
+        width: '100%',
+        height: '50%',
+        maxWidth: 500,
+        maxHeight: 300,
+      }}
+    >
+      <h2>Segnala errore nella teoria:</h2>
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='image'
+            checked={hasProblemImage}
+            onChange={() => {
+              setHasProblemImage(!hasProblemImage);
+            }}
+          />
+        }
+        label='Immagine'
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='question'
+            checked={hasProblemTypo}
+            onChange={() => {
+              setHasProblemTypo(!hasProblemTypo);
+            }}
+          />
+        }
+        label='Errore di battitura'
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='content'
+            checked={hasProblemContent}
+            onChange={() => {
+              setHasProblemContent(!hasProblemContent);
+            }}
+          />
+        }
+        label='Contenuto'
+      />
+
+      <br />
+      <br />
+
+      <Button
+        className={`quiz_problem active`}
+        onClick={setProblem}
+        disabled={!canReport}
+        variant='contained'
+        aria-label={`Conferma Segnalazione della teoria`}
+        style={{
+          background: 'red',
+          color: 'white',
+        }}
+      >
+        <p>Invia segnalazione</p>
+        <WarningIcon style={{ marginLeft: 20 }} />
+      </Button>
+    </div>
+  );
 
   return (
     <>
@@ -101,7 +182,7 @@ const slug = ({ theoryItem, questions }) => {
               <br />
               <br />
               <br />
-              <Button
+              {/* <Button
                 className='quiz_problem active'
                 onClick={setProblem}
                 disabled={!canReport}
@@ -114,7 +195,37 @@ const slug = ({ theoryItem, questions }) => {
                 <p>Segnala problema nella teoria</p>
 
                 <WarningIcon style={{ marginLeft: 20 }} />
+              </Button> */}
+
+              <Button
+                className={`quiz_problem  'active`}
+                onClick={() => setOpenModal(true)}
+                disabled={!canReport}
+                variant='contained'
+                aria-label={`Segnala teoria`}
+                style={{
+                  background: 'red',
+                  color: 'white',
+                }}
+              >
+                <p>Segnala Problema Nella Teoria</p>
+                <WarningIcon />
               </Button>
+
+              <Modal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                aria-labelledby='Segnalazione errore domanda'
+                aria-describedby='Puoi segnalarci un errore nella domanda'
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  outline: 'none',
+                }}
+              >
+                {reportPopup}
+              </Modal>
 
               <br />
               <br />
