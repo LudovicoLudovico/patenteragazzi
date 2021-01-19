@@ -10,15 +10,18 @@ const IndexTheoryCard = ({ title, image, slug }) => {
       <div className='index_theory_card_image'>
         <Image
           src={image}
-          height={250}
-          width={250}
-          layout={'intrinsic'}
           alt={title}
+          layout={'intrinsic'}
+          width={250}
+          height={250}
         />
       </div>
       <div className='index_theory_card_content'>
         <h3>{title}</h3>
-        <Link href={`/teoria#${slugify(slug, { lower: true })}`}>
+        <Link
+          href={`/teoria#${slugify(slug, { lower: true })}`}
+          prefetch={false}
+        >
           <a title={slugify(slug, { lower: true })}>
             <Button variant='contained' aria-label={`Scopri di più: ${title}`}>
               Scopri di più

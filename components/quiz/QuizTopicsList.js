@@ -7,7 +7,7 @@ const QuizTopicsList = ({ filters, setFilters }) => {
       <TopicQuizSelec
         filters={filters}
         setFilters={setFilters}
-        text={"Definizioni generali e doveri nell'uso dell strada"}
+        text={"Definizioni generali e doveri nell'uso della strada"}
       />
       <TopicQuizSelec
         filters={filters}

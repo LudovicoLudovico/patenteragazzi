@@ -283,7 +283,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
           <div className='quiz-sim_container'>
             <QuizSimNav
               questionCounter={questionCounter}
-              setQuestionCounter={(e) => setQuestionCounter(e)}
+              setQuestionCounter={(id) => setQuestionCounter(parseInt(id))}
               quizQuestions={quizQuestions}
             />
             {quizQuestions.map((question, index) => {
@@ -318,8 +318,8 @@ const simulazioneQuiz = ({ questions, theory }) => {
           </div>
         )}
         <UngivenModal
+          setQuestionCounter={(e) => setQuestionCounter(e)}
           ungivenState={ungivenState}
-          correct={correct}
           forceCorrect={forceCorrect}
           correctPopup={correctPopup}
           setCorrectPopup={(e) => setCorrectPopup(e)}
@@ -328,6 +328,7 @@ const simulazioneQuiz = ({ questions, theory }) => {
         <Score
           showScore={showScore}
           score={score}
+          isAllQuestions={true}
           wrongAnswers={wrongAnswers}
           theory={theory}
           quizQuestions={quizQuestions}

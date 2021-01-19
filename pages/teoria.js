@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import { NextSeo } from 'next-seo';
 import { getTheory } from '../fetchData/getTheory';
 
 import dynamic from 'next/dynamic';
@@ -100,7 +99,7 @@ const teoria = ({ theory }) => {
         description="Tutta la teoria necessaria a passare l'esame di teoria"
         canonical='https://patenteragazzi.it/teoria'
       />
-      <Navbar active={'teoria'} />
+      <Navbar active={'teoria'} isAdminNav={false} />
       <div className='container theoryList main_content'>
         <h1>Teoria</h1>
         <br />

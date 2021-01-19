@@ -13,7 +13,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
         }}
       >
         <div
-          id={0}
+          id={'0'}
           className={` ${
             questionCounter >= 0 && questionCounter < 10 ? 'active' : ''
           }`}
@@ -21,7 +21,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
           Domande da 1 a 10
         </div>
         <div
-          id={10}
+          id={'10'}
           className={`${
             questionCounter >= 10 && questionCounter < 20 ? 'active' : ''
           }`}
@@ -29,7 +29,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
           Domande da 11 a 20
         </div>
         <div
-          id={20}
+          id={'20'}
           className={`${
             questionCounter >= 20 && questionCounter < 30 ? 'active' : ''
           }`}
@@ -37,7 +37,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
           Domande da 21 a 30
         </div>
         <div
-          id={30}
+          id={'30'}
           className={`${
             questionCounter >= 30 && questionCounter < 40 ? 'active' : ''
           }`}
@@ -105,7 +105,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
           return (
             <div
               key={uuid()}
-              id={index}
+              id={index.toString()}
               className={`${questionCounter == index ? 'active' : ''}`}
             >
               {index + 1}

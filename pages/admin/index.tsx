@@ -85,7 +85,6 @@ const AdminUI = () => {
   };
 
   //On page load get all images
-
   const changeImage = () => {
     setIsLoadingChange(true);
     console.log(imageToChange);

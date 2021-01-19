@@ -8,10 +8,8 @@ const QuestionsList = ({ questionsList, theoryList }) => {
     const theoryItem = theoryList.filter((element) => {
       if (element.id === answer) {
         return element.theory;
-      } else {
       }
     });
-    console.log(theoryItem);
     if (theoryItem.length !== 0) return theoryItem[0].theory;
   };
   return (
@@ -39,7 +37,7 @@ const QuestionsList = ({ questionsList, theoryList }) => {
               itemsPerPage={10}
               renderList={(list) => (
                 <>
-                  {list.map((question, id) => {
+                  {list.map((question) => {
                     return (
                       <div key={question.id} className='questions-container'>
                         <div className='image-container'>

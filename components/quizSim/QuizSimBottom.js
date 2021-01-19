@@ -41,7 +41,7 @@ const QuizSimBottom = ({
             alt=''
             onClick={() => {
               if (questionCounter !== 0) {
-                setQuestionCounter((prevState) => prevState - 1);
+                setQuestionCounter(questionCounter - 1);
               }
             }}
           />
@@ -50,7 +50,7 @@ const QuizSimBottom = ({
             alt=''
             onClick={() => {
               if (questionCounter !== 39) {
-                setQuestionCounter((prevState) => prevState + 1);
+                setQuestionCounter(questionCounter + 1);
               }
             }}
           />

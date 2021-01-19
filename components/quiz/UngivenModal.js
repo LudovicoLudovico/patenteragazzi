@@ -6,6 +6,7 @@ const UngivenModal = ({
   correctPopup,
   forceCorrect,
   setCorrectPopup,
+  setQuestionCounter,
 }) => {
   return (
     <div>
@@ -35,6 +36,31 @@ const UngivenModal = ({
                   Correggi
                 </Button>
                 <p>Torna al quiz</p>
+
+                <div>
+                  {ungivenState.position.map((question) => {
+                    return (
+                      <span
+                        style={{
+                          display: 'inline-block',
+                          width: 30,
+                          padding: 10,
+                          textAlign: 'center',
+                          background: '#3a8df0',
+                          margin: 10,
+                          color: 'white',
+                          borderRadius: 20,
+                        }}
+                        onClick={() => {
+                          setQuestionCounter(question);
+                          setCorrectPopup(false);
+                        }}
+                      >
+                        {question + 1}
+                      </span>
+                    );
+                  })}
+                </div>
               </>
             )}
 

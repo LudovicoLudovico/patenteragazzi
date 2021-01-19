@@ -16,8 +16,8 @@ import dynamic from 'next/dynamic';
 const AdBanner = dynamic(() => import('../../components/AdBanner'), {
   ssr: false,
 });
-const TheoryQuestions = dynamic(() =>
-  import('../../components/theory/TheoryQuestions')
+const TheoryQuestions = dynamic(
+  () => import('../../components/theory/TheoryQuestions')
 );
 const slug = ({ theoryItem, questions }) => {
   const [canReport, setCanReport] = useState(true);
@@ -150,7 +150,7 @@ const slug = ({ theoryItem, questions }) => {
               site_name: 'Patenteragazzi',
             }}
           />
-          <Navbar />
+          <Navbar isAdminNav={false} active={''} />
           <div className='container-full main_content'>
             <div className='theory'>
               <Link
@@ -182,20 +182,6 @@ const slug = ({ theoryItem, questions }) => {
               <br />
               <br />
               <br />
-              {/* <Button
-                className='quiz_problem active'
-                onClick={setProblem}
-                disabled={!canReport}
-                variant='contained'
-                style={{
-                  background: 'red',
-                  color: 'white',
-                }}
-              >
-                <p>Segnala problema nella teoria</p>
-
-                <WarningIcon style={{ marginLeft: 20 }} />
-              </Button> */}
 
               <Button
                 className={`quiz_problem  'active`}
@@ -262,10 +248,19 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-
+interface TheoryItem {
+  id: string;
+  title: string;
+  theory: string;
+  image: string;
+  category: string;
+}
 export async function getStaticProps({ params }) {
-  const theoryItem = await getTheoryItem(params.slug);
-  const questions = await getTheoryQuestions(theoryItem.id);
+  let theoryItem: TheoryItem = await getTheoryItem(params.slug);
+  let questions = [];
+  if (theoryItem) {
+    questions = await getTheoryQuestions(theoryItem.id);
+  }
 
   return {
     props: {

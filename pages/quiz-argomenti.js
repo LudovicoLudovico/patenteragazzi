@@ -221,7 +221,7 @@ const quizArgomenti = ({ questions, theory }) => {
           <div className='container'>
             {!showScore && showQuiz && (
               <div className='standard_quiz'>
-                <QuizTop correct={correct} quizQuestions={quizQuestions} />
+                <QuizTop correct={correct} />
                 {quizQuestions.map((question, index) => {
                   return (
                     <QuizComp
@@ -242,12 +242,15 @@ const quizArgomenti = ({ questions, theory }) => {
                 <QuizBottom
                   questionCounter={questionCounter}
                   quizQuestions={quizQuestions}
-                  setQuestionCounter={(index) => setQuestionCounter(index)}
+                  setQuestionCounter={(index) =>
+                    setQuestionCounter(parseInt(index))
+                  }
                 />
               </div>
             )}
 
             <UngivenModal
+              setQuestionCounter={(e) => setQuestionCounter(e)}
               ungivenState={ungivenState}
               correctPopup={correctPopup}
               forceCorrect={forceCorrect}

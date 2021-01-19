@@ -210,7 +210,7 @@ const newQuiz = ({ questions, theory }) => {
             {!showScore && (
               <div className='standard_quiz'>
                 {/* Quiz Top */}
-                <QuizTop correct={correct} quizQuestions={quizQuestions} />
+                <QuizTop correct={correct} />
 
                 <QuizCompFirst
                   key={0}
@@ -254,6 +254,7 @@ const newQuiz = ({ questions, theory }) => {
             )}
 
             <UngivenModal
+              setQuestionCounter={(e) => setQuestionCounter(e)}
               ungivenState={ungivenState}
               correctPopup={correctPopup}
               forceCorrect={forceCorrect}

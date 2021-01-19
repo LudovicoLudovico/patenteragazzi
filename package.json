@@ -30,5 +30,8 @@
     "suneditor-react": "^2.14.10",
     "unslugify": "^1.0.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
 }

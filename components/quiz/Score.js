@@ -66,6 +66,8 @@ const Score = ({
                       key={index}
                       wrong={wrong}
                       index={index}
+                      isAllQuestions={false}
+                      answers={answers}
                       theory={theory.filter((theory) => {
                         return theory.id == wrong.answer;
                       })}
@@ -84,6 +86,8 @@ const Score = ({
                         key={index}
                         wrong={wrong}
                         index={index}
+                        answers={answers}
+                        isAllQuestions={false}
                         theory={theory.filter((theory) => {
                           return theory.id == wrong.answer;
                         })}

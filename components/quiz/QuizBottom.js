@@ -51,7 +51,7 @@ const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
           className='quiz_nav_btn'
           onClick={() => {
             if (questionCounter - 1 !== -1) {
-              setQuestionCounter((prevState) => prevState - 1);
+              setQuestionCounter(questionCounter - 1);
             }
           }}
         >
@@ -62,7 +62,7 @@ const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
           className='quiz_nav_btn'
           onClick={() => {
             if (questionCounter + 1 !== quizQuestions.length) {
-              setQuestionCounter((prevState) => prevState + 1);
+              setQuestionCounter(questionCounter + 1);
             }
           }}
         >

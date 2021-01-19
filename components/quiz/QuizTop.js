@@ -3,7 +3,7 @@ import Timer from 'react-compound-timer';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 
-const QuizTop = ({ correct, quizQuestions }) => {
+const QuizTop = ({ correct }) => {
   return (
     <div className='quiz_top'>
       <div className='quiz_timer'>
@@ -32,12 +32,7 @@ const QuizTop = ({ correct, quizQuestions }) => {
 
       {/* Top right section of the quiz, contains correct btn and close btn */}
       <div className='quiz_top_right'>
-        <Button
-          variant='contained'
-          className='correct_btn'
-          onClick={correct}
-          disabled={quizQuestions.length !== 40}
-        >
+        <Button variant='contained' className='correct_btn' onClick={correct}>
           Correggi
         </Button>
 

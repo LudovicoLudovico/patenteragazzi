@@ -7,7 +7,7 @@ const QuizSimComp = ({
   getTrueAnswer,
   getFalseAnswer,
 }) => {
-  const [answer, setAnswer] = useState(null);
+  const [answer, setAnswer] = useState();
   return (
     <div className={`quiz-sim_box ${questionCounter == index ? 'active' : ''}`}>
       <div className='quiz-sim_box_image'>
