@@ -16,8 +16,8 @@ import dynamic from 'next/dynamic';
 const AdBanner = dynamic(() => import('../../components/AdBanner'), {
   ssr: false,
 });
-const TheoryQuestions = dynamic(
-  () => import('../../components/theory/TheoryQuestions')
+const TheoryQuestions = dynamic(() =>
+  import('../../components/theory/TheoryQuestions')
 );
 const slug = ({ theoryItem, questions }) => {
   const [canReport, setCanReport] = useState(true);
@@ -248,15 +248,9 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
-interface TheoryItem {
-  id: string;
-  title: string;
-  theory: string;
-  image: string;
-  category: string;
-}
+
 export async function getStaticProps({ params }) {
-  let theoryItem: TheoryItem = await getTheoryItem(params.slug);
+  let theoryItem = await getTheoryItem(params.slug);
   let questions = [];
   if (theoryItem) {
     questions = await getTheoryQuestions(theoryItem.id);
