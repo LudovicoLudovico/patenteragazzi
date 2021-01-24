@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getTheory } from '../../fetchData/getTheory';
+import { getTheorySlug } from '../../fetchData/getTheorySlug';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
 import { getTheoryQuestions } from '../../fetchData/getTheoryQuestions';
 import slugify from 'slugify';
@@ -137,8 +137,9 @@ const slug = ({ theoryItem, questions }) => {
                 theoryItem.title
               )}`,
               title: 'Patenteragazzi',
-              description:
-                "Tutta la teoria necessaria a passare l'esame di teoria",
+              description: `${theoryItem.theory
+                .replace(/\*/g, '')
+                .slice(0, 150)}...`,
               images: [
                 {
                   url: 'https://patenteragazzi.it/patenteragazzi-square.png',
@@ -232,13 +233,13 @@ const slug = ({ theoryItem, questions }) => {
 };
 
 export async function getStaticPaths() {
-  const theoryRaw = await getTheory();
+  const theoryRaw = await getTheorySlug();
   const paths = [];
 
   theoryRaw.map((theoryItem) => {
     paths.push({
       params: {
-        slug: theoryItem.slug,
+        slug: theoryItem,
       },
     });
   });

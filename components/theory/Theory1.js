@@ -6,7 +6,7 @@ const Theory1 = ({ filteredTheory, filters }) => {
     <TheoryItem
       theory={filteredTheory}
       filters={filters}
-      category={"Definizioni generali e doveri nell'uso dell strada"}
+      category={"Definizioni generali e doveri nell'uso della strada"}
     />
   );
 };

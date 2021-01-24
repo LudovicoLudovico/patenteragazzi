@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import '../footer.min.css';
+import '../style/footer.min.css';
 
 const Footer = () => {
   useEffect(() => {

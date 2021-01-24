@@ -21,7 +21,7 @@ const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
 const Score = dynamic(() => import('../components/quiz/Score'));
 
 // Css Import
-import '../quiz.min.css';
+import '../style/quiz.min.css';
 
 // Quiz Function
 const newQuiz = ({ questions, theory }) => {

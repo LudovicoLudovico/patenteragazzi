@@ -109,6 +109,13 @@ $sim-green: #cfe6d6;
 
 @media (max-width: 900px) {
   .theory {
+    img {
+      width: 200px;
+      height: auto;
+      margin: 0 auto;
+      display: flex;
+      justify-self: center;
+    }
     .wmde-markdown,
     .wmde-markdown-color {
       display: flex;

@@ -5,7 +5,7 @@ import ProblemItem from '../../components/admin/ProblemItem';
 import TheoryProblemItem from '../../components/admin/TheoryProblemItem';
 import { useUser } from '../../context/userContext';
 import { useAdmin } from '../../context/adminContext';
-import '../../admin.min.css';
+import '../../style/admin.min.css';
 
 const problems = () => {
   const [questionsProblems, setQuestionsProblems] = useState([]);

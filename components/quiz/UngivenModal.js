@@ -50,6 +50,7 @@ const UngivenModal = ({
                           margin: 10,
                           color: 'white',
                           borderRadius: 20,
+                          cursor: 'pointer',
                         }}
                         onClick={() => {
                           setQuestionCounter(question);

@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
-import '../../admin.min.css';
+import '../../style/admin.min.css';
 
 //Components
 import Navbar from '../../components/Navbar';

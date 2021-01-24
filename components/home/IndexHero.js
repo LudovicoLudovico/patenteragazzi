@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Button } from '@material-ui/core';
 
 //Css import
-import '../../indexHero.min.css';
+import '../../style/indexHero.min.css';
 
 const IndexHero = () => {
   const [loading, setLoading] = useState(false);

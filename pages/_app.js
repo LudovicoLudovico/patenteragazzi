@@ -1,7 +1,7 @@
 import UserProvider from '../context/userContext';
 
 import AdminProvider from '../context/adminContext';
-import '../main.min.css';
+import '../style/main.min.css';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';

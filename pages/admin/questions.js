@@ -23,7 +23,7 @@ import { useUser } from '../../context/userContext';
 //Components
 import Navbar from '../../components/Navbar';
 
-import '../../admin.min.css';
+import '../../style/admin.min.css';
 
 export default function questions() {
   const [searchQuestionTitle, setSearchQuestionTitle] = useState('');

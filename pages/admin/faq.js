@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import MDEditor from '@uiw/react-md-editor';
 import { useUser } from '../../context/userContext';
 
-import '../../admin.min.css';
+import '../../style/admin.min.css';
 
 const faq = () => {
   const [faqQuestion, setFaqQuestion] = useState('');

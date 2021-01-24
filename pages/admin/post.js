@@ -9,7 +9,7 @@ import firebase from 'firebase/app';
 import { useUser } from '../../context/userContext';
 import { makeStyles } from '@material-ui/core/styles';
 
-import '../../admin.min.css';
+import '../../style/admin.min.css';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {

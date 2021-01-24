@@ -166,7 +166,7 @@ import React from 'react';
 import Link from 'next/link';
 import IndexTheoryCard from './IndexTheoryCard';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import '../../indexTheory.min.css';
+import '../../style/indexTheory.min.css';
 
 const IndexTheory = () => {
   return (

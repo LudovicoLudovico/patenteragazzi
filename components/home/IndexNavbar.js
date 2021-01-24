@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useUser } from '../../context/userContext';
 
 //Import Css
-import '../../indexNavbar.min.css';
+import '../../style/indexNavbar.min.css';
 
 const IndexNavbar = () => {
   const { user, login, logout } = useUser();

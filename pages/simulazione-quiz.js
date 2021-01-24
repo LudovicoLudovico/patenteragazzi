@@ -19,7 +19,7 @@ const QuizSimBottom = dynamic(() =>
 const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
 const Score = dynamic(() => import('../components/quiz/Score'));
 
-import '../quizSim.min.css';
+import '../style/quizSim.min.css';
 
 const simulazioneQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
