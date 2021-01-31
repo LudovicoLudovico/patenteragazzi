@@ -224,63 +224,104 @@ $sim-green: #cfe6d6;
   .quiz-sim {
     .quiz-sim_container {
       .quiz-sim_nav {
-        .quiz-sim_bigger {
-          height: auto;
-          margin-bottom: 5px;
-          div {
-            font-size: 0.8rem;
-          }
-        }
-
-        .quiz-sim_small {
-          div {
-            font-size: 0.7rem;
-          }
-        }
-
         .quiz-sim_smaller {
           display: none;
-          height: auto;
-          div {
-            font-size: 0.6rem;
-          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 749px) {
+  .quiz-sim {
+    .quiz-sim_container {
+      .quiz-sim_nav {
+        .quiz-sim_smaller {
+          display: none;
+        }
+        .quiz-sim_small {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .quiz-sim {
+    height: 95vh;
+    .quiz-sim_container {
+      .quiz-sim_nav {
+        .quiz-sim_bigger {
+          display: none;
         }
       }
       .quiz-sim_box {
         &.active {
-          height: 50vh;
-          grid-template-areas: 'Image Question' 'Answers Answers';
-          grid-template-columns: 50% 50%;
-          grid-template-rows: 70% 30%;
+          margin: 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .quiz-sim_box_image {
+            img {
+              padding: 20px;
+              height: 130px;
+              width: auto;
+            }
+          }
 
           .quiz-sim_box_question {
-            .quiz-sim_box_question_num {
-              top: -10px;
-              right: 10px;
+            margin-top: -20px;
+            min-height: 200px;
+            max-height: 200px;
+            padding: 5px;
+            overflow: scroll;
+          }
+          .quiz-sim_box_answers {
+            margin-top: -20px;
+
+            img {
+              padding-top: 0;
+              padding-bottom: 5px;
             }
           }
         }
       }
 
       .quiz-sim_bottom {
-        grid-template-columns: 30% 70%;
+        margin-top: 240px;
+        display: flex;
+        height: 60px;
 
         .quiz-sim_timer {
-          font-size: 0.9rem;
           display: flex;
-          justify-content: center;
           align-items: center;
-          padding: 0;
-
+          justify-content: center;
           p {
             display: none;
           }
         }
-      }
 
-      .quiz-sim_correct {
-        float: none;
-        margin: 20px auto;
+        .quiz-sim_bottom_right {
+          .quiz-sim_prev {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+          }
+        }
+      }
+      .quiz-sim_bottom_bottom {
+        a {
+          display: none;
+        }
+
+        div {
+          float: none;
+          padding: 10px;
+        }
       }
     }
   }

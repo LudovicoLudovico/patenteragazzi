@@ -34,7 +34,6 @@ const QuizSimBottom = ({
       </div>
 
       <div className='quiz-sim_bottom_right'>
-        <div className='quiz-sim_summary'></div>
         <div className='quiz-sim_prev'>
           <img
             src='/sim-arrow.svg'

@@ -262,6 +262,8 @@ $sim-green: #cfe6d6;
 }
 @media (max-width: 885px) {
   .quiz {
+    height: 95vh;
+    padding: 0;
     .standard_quiz {
       .quiz_problem {
         display: none;

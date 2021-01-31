@@ -308,12 +308,15 @@ const simulazioneQuiz = ({ questions, theory }) => {
               questionCounter={questionCounter}
             />
             <br />
-            <Link href='/'>
-              <a>Torna alla home</a>
-            </Link>
 
-            <div className='quiz-sim_correct' onClick={correct}>
-              Correggi
+            <div className='quiz-sim_bottom_bottom'>
+              <Link href='/'>
+                <a>Torna alla home</a>
+              </Link>
+
+              <div className='quiz-sim_correct' onClick={correct}>
+                Correggi
+              </div>
             </div>
           </div>
         )}
