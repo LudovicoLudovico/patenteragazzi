@@ -37,7 +37,12 @@ const UngivenModal = ({
                 </Button>
                 <p>Torna al quiz</p>
 
-                <div>
+                <div
+                  style={{
+                    maxHeight: 300,
+                    overflow: 'scroll',
+                  }}
+                >
                   {ungivenState.position.map((question) => {
                     return (
                       <span
