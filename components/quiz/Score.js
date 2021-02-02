@@ -23,8 +23,8 @@ const Score = ({
           <div className='score_top'>
             <div>
               <h1>
-                <p>Risultato</p> {score}/40 -
-                {score >= 36 ? 'Promosso' : 'Bocciato'}
+                <p>Risultato</p> {score}/40
+                <p>- {score >= 36 ? 'Promosso' : 'Bocciato'}</p>
               </h1>
             </div>
 
@@ -41,13 +41,13 @@ const Score = ({
               onClick={() => setIsActive(0)}
               className={`${isActive == 0 ? 'active' : ''}`}
             >
-              Risposte sbagliate
+              Sbagliate
             </div>
             <div
               onClick={() => setIsActive(1)}
               className={`${isActive == 1 ? 'active' : ''}`}
             >
-              Risposte non date
+              Non date
             </div>
             <div
               onClick={() => setIsActive(2)}

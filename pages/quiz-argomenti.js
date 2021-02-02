@@ -217,7 +217,7 @@ const quizArgomenti = ({ questions, theory }) => {
 
       {/* Do quiz */}
       {showQuiz && (
-        <div className='quiz quiz-argomenti' id='quiz'>
+        <div className='quiz' id='quiz'>
           <div className='container'>
             {!showScore && showQuiz && (
               <div className='standard_quiz'>

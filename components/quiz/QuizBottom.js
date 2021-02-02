@@ -7,6 +7,7 @@ const QuizBottom = ({ quizQuestions, questionCounter, setQuestionCounter }) => {
 
   useEffect(() => {
     setWidth(window.innerWidth);
+
     if (width < 500) {
       setNavDisp(3);
     } else {

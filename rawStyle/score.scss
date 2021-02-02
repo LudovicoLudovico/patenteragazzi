@@ -204,7 +204,6 @@ $sim-green: #cfe6d6;
 @media (max-width: 500px) {
   .score {
     .score_top {
-      padding-top: 10px;
       font-size: 1rem;
       p {
         display: none;
@@ -212,7 +211,7 @@ $sim-green: #cfe6d6;
     }
 
     .separator {
-      height: 100px;
+      height: 90px;
     }
 
     .score_nav {

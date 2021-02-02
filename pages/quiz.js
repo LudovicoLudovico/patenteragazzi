@@ -206,70 +206,68 @@ const newQuiz = ({ questions, theory }) => {
         />
 
         <div className='quiz' id='quiz'>
-          <div className='container'>
-            {!showScore && (
-              <div className='standard_quiz'>
-                {/* Quiz Top */}
-                <QuizTop correct={correct} />
+          {!showScore && (
+            <div className='standard_quiz'>
+              {/* Quiz Top */}
+              <QuizTop correct={correct} questionCounter={questionCounter} />
 
-                <QuizCompFirst
-                  key={0}
-                  questionCounter={questionCounter}
-                  index={0}
-                  question={quizQuestions[0]}
-                  getTrueAnswer={() => {
-                    getAnswer(0, true);
-                  }}
-                  getFalseAnswer={() => {
-                    getAnswer(0, false);
-                  }}
-                />
-                {/* If there are quizQuestions in the state then display question, image and modal */}
-                {quizQuestions.map((question, index) => {
-                  if (index !== 0) {
-                    return (
-                      <QuizComp
-                        key={index}
-                        questionCounter={questionCounter}
-                        index={index}
-                        question={question}
-                        getTrueAnswer={() => {
-                          getAnswer(index, true);
-                        }}
-                        getFalseAnswer={() => {
-                          getAnswer(index, false);
-                        }}
-                      />
-                    );
-                  }
-                })}
+              <QuizCompFirst
+                key={0}
+                questionCounter={questionCounter}
+                index={0}
+                question={quizQuestions[0]}
+                getTrueAnswer={() => {
+                  getAnswer(0, true);
+                }}
+                getFalseAnswer={() => {
+                  getAnswer(0, false);
+                }}
+              />
+              {/* If there are quizQuestions in the state then display question, image and modal */}
+              {quizQuestions.map((question, index) => {
+                if (index !== 0) {
+                  return (
+                    <QuizComp
+                      key={index}
+                      questionCounter={questionCounter}
+                      index={index}
+                      question={question}
+                      getTrueAnswer={() => {
+                        getAnswer(index, true);
+                      }}
+                      getFalseAnswer={() => {
+                        getAnswer(index, false);
+                      }}
+                    />
+                  );
+                }
+              })}
 
-                {/* Bottom Navigation */}
-                <QuizBottom
-                  questionCounter={questionCounter}
-                  quizQuestions={quizQuestions}
-                  setQuestionCounter={(index) => setQuestionCounter(index)}
-                />
-              </div>
-            )}
+              {/* Bottom Navigation */}
+              <QuizBottom
+                questionCounter={questionCounter}
+                quizQuestions={quizQuestions}
+                setQuestionCounter={(index) => setQuestionCounter(index)}
+              />
+            </div>
+          )}
 
-            <UngivenModal
-              setQuestionCounter={(e) => setQuestionCounter(e)}
-              ungivenState={ungivenState}
-              correctPopup={correctPopup}
-              forceCorrect={forceCorrect}
-              setCorrectPopup={(e) => setCorrectPopup(e)}
-            />
+          <UngivenModal
+            setQuestionCounter={(e) => setQuestionCounter(e)}
+            ungivenState={ungivenState}
+            correctPopup={correctPopup}
+            forceCorrect={forceCorrect}
+            setCorrectPopup={(e) => setCorrectPopup(e)}
+          />
 
-            <Score
-              showScore={showScore}
-              quizQuestions={quizQuestions}
-              answers={answers}
-              score={score}
-              wrongAnswers={wrongAnswers}
-              theory={theory}
-            />
-          </div>
+          <Score
+            showScore={showScore}
+            quizQuestions={quizQuestions}
+            answers={answers}
+            score={score}
+            wrongAnswers={wrongAnswers}
+            theory={theory}
+          />
         </div>
       </>
     );

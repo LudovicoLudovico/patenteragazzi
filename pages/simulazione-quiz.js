@@ -255,6 +255,13 @@ const simulazioneQuiz = ({ questions, theory }) => {
     checkUngiven();
   }, [answers]);
 
+  useEffect(() => {
+    if (window.innerWidth < 800) {
+      alert(
+        "Sembra tu sia su un dispositivo mobile. Per un'esperienza ottimale ti consigliamo di effettuare i quiz simulazione d'esame da pc"
+      );
+    }
+  }, []);
   const getAnswer = (index, answer) => {
     if (questionCounter + 1 !== quizQuestions.length) {
       let answersCopy = [...answers];
