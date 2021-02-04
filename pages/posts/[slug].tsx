@@ -18,10 +18,11 @@ interface Post {
 }
 
 const post = ({ post }: PostProps) => {
-  let $ = cheerio.load(decrypt(post.text));
-  //Adding ads
-  $('pre').each(function () {
-    const ad = `   <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
+  if (post) {
+    let $ = cheerio.load(decrypt(post.text));
+    //Adding ads
+    $('pre').each(function () {
+      const ad = `   <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
         <ins
           className='adsbygoogle'
           style={{
@@ -32,12 +33,13 @@ const post = ({ post }: PostProps) => {
           data-ad-client='ca-pub-7942078481061905'
           data-ad-slot='5732008523'
         ></ins>`;
-    $(ad).insertBefore($(this));
-  });
+      $(ad).insertBefore($(this));
+    });
 
-  $('pre').each(function () {
-    $(this).replaceWith('');
-  });
+    $('pre').each(function () {
+      $(this).replaceWith('');
+    });
+  }
 
   return (
     <>
