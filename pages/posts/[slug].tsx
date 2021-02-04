@@ -18,8 +18,9 @@ interface Post {
 }
 
 const post = ({ post }: PostProps) => {
+  let $;
   if (post) {
-    let $ = cheerio.load(decrypt(post.text));
+    $ = cheerio.load(decrypt(post.text));
     //Adding ads
     $('pre').each(function () {
       const ad = `   <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
