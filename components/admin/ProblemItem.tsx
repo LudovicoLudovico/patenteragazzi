@@ -10,6 +10,7 @@ interface ProblemItemProps {
   question: string;
   response: boolean;
   answer: Answer[];
+  theory?: string;
   category: string;
   hasProblemAnswer: boolean;
   hasProblemQuestion: boolean;
