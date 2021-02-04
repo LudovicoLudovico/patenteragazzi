@@ -11,8 +11,6 @@ interface WrongAnswerProps {
   isAllQuestions: boolean | null;
   index: number;
   wrong: Wrong;
-  userResponse: boolean | null;
-  num: number | null;
 }
 
 interface Theory {
@@ -28,7 +26,7 @@ interface Wrong {
   answer: string;
   response: boolean;
   userResponse: boolean | null;
-  num: number;
+  num: number | null;
 }
 const WrongAnswer = ({
   wrong,
