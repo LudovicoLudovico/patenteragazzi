@@ -1,28 +1,17 @@
 import React from 'react';
 import SunEditor, { buttonList } from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
-import '../../suneditor.min.css';
-
-const Editor = ({ text, setText, height }) => {
+const Editor = ({ text, setText }) => {
   return (
-    <>
-      <SunEditor
-        text={text}
-        onChange={(content) => setText(content)}
-        setOptions={{
-          height: height || '500',
-          buttonList: [
-            ['undo', 'redo'],
-            ['formatBlock', 'removeFormat'],
-            ['bold', 'italic', 'underline'],
-            ['list'],
-            ['image', 'video', 'link'],
-            ['horizontalRule'],
-          ],
-        }}
-      />
-    </>
+    <SunEditor
+      setContents={text}
+      onChange={setText}
+      height={500}
+      setOptions={{
+        buttonList: buttonList.complex,
+      }}
+    />
   );
 };
-
 export default Editor;
