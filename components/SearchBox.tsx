@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField } from '@material-ui/core';
 
 interface SearchBoxProps {
-  filters: string[];
+  filters?: string[] | string;
   setFilters: (string: string) => void;
 }
 
