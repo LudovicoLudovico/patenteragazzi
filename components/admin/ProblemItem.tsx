@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 interface ProblemItemProps {
   questionId: string;
   id: string;
-  image: string | null;
+  image?: string;
   question: string;
   response: boolean;
   answer: Answer[];

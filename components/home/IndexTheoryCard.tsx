@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 
 interface IndexTheoryCardProps {
   title: string;
-  image: string | null;
+  image?: string;
   slug: string;
 }
 

@@ -12,7 +12,7 @@ interface QuizCompProps {
 
 interface Question {
   question: string;
-  image: string | null;
+  image?: string;
 }
 const QuizComp = ({
   questionCounter,

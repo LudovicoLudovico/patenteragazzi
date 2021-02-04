@@ -6,8 +6,8 @@ import Link from 'next/link';
 import '../style/navbar.min.css';
 
 interface NavbarProps {
-  isAdminNav: boolean | null;
-  active: string | null;
+  isAdminNav?: boolean;
+  active?: string;
 }
 const Navbar = ({ isAdminNav, active }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);

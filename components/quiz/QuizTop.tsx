@@ -14,7 +14,7 @@ interface Question {
   question: string;
   questionId: string;
   category: string;
-  image: string | null;
+  image?: string;
   answer: string;
   response: boolean;
 }

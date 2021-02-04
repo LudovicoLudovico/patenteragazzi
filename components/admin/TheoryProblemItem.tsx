@@ -8,7 +8,7 @@ import slugify from 'slugify';
 interface ProblemItemProps {
   theoryId: string;
   id: string;
-  image: string | null;
+  image?: string;
   title: string;
   theory: string;
   category: string;

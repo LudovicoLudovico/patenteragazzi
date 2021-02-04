@@ -8,25 +8,25 @@ import WarningIcon from '@material-ui/icons/Warning';
 interface WrongAnswerProps {
   theory: Theory[];
   answers: boolean[];
-  isAllQuestions: boolean | null | undefined;
+  isAllQuestions?: boolean;
   index: number;
-  wrong: Wrong;
+  wrong?: Wrong;
 }
 
 interface Theory {
   title: string;
   theory: string;
-  image: string | null | undefined;
+  image?: string;
 }
 interface Wrong {
   question: string;
   questionId: string;
   category: string;
-  image: string | null | undefined;
+  image?: string;
   answer: string;
   response: boolean;
-  userResponse: boolean | null | undefined;
-  num: number | null | undefined;
+  userResponse?: boolean;
+  num?: number;
 }
 const WrongAnswer = ({
   wrong,

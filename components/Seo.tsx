@@ -3,9 +3,9 @@ import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 
 interface SeoProps {
-  title: string;
-  description: string;
-  canonical: string;
+  title?: string;
+  description?: string;
+  canonical?: string;
 }
 const Seo = ({ title, description, canonical }: SeoProps) => {
   return (

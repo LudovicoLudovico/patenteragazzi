@@ -21,7 +21,7 @@ interface ScoreProps {
 interface QuizQuestions {
   answer: string;
   category: string;
-  image: string | null;
+  image?: string;
   question: string;
   questionId: string;
   response: boolean;
@@ -29,7 +29,7 @@ interface QuizQuestions {
 interface Theory {
   id: string;
   category: string;
-  image: string | null;
+  image?: string;
   slug: string;
   theory: string;
   title: string;
@@ -38,12 +38,12 @@ interface Theory {
 interface Wrong {
   answer: string;
   category: string;
-  image: string | null;
-  num: number | null;
+  image?: string;
+  num?: number;
   question: string;
   questionId: string;
   response: boolean;
-  userResponse: boolean | null;
+  userResponse?: boolean;
 }
 
 const Score = ({
@@ -96,7 +96,7 @@ const Score = ({
             </div>
 
             <div className='_answer_container'>
-              {isActive == 0 && (
+              {isActive == 2 && (
                 <>
                   {wrongAnswers.map((wrong, index) => {
                     return (
@@ -135,14 +135,15 @@ const Score = ({
                 </>
               )}
 
-              {isActive == 2 && (
+              {isActive == 0 && (
                 <>
                   {quizQuestions.map((wrong, index) => {
+                    console.log(wrong);
+
                     return (
                       <WrongAnswer
                         key={index}
                         index={index}
-                        wrong={wrong}
                         isAllQuestions={true}
                         answers={answers}
                         theory={theory.filter((theory) => {
