@@ -8,7 +8,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 interface WrongAnswerProps {
   theory: Theory[];
   answers: boolean[];
-  isAllQuestions: boolean | null;
+  isAllQuestions: boolean | null | undefined;
   index: number;
   wrong: Wrong;
 }
@@ -16,17 +16,17 @@ interface WrongAnswerProps {
 interface Theory {
   title: string;
   theory: string;
-  image: string | null;
+  image: string | null | undefined;
 }
 interface Wrong {
   question: string;
   questionId: string;
   category: string;
-  image: string | null;
+  image: string | null | undefined;
   answer: string;
   response: boolean;
-  userResponse: boolean | null;
-  num: number | null;
+  userResponse: boolean | null | undefined;
+  num: number | null | undefined;
 }
 const WrongAnswer = ({
   wrong,
