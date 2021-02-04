@@ -39,7 +39,7 @@ interface Wrong {
   answer: string;
   category: string;
   image: string | null;
-  num: number;
+  num: number | null;
   question: string;
   questionId: string;
   response: boolean;
