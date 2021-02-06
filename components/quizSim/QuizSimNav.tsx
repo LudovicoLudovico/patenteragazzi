@@ -50,7 +50,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
       </div>
 
       <div className='quiz-sim_small' onClick={setCounterFunc}>
-        {quizQuestions.map((index: number) => {
+        {quizQuestions.map((questions, index: number) => {
           return (
             <div
               key={uuid()}
@@ -90,7 +90,7 @@ const QuizSimNav = ({ questionCounter, setQuestionCounter, quizQuestions }) => {
         })}
       </div>
       <div className='quiz-sim_smaller' onClick={setCounterFunc}>
-        {quizQuestions.map((index: number) => {
+        {quizQuestions.map((questions, index: number) => {
           return (
             <div
               key={uuid()}

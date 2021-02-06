@@ -59,11 +59,13 @@ const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
 
     for (let i = 0; i < num; i++) {
       const rand = Math.floor(Math.random() * sdp.length);
+      console.log(rand);
+      console.log(extracted.indexOf(rand));
 
       const question = decrypt(sdp[rand].question);
 
-      if (!extracted.includes(question)) {
-        setExtracted((extracted) => [...extracted, question]);
+      if (extracted.indexOf(rand) !== -1) {
+        setExtracted((prevState) => [...prevState, rand]);
 
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
@@ -112,8 +114,8 @@ const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
 
       const question = decrypt(sdp[rand].question);
 
-      if (!extracted.includes(question)) {
-        setExtracted((extracted) => [...extracted, question]);
+      if (extracted.indexOf(rand) !== -1) {
+        setExtracted((prevState) => [...prevState, rand]);
 
         setQuizQuestions((quizQuestions) => [
           ...quizQuestions,
@@ -166,7 +168,6 @@ const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
     checkUngiven();
 
     if (ungivenState.position.length === 0) {
-      console.log('here');
       let quizQuestionsCopy = [...quizQuestions];
 
       for (let i = 0; i < 40; i++) {
