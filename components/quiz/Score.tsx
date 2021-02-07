@@ -95,7 +95,7 @@ const Score = ({
               </div>
             </div>
 
-            <div className='_answer_container'>
+            <div className='wrong_answer_container'>
               {isActive == 2 && (
                 <>
                   {wrongAnswers.map((wrong, index) => {
