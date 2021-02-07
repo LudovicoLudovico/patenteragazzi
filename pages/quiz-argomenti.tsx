@@ -68,26 +68,28 @@ const quizArgomenti = ({ questions, theory }: quizArgomentiProps) => {
     });
 
     if (questsFiltered.length >= 40) {
-      let extracted = [];
-      for (let i = 0; i < 40; i++) {
-        const rand = Math.floor(Math.random() * questsFiltered.length);
-        if (!extracted.includes(rand)) {
-          extracted.push(rand);
-          setQuizQuestions((quizQuestions) => [
-            ...quizQuestions,
-            {
-              questionId: questions[rand].id,
-              question: decrypt(questsFiltered[rand].question),
-              image: decrypt(questsFiltered[rand].image),
-              response: questsFiltered[rand].response,
-              answer: questsFiltered[rand].answer,
-              category: questsFiltered[rand].category,
-            },
-          ]);
-        } else {
-          i--;
+      let extractedNums = [];
+      while (extractedNums.length < 40) {
+        const num = Math.floor(Math.random() * questsFiltered.length);
+        if (!extractedNums.includes(num)) {
+          extractedNums.push(num);
         }
       }
+
+      for (let i = 0; i < 40; i++) {
+        setQuizQuestions((quizQuestions) => [
+          ...quizQuestions,
+          {
+            question: decrypt(questsFiltered[extractedNums[i]].question),
+            image: decrypt(questsFiltered[extractedNums[i]].image),
+            response: questsFiltered[extractedNums[i]].response,
+            answer: questsFiltered[extractedNums[i]].answer,
+            category: questsFiltered[extractedNums[i]].category,
+            questionId: questsFiltered[extractedNums[i]].id,
+          },
+        ]);
+      }
+
       setShowQuiz(true);
     } else {
       alert('Domande insufficienti selezionare altre categorie');

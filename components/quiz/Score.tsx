@@ -38,7 +38,7 @@ interface Theory {
 interface Wrong {
   answer: string;
   category: string;
-  image?: string;
+  image: string;
   num?: number;
   question: string;
   questionId: string;
@@ -99,6 +99,7 @@ const Score = ({
               {isActive == 2 && (
                 <>
                   {wrongAnswers.map((wrong, index) => {
+                    console.log(wrong);
                     return (
                       <WrongAnswer
                         key={index}
@@ -119,6 +120,7 @@ const Score = ({
                   {wrongAnswers
                     .filter((wrongItem) => wrongItem.userResponse == null)
                     .map((wrong, index) => {
+                      console.log(wrong);
                       return (
                         <WrongAnswer
                           key={index}
@@ -138,12 +140,11 @@ const Score = ({
               {isActive == 0 && (
                 <>
                   {quizQuestions.map((wrong, index) => {
-                    console.log(wrong);
-
                     return (
                       <WrongAnswer
                         key={index}
                         index={index}
+                        wrong={wrong}
                         isAllQuestions={true}
                         answers={answers}
                         theory={theory.filter((theory) => {

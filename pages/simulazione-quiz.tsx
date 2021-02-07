@@ -21,29 +21,7 @@ const Score = dynamic(() => import('../components/quiz/Score'));
 
 import '../style/quizSim.min.css';
 
-interface simulazioneQuizProps {
-  questions: Questions[];
-  theory: Theory[];
-}
-
-interface Questions {
-  id: string;
-  question: string;
-  answer: string;
-  response: boolean;
-  image: string | null;
-  category: string;
-}
-
-interface Theory {
-  id: string;
-  category: string;
-  image: string | null;
-  slug: string | null;
-  theory: string;
-  title: string;
-}
-const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
+const simulazioneQuiz = ({ questions, theory }) => {
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
   const [showScore, setShowScore] = useState(false);
@@ -55,36 +33,41 @@ const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
   const [extracted, setExtracted] = useState([]);
 
   const filterAndSet = (category: string, num: number) => {
-    const sdp = questions.filter((val: any) => val.category == category);
-
-    for (let i = 0; i < num; i++) {
-      const rand = Math.floor(Math.random() * sdp.length);
-      console.log(rand);
-      console.log(extracted.indexOf(rand));
-
-      const question = decrypt(sdp[rand].question);
-
-      if (extracted.indexOf(rand) !== -1) {
-        setExtracted((prevState) => [...prevState, rand]);
-
-        setQuizQuestions((quizQuestions) => [
-          ...quizQuestions,
-          {
-            question: question,
-            image: decrypt(sdp[rand].image),
-            response: sdp[rand].response,
-            answer: sdp[rand].answer,
-            category: sdp[rand].category,
-          },
-        ]);
-      } else {
-        i--;
+    const filteredArray = questions.filter((val) => val.category === category);
+    let extractedNums = [];
+    while (extractedNums.length < num) {
+      const num = Math.floor(Math.random() * filteredArray.length);
+      if (!extractedNums.includes(num)) {
+        extractedNums.push(num);
       }
     }
+
+    setQuizQuestions((quizQuestions) => [
+      ...quizQuestions,
+      {
+        question: decrypt(filteredArray[extractedNums[0]].question),
+        image: decrypt(filteredArray[extractedNums[0]].image),
+        response: filteredArray[extractedNums[0]].response,
+        answer: filteredArray[extractedNums[0]].answer,
+        category: filteredArray[extractedNums[0]].category,
+        questionId: filteredArray[extractedNums[0]].id,
+      },
+    ]);
+    setQuizQuestions((quizQuestions) => [
+      ...quizQuestions,
+      {
+        question: decrypt(filteredArray[extractedNums[1]].question),
+        image: decrypt(filteredArray[extractedNums[1]].image),
+        response: filteredArray[extractedNums[1]].response,
+        answer: filteredArray[extractedNums[1]].answer,
+        category: filteredArray[extractedNums[1]].category,
+        questionId: filteredArray[extractedNums[1]].id,
+      },
+    ]);
   };
 
   const filterAndSetSecondary = () => {
-    const sdp = questions.filter((val: any) => {
+    const filteredArray = questions.filter((val) => {
       return (
         val.category !== 'Segnali di pericolo' &&
         val.category !== 'Segnali di divieto' &&
@@ -109,28 +92,26 @@ const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
       );
     });
 
-    for (let i = 0; i < 10; i++) {
-      const rand = Math.floor(Math.random() * sdp.length);
-
-      const question = decrypt(sdp[rand].question);
-
-      if (extracted.indexOf(rand) !== -1) {
-        setExtracted((prevState) => [...prevState, rand]);
-
-        setQuizQuestions((quizQuestions) => [
-          ...quizQuestions,
-          {
-            question: question,
-            image: decrypt(sdp[rand].image),
-            response: sdp[rand].response,
-            answer: sdp[rand].answer,
-            category: sdp[rand].category,
-            questionId: sdp[rand].id,
-          },
-        ]);
-      } else {
-        i--;
+    let extractedNums = [];
+    while (extractedNums.length < 10) {
+      const num = Math.floor(Math.random() * filteredArray.length);
+      if (!extractedNums.includes(num)) {
+        extractedNums.push(num);
       }
+    }
+
+    for (let i = 0; i < 10; i++) {
+      setQuizQuestions((quizQuestions) => [
+        ...quizQuestions,
+        {
+          question: decrypt(filteredArray[extractedNums[i]].question),
+          image: decrypt(filteredArray[extractedNums[i]].image),
+          response: filteredArray[extractedNums[i]].response,
+          answer: filteredArray[extractedNums[i]].answer,
+          category: filteredArray[extractedNums[i]].category,
+          questionId: filteredArray[extractedNums[i]].id,
+        },
+      ]);
     }
   };
 
@@ -168,6 +149,7 @@ const simulazioneQuiz = ({ questions, theory }: simulazioneQuizProps) => {
     checkUngiven();
 
     if (ungivenState.position.length === 0) {
+      console.log('here');
       let quizQuestionsCopy = [...quizQuestions];
 
       for (let i = 0; i < 40; i++) {

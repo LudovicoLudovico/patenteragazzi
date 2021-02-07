@@ -19,7 +19,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/Footer.js",
-    "components/admin/Editor.js"
+    "components/admin/Editor.js",
+    "pages/admin/questions.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -58,26 +58,26 @@ const newQuiz = ({ questions, theory }: newQuizProps) => {
   const [quizQuestions, setQuizQuestions] = useState([]);
 
   useEffect(() => {
-    let extracted = [];
+    let extractedNums = [];
+    while (extractedNums.length < 40) {
+      const num = Math.floor(Math.random() * questions.length);
+      if (!extractedNums.includes(num)) {
+        extractedNums.push(num);
+      }
+    }
 
     for (let i = 0; i < 40; i++) {
-      const rand = Math.floor(Math.random() * questions.length);
-      if (!extracted.includes(rand)) {
-        extracted.push(rand);
-        setQuizQuestions((quizQuestions) => [
-          ...quizQuestions,
-          {
-            questionId: questions[rand].id,
-            question: decrypt(questions[rand].question),
-            image: decrypt(questions[rand].image),
-            response: questions[rand].response,
-            answer: questions[rand].answer,
-            category: questions[rand].category,
-          },
-        ]);
-      } else {
-        i--;
-      }
+      setQuizQuestions((quizQuestions) => [
+        ...quizQuestions,
+        {
+          question: decrypt(questions[extractedNums[i]].question),
+          image: decrypt(questions[extractedNums[i]].image),
+          response: questions[extractedNums[i]].response,
+          answer: questions[extractedNums[i]].answer,
+          category: questions[extractedNums[i]].category,
+          questionId: questions[extractedNums[i]].id,
+        },
+      ]);
     }
   }, []);
 
