@@ -11,6 +11,7 @@ interface PostProps {
   title: string;
   text: string;
   slug: string;
+  description: string;
 }
 interface PostsProps {
   posts: PostProps[];
@@ -32,7 +33,8 @@ const post = ({ posts }: PostsProps) => {
             <div key={post.slug}>
               <h2>{post.title}</h2>
 
-              <div dangerouslySetInnerHTML={{ __html: text }}></div>
+              <div>{post.description}</div>
+              <br />
 
               <Link href='/posts/[slug]' as={`/posts/${post.slug}`}>
                 <a

@@ -47,9 +47,9 @@ const Navbar = ({ isAdminNav, active }: NavbarProps) => {
               <Link href='/quiz'>
                 <a className={active == 'quiz' ? 'active' : ''}>QUIZ</a>
               </Link>
-              {/* <Link href='/posts'>
+              <Link href='/posts'>
                 <a className={active == 'post' ? 'active' : ''}>POSTS</a>
-              </Link> */}
+              </Link>
               <Link href='/#faq'>
                 <a className={active == 'faq' ? 'active' : ''}>FAQ</a>
               </Link>

@@ -50,9 +50,9 @@ const IndexNavbar = () => {
         <Link href='/#faq' prefetch={false}>
           <a title='faq'>FAQ</a>
         </Link>
-        {/* <Link href='/posts' prefetch={false}>
+        <Link href='/posts' prefetch={false}>
           <a title='posts'>POSTS</a>
-        </Link> */}
+        </Link>
         <Link href='/teoria' prefetch={false}>
           <a title='teoria'>TEORIA</a>
         </Link>

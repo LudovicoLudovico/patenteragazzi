@@ -15,6 +15,7 @@ export const getPosts = async () => {
           title: doc.data().title,
           text: textEnc,
           slug: doc.data().slug,
+          description: doc.data().description,
         });
       });
     });

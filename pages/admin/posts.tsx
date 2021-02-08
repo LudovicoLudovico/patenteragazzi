@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MDEditor from '@uiw/react-md-editor';
 import Navbar from '../../components/Navbar';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -8,8 +7,10 @@ import firebase from 'firebase/app';
 import { useUser } from '../../context/userContext';
 import { makeStyles } from '@material-ui/core/styles';
 import slugify from 'slugify';
-import Editor from '../../components/admin/Editor';
+import dynamic from 'next/dynamic';
+import cheerio from 'cheerio';
 
+const Editor = dynamic(() => import('../../components/admin/Editor'));
 import '../../style/admin.min.css';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,9 +32,12 @@ const post = () => {
   const [postImage, setPostImage] = useState('');
   const [isPublished, setIsPublished] = useState(false);
   const [imageLoader, setImageLoader] = useState(false);
+  const [postDescription, setPostDescription] = useState('');
   const { loadingUser, user, login, logout, isAdmin } = useUser();
 
   const classes = useStyles();
+
+  let $;
 
   useEffect(() => {
     firebase
@@ -48,6 +52,7 @@ const post = () => {
             title: doc.data().title,
             text: doc.data().text,
             slug: doc.data().slug,
+            description: doc.data().description,
             isPublished: doc.data().isPublished,
           }))
         );
@@ -58,9 +63,41 @@ const post = () => {
     setText('');
     setPostTitle('');
     setChecked(false);
+    setPostDescription('');
   };
 
   const savePost = () => {
+    $ = cheerio.load(text);
+    $('h3').each(function () {
+      $(this).attr(
+        'id',
+        slugify($(this).text(), {
+          lower: true,
+          remove: /[*+~()#'"!:@]/g,
+        })
+      );
+    });
+    $('h2').each(function () {
+      $(this).attr(
+        'id',
+        slugify($(this).text(), {
+          lower: true,
+          remove: /[*+~()#'"!:@]/g,
+        })
+      );
+    });
+
+    let titles = [];
+
+    $('h2, h3').each(function () {
+      const title = {
+        text: $(this).text(),
+        type: $(this).get(0).name,
+      };
+
+      titles.push(title);
+    });
+
     if (postId) {
       firebase
         .firestore()
@@ -68,10 +105,12 @@ const post = () => {
         .doc(postId)
         .update({
           title: postTitle,
-          text,
+          text: $.html(),
           isPublished: isPublished,
           slug: slugify(postTitle, { lower: true }),
+          description: postDescription,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          titles,
         })
         .then(() => {
           reset();
@@ -82,10 +121,12 @@ const post = () => {
         .collection('posts')
         .add({
           title: postTitle,
-          text,
+          text: $.html(),
           isPublished: isPublished,
           slug: slugify(postTitle, { lower: true }),
+          description: postDescription,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          titles,
         })
         .then(() => {
           reset();
@@ -94,6 +135,33 @@ const post = () => {
   };
 
   const publishPost = () => {
+    $ = cheerio.load(text);
+    $('h3').each(function () {
+      $(this).attr(
+        'id',
+        slugify($(this).text(), {
+          lower: true,
+          remove: /[*+~()#'"!:@]/g,
+        })
+      );
+    });
+    $('h2').each(function () {
+      $(this).attr(
+        'id',
+        slugify($(this).text(), {
+          lower: true,
+          remove: /[*+~()#'"!:@]/g,
+        })
+      );
+    });
+
+    let titles = [];
+
+    $('h2, h3').each(function () {
+      const title = { text: $(this).text(), type: $(this).get(0).name };
+
+      titles.push(title);
+    });
     if (postId) {
       firebase
         .firestore()
@@ -101,10 +169,12 @@ const post = () => {
         .doc(postId)
         .update({
           title: postTitle,
-          text,
+          text: $.html(),
           slug: slugify(postTitle, { lower: true }),
           isPublished: true,
+          description: postDescription,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          titles,
         })
         .then(() => {
           reset();
@@ -125,10 +195,12 @@ const post = () => {
         .collection('posts')
         .add({
           title: postTitle,
-          text,
+          text: $.html(),
           slug: slugify(postTitle, { lower: true }),
           isPublished: true,
+          description: postDescription,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          titles,
         })
         .then(() => {
           reset();
@@ -299,10 +371,20 @@ const post = () => {
           <p>Slug: {slugify(postTitle, { lower: true })}</p>
           <br />
 
-          {/* <MDEditor value={text} onChange={setText} height={500} /> */}
-
           <Editor text={text} setText={setText} />
+
           <br />
+          <TextField
+            id='outlined-basic'
+            label='Descrizione del post (150 caratteri)'
+            variant='outlined'
+            required
+            style={{ minWidth: '500px' }}
+            onChange={(e) => {
+              setPostDescription(e.target.value);
+            }}
+            value={postDescription}
+          />
 
           <br />
           <br />
@@ -335,12 +417,12 @@ const post = () => {
 
           <h2>Lista Post</h2>
           {posts.map((post) => {
-            const { id, title, isPublished, text } = post;
+            const { id, title, isPublished, text, description } = post;
             return (
               <div key={id}>
                 <hr />
                 <h3>{title}</h3>
-                <p>{text.slice(0, 150)}...</p>
+                <p>{description}</p>
 
                 <br />
                 <Button
@@ -355,6 +437,7 @@ const post = () => {
                     setPostTitle(title);
                     setPostId(id);
                     setIsPublished(isPublished);
+                    setPostDescription(description);
                   }}
                 >
                   Modifica

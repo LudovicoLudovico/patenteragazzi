@@ -17,6 +17,7 @@ export const getPostItem = async (slug) => {
           title: doc.data().title,
           text: textEnc,
           slug: doc.data().slug,
+          titles: doc.data().titles,
         };
       });
     });
