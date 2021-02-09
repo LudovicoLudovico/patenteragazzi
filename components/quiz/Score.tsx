@@ -55,6 +55,7 @@ const Score = ({
   quizQuestions,
 }: ScoreProps) => {
   const [isActive, setIsActive] = useState(0);
+
   return (
     <>
       {showScore && (
@@ -99,7 +100,6 @@ const Score = ({
               {isActive == 2 && (
                 <>
                   {wrongAnswers.map((wrong, index) => {
-                    console.log(wrong);
                     return (
                       <WrongAnswer
                         key={index}
@@ -120,7 +120,6 @@ const Score = ({
                   {wrongAnswers
                     .filter((wrongItem) => wrongItem.userResponse == null)
                     .map((wrong, index) => {
-                      console.log(wrong);
                       return (
                         <WrongAnswer
                           key={index}
