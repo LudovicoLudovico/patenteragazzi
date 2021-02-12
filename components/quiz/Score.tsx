@@ -97,7 +97,7 @@ const Score = ({
             </div>
 
             <div className='wrong_answer_container'>
-              {isActive == 2 && (
+              {isActive == 0 && (
                 <>
                   {wrongAnswers.map((wrong, index) => {
                     return (
@@ -136,7 +136,7 @@ const Score = ({
                 </>
               )}
 
-              {isActive == 0 && (
+              {isActive == 2 && (
                 <>
                   {quizQuestions.map((wrong, index) => {
                     return (
