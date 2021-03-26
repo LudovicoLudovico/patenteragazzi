@@ -25,7 +25,7 @@ interface Window {
   adsbygoogle: { [key: string]: unknown }[];
 }
 
-const post = (props) => {
+const post = (props: any) => {
   const { text, title, slug, titles } = props.post;
   let $;
   if (post) {
@@ -33,16 +33,13 @@ const post = (props) => {
     //Adding ads
     $('pre').each(function () {
       const ad = `   
-        <ins
-          className='adsbygoogle'
-          style={{
-            display: 'inline-block',
-            width: '100%',
-            height: 90,
-          }}
-          data-ad-client='ca-pub-7942078481061905'
-          data-ad-slot='5732008523'
-        ></ins>`;
+     <ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7942078481061905"
+     data-ad-slot="5732008523"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>`;
       $(ad).insertBefore($(this));
     });
 
