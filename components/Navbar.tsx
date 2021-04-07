@@ -121,11 +121,14 @@ const Navbar = ({ isAdminNav, active }: NavbarProps) => {
               <Link href='/admin/posts'>
                 <a className={active == 'post' ? 'active' : ''}>POSTS</a>
               </Link>
-              <Link href='/admin/faq'>
+              {/* <Link href='/admin/faq'>
                 <a className={active == 'faq' ? 'active' : ''}>FAQ</a>
-              </Link>
+              </Link> */}
               <Link href='/admin/problems'>
                 <a className={active == 'problems' ? 'active' : ''}>PROBLEMI</a>
+              </Link>
+              <Link href='/admin/stories'>
+                <a className={active == 'stories' ? 'active' : ''}>STORIES</a>
               </Link>
 
               <span></span>

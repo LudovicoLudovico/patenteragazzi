@@ -50,12 +50,12 @@ $sim-green: #cfe6d6;
         }
       }
       .score_nav {
-        margin-left: 20px;
         display: flex;
         align-items: center;
 
         div {
           margin-right: 30px;
+          padding: 5px;
           border-bottom: 3px solid transparent;
           cursor: pointer;
 
@@ -172,13 +172,22 @@ $sim-green: #cfe6d6;
   .score {
     height: 100vh;
     .score_top {
+      .score_nav {
+        display: flex;
+        justify-content: space-around;
+        margin: 0;
+
+        div {
+          margin: 0;
+        }
+      }
       p {
         display: none;
       }
     }
     .score_content {
       .wrong_answer_container {
-        height: calc(87vh - 200px);
+        height: calc(87vh - 150px);
         margin: 0;
         .wrong_answer {
           display: flex;
