@@ -9,5 +9,6 @@ module.exports = {
     '/admin/faq',
     '/admin/problems',
     '/admin/videos',
+    '/admin/stories',
   ],
 };
