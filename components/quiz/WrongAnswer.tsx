@@ -27,6 +27,7 @@ interface Wrong {
   response: boolean;
   userResponse?: boolean;
   num?: number;
+  isChecked?: boolean;
 }
 const WrongAnswer = ({
   wrong,
@@ -242,18 +243,21 @@ const WrongAnswer = ({
           {!isAllQuestions && <p> {wrong.num + 1} / 40</p>}
 
           <div>
-            <Button
-              className='quiz_problem active'
-              onClick={() => setOpenModal(true)}
-              disabled={!canReport}
-              variant='contained'
-              style={{
-                background: 'red',
-                color: 'white',
-              }}
-            >
-              <WarningIcon />
-            </Button>
+            {!wrong.isChecked && (
+              <Button
+                className='quiz_problem active'
+                onClick={() => setOpenModal(true)}
+                disabled={!canReport}
+                variant='contained'
+                style={{
+                  background: 'red',
+                  color: 'white',
+                }}
+              >
+                <WarningIcon />
+              </Button>
+            )}
+
             <img
               src='/book.svg'
               alt=''

@@ -35,6 +35,7 @@ interface Questions {
   response: boolean;
   image: string | null;
   category: string;
+  isChecked?: boolean;
 }
 
 interface Theory {
@@ -76,6 +77,7 @@ const newQuiz = ({ questions, theory }: newQuizProps) => {
           answer: questions[extractedNums[i]].answer,
           category: questions[extractedNums[i]].category,
           questionId: questions[extractedNums[i]].id,
+          isChecked: questions[extractedNums[i]].isChecked || null,
         },
       ]);
     }
@@ -145,6 +147,7 @@ const newQuiz = ({ questions, theory }: newQuizProps) => {
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
                 questionId: quizQuestionsCopy[i].questionId,
+                isChecked: quizQuestionsCopy[i].isChecked || null,
                 num: i,
               },
             ]);
@@ -159,6 +162,7 @@ const newQuiz = ({ questions, theory }: newQuizProps) => {
                 answer: quizQuestionsCopy[i].answer,
                 category: quizQuestionsCopy[i].category,
                 questionId: quizQuestionsCopy[i].questionId,
+                isChecked: quizQuestionsCopy[i].isChecked || null,
                 num: i,
               },
             ]);
@@ -192,6 +196,7 @@ const newQuiz = ({ questions, theory }: newQuizProps) => {
               answer: quizQuestionsCopy[i].answer,
               category: quizQuestionsCopy[i].category,
               questionId: quizQuestionsCopy[i].questionId,
+              isChecked: quizQuestionsCopy[i].isChecked || null,
               num: i,
             },
           ]);
@@ -206,6 +211,7 @@ const newQuiz = ({ questions, theory }: newQuizProps) => {
               image: quizQuestionsCopy[i].image,
               answer: quizQuestionsCopy[i].answer,
               category: quizQuestionsCopy[i].category,
+              isChecked: quizQuestionsCopy[i].isChecked || null,
               num: i,
             },
           ]);

@@ -276,6 +276,7 @@ export async function getStaticProps({ params }) {
       theoryItem: theoryItem || null,
       questions: questions || null,
     },
+    revalidate: 300,
   };
 }
 export default slug;

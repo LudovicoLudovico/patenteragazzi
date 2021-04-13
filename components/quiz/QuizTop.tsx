@@ -17,6 +17,7 @@ interface Question {
   image?: string;
   answer: string;
   response: boolean;
+  isChecked?: boolean;
 }
 const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
   const [canReport, setCanReport] = useState([]);
@@ -124,20 +125,22 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
 
   return (
     <>
-      <Modal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        aria-labelledby='Segnalazione errore domanda'
-        aria-describedby='Puoi segnalarci un errore nella domanda'
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          outline: 'none',
-        }}
-      >
-        {reportPopup}
-      </Modal>
+      {!quizQuestions[questionCounter].isChecked && (
+        <Modal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          aria-labelledby='Segnalazione errore domanda'
+          aria-describedby='Puoi segnalarci un errore nella domanda'
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            outline: 'none',
+          }}
+        >
+          {reportPopup}
+        </Modal>
+      )}
 
       <div className='quiz_top'>
         <div className='quiz_top_left'>
@@ -164,17 +167,18 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
               />
             </Timer>
           </div>
-
-          <Button
-            className='quiz_problem'
-            onClick={() => setOpenModal(true)}
-            disabled={canReport.includes(questionCounter)}
-            variant='contained'
-            aria-label={`Segnala Domanda Numero ${questionCounter + 1}`}
-          >
-            <p>Segnala domanda</p>
-            <WarningIcon />
-          </Button>
+          {!quizQuestions[questionCounter].isChecked && (
+            <Button
+              className='quiz_problem'
+              onClick={() => setOpenModal(true)}
+              disabled={canReport.includes(questionCounter)}
+              variant='contained'
+              aria-label={`Segnala Domanda Numero ${questionCounter + 1}`}
+            >
+              <p>Segnala domanda</p>
+              <WarningIcon />
+            </Button>
+          )}
         </div>
 
         {/* Top right section of the quiz, contains correct btn and close btn */}

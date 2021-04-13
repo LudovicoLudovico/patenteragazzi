@@ -36,7 +36,6 @@ const ProblemItem = ({
   const [newQuestion, setNewQuestion] = useState(question);
   const [newResponse, setNewResponse] = useState(response);
   const [newCategory, setNewCategory] = useState(category);
-  const [newAnswer, setNewAnswer] = useState(answer);
 
   const saveProblem = () => {
     firebase
@@ -48,6 +47,7 @@ const ProblemItem = ({
         question: newQuestion,
         category: newCategory,
         response: newResponse,
+        isChecked: true,
       })
       .then(() => {
         firebase.firestore().collection('problems').doc(id).delete();
