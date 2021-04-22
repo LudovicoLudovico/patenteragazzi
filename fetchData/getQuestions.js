@@ -6,7 +6,7 @@ export const getQuestions = async () => {
   await admin
     .firestore()
     .collection('questions')
-    .limit(process.env.NODE_ENV == 'development' ? 40 : 6881)
+    .limit(process.env.NODE_ENV == 'development' ? 400 : 6881)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {

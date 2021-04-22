@@ -1,9 +1,6 @@
 //General and Next
 import dynamic from 'next/dynamic';
 
-//Get Data
-import { getFaq } from '../fetchData/getFaq';
-
 //Components
 import IndexNavbar from '../components/home/IndexNavbar';
 import IndexHero from '../components/home/IndexHero';
@@ -22,17 +19,8 @@ const Footer = dynamic(() => import('../components/Footer'), {
 //SEO
 import Seo from '../components/Seo';
 
-interface HomeProps {
-  faq: Faq[];
-}
-interface Faq {
-  id: string;
-  question: string;
-  answer: string;
-}
-
 //Home Component
-export default function Home({ faq }: HomeProps) {
+export default function Home() {
   return (
     <>
       {/* SEO Init  */}
@@ -55,23 +43,11 @@ export default function Home({ faq }: HomeProps) {
         <IndexTheory />
 
         {/* FAQ Section */}
-        <IndexFaq faq={faq} />
+        {/* <IndexFaq faq={faq} /> */}
 
         {/* Footer */}
         <Footer />
       </div>
     </>
   );
-}
-
-// Get Data during Build
-export async function getStaticProps(context) {
-  const faqRaw = await getFaq();
-
-  return {
-    props: {
-      faq: JSON.parse(JSON.stringify(faqRaw)),
-    },
-    revalidate: 60 * 10,
-  };
 }

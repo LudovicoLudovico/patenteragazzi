@@ -47,9 +47,9 @@ const IndexNavbar = () => {
         <Link href='/quiz' prefetch={false}>
           <a title='quiz'>QUIZ</a>
         </Link>
-        <Link href='/#faq' prefetch={false}>
+        {/* <Link href='/#faq' prefetch={false}>
           <a title='faq'>FAQ</a>
-        </Link>
+        </Link> */}
         <Link href='/posts' prefetch={false}>
           <a title='posts'>POSTS</a>
         </Link>

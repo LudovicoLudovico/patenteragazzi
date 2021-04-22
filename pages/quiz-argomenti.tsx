@@ -283,18 +283,17 @@ const quizArgomenti = ({ questions, theory }: quizArgomentiProps) => {
               forceCorrect={forceCorrect}
               setCorrectPopup={(e) => setCorrectPopup(e)}
             />
-
-            {showScore && showQuiz && (
-              <Score
-                showScore={showScore}
-                score={score}
-                wrongAnswers={wrongAnswers}
-                theory={theory}
-                quizQuestions={quizQuestions}
-                answers={answers}
-              />
-            )}
           </div>
+          {showScore && showQuiz && (
+            <Score
+              showScore={showScore}
+              score={score}
+              wrongAnswers={wrongAnswers}
+              theory={theory}
+              quizQuestions={quizQuestions}
+              answers={answers}
+            />
+          )}
         </div>
       )}
 
