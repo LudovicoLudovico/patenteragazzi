@@ -39,67 +39,6 @@ const test = ({ questions, theory }) => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [filters, setFilters] = useState([]);
 
-  useEffect(() => {
-    console.log(router.query.tipo);
-
-    filterAndSet('Segnali di pericolo', 2);
-    filterAndSet('Segnali di divieto', 2);
-    filterAndSet('Segnali di obbligo', 2);
-    filterAndSet('Segnali di precedenza', 2);
-    filterAndSet('Segnaletica orizzontale e segni sugli ostacoli', 2);
-    filterAndSet('Segnalazioni semaforiche e degli agenti del traffico', 2);
-    filterAndSet(
-      'Limiti di velocità, pericolo e intralcio alla circolazione',
-      2
-    );
-    filterAndSet('Distanza di sicurezza', 2);
-    filterAndSet('Norme sulla circolazione dei veicoli', 2);
-    filterAndSet('Ordine di precedenza agli incroci', 2);
-    filterAndSet('Norme sul sorpasso', 2);
-    filterAndSet('Norme varie', 2);
-    filterAndSet(
-      'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza',
-      2
-    );
-    filterAndSet('Incidenti stradali e comportamenti in caso di incidente', 2);
-    filterAndSet(
-      'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso',
-      2
-    );
-    filterAndSetSecondary();
-
-    // if (router.query.tipo !== 'argomenti' && 'simulazione') {
-    //   let extractedNums = [];
-    //   while (extractedNums.length < 40) {
-    //     const num = Math.floor(Math.random() * questions.length);
-    //     if (!extractedNums.includes(num)) {
-    //       extractedNums.push(num);
-    //       const {
-    //         question,
-    //         image,
-    //         response,
-    //         answer,
-    //         category,
-    //         questionId,
-    //         isChecked,
-    //       } = questions[num];
-    //       setQuizQuestions((quizQuestions) => [
-    //         ...quizQuestions,
-    //         {
-    //           question: decrypt(question),
-    //           image: decrypt(image),
-    //           response,
-    //           answer,
-    //           category,
-    //           questionId,
-    //           isChecked: isChecked || null,
-    //         },
-    //       ]);
-    //     }
-    //   }
-    // }
-  }, []);
-
   const filterAndSet = (category: string, num: number) => {
     const filteredArray = questions.filter((val) => val.category === category);
     let extractedNums = [];
@@ -182,6 +121,66 @@ const test = ({ questions, theory }) => {
       ]);
     }
   };
+  useEffect(() => {
+    console.log(router.query.tipo);
+
+    filterAndSet('Segnali di pericolo', 2);
+    filterAndSet('Segnali di divieto', 2);
+    filterAndSet('Segnali di obbligo', 2);
+    filterAndSet('Segnali di precedenza', 2);
+    filterAndSet('Segnaletica orizzontale e segni sugli ostacoli', 2);
+    filterAndSet('Segnalazioni semaforiche e degli agenti del traffico', 2);
+    filterAndSet(
+      'Limiti di velocità, pericolo e intralcio alla circolazione',
+      2
+    );
+    filterAndSet('Distanza di sicurezza', 2);
+    filterAndSet('Norme sulla circolazione dei veicoli', 2);
+    filterAndSet('Ordine di precedenza agli incroci', 2);
+    filterAndSet('Norme sul sorpasso', 2);
+    filterAndSet('Norme varie', 2);
+    filterAndSet(
+      'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza',
+      2
+    );
+    filterAndSet('Incidenti stradali e comportamenti in caso di incidente', 2);
+    filterAndSet(
+      'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso',
+      2
+    );
+    filterAndSetSecondary();
+
+    // if (router.query.tipo !== 'argomenti' && 'simulazione') {
+    //   let extractedNums = [];
+    //   while (extractedNums.length < 40) {
+    //     const num = Math.floor(Math.random() * questions.length);
+    //     if (!extractedNums.includes(num)) {
+    //       extractedNums.push(num);
+    //       const {
+    //         question,
+    //         image,
+    //         response,
+    //         answer,
+    //         category,
+    //         questionId,
+    //         isChecked,
+    //       } = questions[num];
+    //       setQuizQuestions((quizQuestions) => [
+    //         ...quizQuestions,
+    //         {
+    //           question: decrypt(question),
+    //           image: decrypt(image),
+    //           response,
+    //           answer,
+    //           category,
+    //           questionId,
+    //           isChecked: isChecked || null,
+    //         },
+    //       ]);
+    //     }
+    //   }
+    // }
+  }, []);
 
   const checkUngiven = () => {
     let i = 0;
@@ -323,7 +322,8 @@ const test = ({ questions, theory }) => {
         canonical='https://patenteragazzi.it/quiz'
       />
 
-      {router.query.tipo == 'normale' &&
+      {router.query.tipo !== 'argomenti' &&
+        router.query.tipo !== 'simulazione' &&
         quizQuestions.length !== 0 &&
         !showScore && (
           <Quiz
