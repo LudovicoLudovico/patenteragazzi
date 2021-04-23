@@ -3,6 +3,7 @@ import Timer from 'react-compound-timer';
 import { Modal, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import firebase from 'firebase/app';
 import WarningIcon from '@material-ui/icons/Warning';
+import Link from 'next/link';
 
 interface QuizTopProps {
   questionCounter: number;
@@ -186,6 +187,13 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
           <Button variant='contained' className='correct_btn' onClick={correct}>
             Correggi
           </Button>
+          <Link href='/'>
+            <a title='Esci'>
+              <Button variant='contained' className='close_btn'>
+                Esci
+              </Button>
+            </a>
+          </Link>
         </div>
       </div>
     </>

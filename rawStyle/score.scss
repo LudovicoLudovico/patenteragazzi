@@ -18,11 +18,13 @@ $sim-green: #cfe6d6;
   width: 100vw;
   background-color: $blue;
   display: flex;
-  align-items: center;
   justify-content: center;
   position: relative;
+  color: white;
+  overflow-y: hidden;
 
   .score_content {
+    margin-top: -100px;
     max-width: 1400px;
     width: 95vw;
 
@@ -39,9 +41,9 @@ $sim-green: #cfe6d6;
           display: flex;
           flex-direction: row;
           align-items: center;
-          margin-left: 10px;
+          margin-left: 0;
           p {
-            margin: 0 10px;
+            margin-left: 0;
           }
         }
         .close_quiz {
@@ -52,6 +54,7 @@ $sim-green: #cfe6d6;
       .score_nav {
         display: flex;
         align-items: center;
+        // margin-left: 8px;
 
         div {
           margin-right: 30px;
@@ -67,7 +70,7 @@ $sim-green: #cfe6d6;
     }
     .wrong_answer_container {
       margin: 0;
-      margin-left: 10px;
+
       overflow-y: scroll;
       height: calc(70vh);
       box-sizing: border-box;
@@ -77,18 +80,28 @@ $sim-green: #cfe6d6;
       max-width: 100%;
 
       .wrong_answer {
+        margin: 0;
         box-sizing: border-box;
         padding: 20px;
-        margin: 10px;
         width: calc(50% - 20px);
         min-width: 400px;
         border: 1px solid $white;
-
         display: grid;
         grid-template-areas: 'WrongImage WrongContent' 'WrongBottom WrongBottom';
         padding-right: 20px;
+        img {
+          width: 150px;
+          height: auto;
+        }
 
         .wrong_answer_image {
+          .theory_popup {
+            img {
+              width: 150px;
+              height: auto;
+              grid-area: WrongImage;
+            }
+          }
           img {
             width: 150px;
             height: auto;
@@ -171,6 +184,7 @@ $sim-green: #cfe6d6;
 @media (max-width: 900px) {
   .score {
     height: 100vh;
+
     .score_top {
       .score_nav {
         display: flex;
@@ -186,6 +200,7 @@ $sim-green: #cfe6d6;
       }
     }
     .score_content {
+      margin-top: 0;
       .wrong_answer_container {
         height: calc(87vh - 150px);
         margin: 0;

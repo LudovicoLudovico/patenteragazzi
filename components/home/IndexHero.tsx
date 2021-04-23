@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
-import { useRouter } from 'next/router';
 
 //Css import
 import '../../style/indexHero.min.css';
@@ -10,15 +9,11 @@ const IndexHero = () => {
   const [loading, setLoading] = useState(false);
   const [loadingSim, setLoadingSim] = useState(false);
   const [loadingTopics, setLoadingTopics] = useState(false);
-  const router = useRouter();
-  useEffect(() => {
-    router.prefetch('/quiz');
-    router.prefetch('/quiz-argomenti');
-  }, []);
+
   return (
     <div className='index_hero'>
       <div className='index_hero_button'>
-        <Link href='/quiz' prefetch={false}>
+        <Link href='/quiz?tipo=normale' prefetch={false}>
           <a title='Quiz'>
             <Button
               variant='contained'
@@ -31,7 +26,7 @@ const IndexHero = () => {
           </a>
         </Link>
 
-        <Link href='/simulazione-quiz'>
+        <Link href='/quiz?tipo=simulazione'>
           <a title='Quiz Simulazione Esame'>
             <Button
               variant='contained'
@@ -47,7 +42,7 @@ const IndexHero = () => {
           </a>
         </Link>
 
-        <Link href='/quiz-argomenti' prefetch={false}>
+        <Link href='/quiz?tipo=argomenti' prefetch={false}>
           <a title='Quiz Su Argomenti'>
             <Button
               variant='contained'

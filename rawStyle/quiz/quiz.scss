@@ -37,6 +37,10 @@ $sim-green: #cfe6d6;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      .close_btn {
+        display: none;
+      }
       .quiz_top_left {
         display: flex;
         align-items: center;
@@ -206,7 +210,28 @@ $sim-green: #cfe6d6;
     .standard_quiz {
       max-width: 1400px;
       overflow-y: hidden;
+
+      .quiz_top {
+        .close_btn {
+          display: inline-block;
+          background-color: $red;
+          color: white;
+          margin-left: 20px;
+          text-decoration: none;
+          a {
+            text-decoration: none;
+          }
+        }
+      }
       .quiz_content {
+        &.image {
+          .quiz_image {
+            img {
+              height: 200px;
+            }
+          }
+        }
+
         .quiz_question {
           max-width: 800px;
           margin: 0 auto;

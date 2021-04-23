@@ -30,90 +30,6 @@ const simulazioneQuiz = ({ questions, theory }) => {
   const [correctPopup, setCorrectPopup] = useState(false);
   const [ungivenState, setUngivenState] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const [extracted, setExtracted] = useState([]);
-
-  const filterAndSet = (category: string, num: number) => {
-    const filteredArray = questions.filter((val) => val.category === category);
-    let extractedNums = [];
-    while (extractedNums.length < num) {
-      const num = Math.floor(Math.random() * filteredArray.length);
-      if (!extractedNums.includes(num)) {
-        extractedNums.push(num);
-      }
-    }
-
-    setQuizQuestions((quizQuestions) => [
-      ...quizQuestions,
-      {
-        question: decrypt(filteredArray[extractedNums[0]].question),
-        image: decrypt(filteredArray[extractedNums[0]].image),
-        response: filteredArray[extractedNums[0]].response,
-        answer: filteredArray[extractedNums[0]].answer,
-        category: filteredArray[extractedNums[0]].category,
-        questionId: filteredArray[extractedNums[0]].id,
-      },
-    ]);
-    setQuizQuestions((quizQuestions) => [
-      ...quizQuestions,
-      {
-        question: decrypt(filteredArray[extractedNums[1]].question),
-        image: decrypt(filteredArray[extractedNums[1]].image),
-        response: filteredArray[extractedNums[1]].response,
-        answer: filteredArray[extractedNums[1]].answer,
-        category: filteredArray[extractedNums[1]].category,
-        questionId: filteredArray[extractedNums[1]].id,
-      },
-    ]);
-  };
-
-  const filterAndSetSecondary = () => {
-    const filteredArray = questions.filter((val) => {
-      return (
-        val.category !== 'Segnali di pericolo' &&
-        val.category !== 'Segnali di divieto' &&
-        val.category !== 'Segnali di obbligo' &&
-        val.category !== 'Segnali di precedenza' &&
-        val.category !== 'Segnaletica orizzontale e segni sugli ostacoli' &&
-        val.category !==
-          'Segnalazioni semaforiche e degli agenti del traffico' &&
-        val.category !==
-          'Limiti di velocità, pericolo e intralcio alla circolazione' &&
-        val.category !== 'Distanza di sicurezza' &&
-        val.category !== 'Norme sulla circolazione dei veicoli' &&
-        val.category !== 'Ordine di precedenza agli incroci' &&
-        val.category !== 'Norme sul sorpasso' &&
-        val.category !== 'Norme varie' &&
-        val.category !==
-          'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza' &&
-        val.category !==
-          'Incidenti stradali e comportamenti in caso di incidente' &&
-        val.category !==
-          'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
-      );
-    });
-
-    let extractedNums = [];
-    while (extractedNums.length < 10) {
-      const num = Math.floor(Math.random() * filteredArray.length);
-      if (!extractedNums.includes(num)) {
-        extractedNums.push(num);
-      }
-    }
-
-    for (let i = 0; i < 10; i++) {
-      setQuizQuestions((quizQuestions) => [
-        ...quizQuestions,
-        {
-          question: decrypt(filteredArray[extractedNums[i]].question),
-          image: decrypt(filteredArray[extractedNums[i]].image),
-          response: filteredArray[extractedNums[i]].response,
-          answer: filteredArray[extractedNums[i]].answer,
-          category: filteredArray[extractedNums[i]].category,
-          questionId: filteredArray[extractedNums[i]].id,
-        },
-      ]);
-    }
-  };
 
   useEffect(() => {
     filterAndSet('Segnali di pericolo', 2);
@@ -353,14 +269,14 @@ const simulazioneQuiz = ({ questions, theory }) => {
   );
 };
 
-export async function getStaticProps(context) {
-  const questionsRaw = await getQuestions();
-  const theoryRaw = await getTheory();
-  return {
-    props: {
-      questions: JSON.parse(JSON.stringify(questionsRaw)),
-      theory: JSON.parse(JSON.stringify(theoryRaw)),
-    },
-  };
-}
+// export async function getStaticProps(context) {
+//   const questionsRaw = await getQuestions();
+//   const theoryRaw = await getTheory();
+//   return {
+//     props: {
+//       questions: JSON.parse(JSON.stringify(questionsRaw)),
+//       theory: JSON.parse(JSON.stringify(theoryRaw)),
+//     },
+//   };
+// }
 export default simulazioneQuiz;

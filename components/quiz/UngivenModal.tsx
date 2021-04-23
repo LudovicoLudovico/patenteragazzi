@@ -4,7 +4,7 @@ import { Modal, Button } from '@material-ui/core';
 interface UngivenModalProps {
   ungivenState: UngivenState;
   correctPopup: boolean;
-  forceCorrect: () => void;
+  correct: (bool: boolean) => void;
   setCorrectPopup: (value: boolean) => void;
   setQuestionCounter: (number: number) => void;
 }
@@ -16,7 +16,7 @@ interface UngivenState {
 const UngivenModal = ({
   ungivenState,
   correctPopup,
-  forceCorrect,
+  correct,
   setCorrectPopup,
   setQuestionCounter,
 }: UngivenModalProps) => {
@@ -43,7 +43,7 @@ const UngivenModal = ({
                 <Button
                   variant='contained'
                   className='correct_btn'
-                  onClick={forceCorrect}
+                  onClick={() => correct(false)}
                 >
                   Correggi
                 </Button>
@@ -90,7 +90,7 @@ const UngivenModal = ({
                 <Button
                   variant='contained'
                   className='correct_btn'
-                  onClick={forceCorrect}
+                  onClick={() => correct(false)}
                 >
                   Correggi
                 </Button>

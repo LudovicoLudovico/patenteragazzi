@@ -1,17 +1,13 @@
 //General and Next
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 //Components
 import IndexNavbar from '../components/home/IndexNavbar';
 import IndexHero from '../components/home/IndexHero';
-
 const IndexTheory = dynamic(() => import('../components/home/IndexTheory'), {
   loading: () => <p>Caricamento...</p>,
 });
-const IndexFaq = dynamic(() => import('../components/home/IndexFaq'), {
-  loading: () => <p>Caricamento...</p>,
-});
-
 const Footer = dynamic(() => import('../components/Footer'), {
   loading: () => <p>Caricamento...</p>,
 });
