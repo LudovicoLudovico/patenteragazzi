@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import firebase from 'firebase/app';
 import ProblemItem from '../../components/admin/ProblemItem';
 import TheoryProblemItem from '../../components/admin/TheoryProblemItem';

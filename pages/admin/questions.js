@@ -12,8 +12,8 @@ import {
   Backdrop,
   Fade,
 } from '@material-ui/core';
-import CategoryList from '../../components/CategoryList';
-import QuestionsList from '../../components/QuestionsList';
+import CategoryList from '../../components/admin/CategoryList';
+import QuestionsList from '../../components/admin/QuestionsList';
 
 import { PaginatedList } from 'react-paginated-list';
 import firebase from 'firebase/app';
@@ -21,7 +21,7 @@ import { useAdmin } from '../../context/adminContext';
 import { useUser } from '../../context/userContext';
 
 //Components
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 
 import '../../style/admin.min.css';
 

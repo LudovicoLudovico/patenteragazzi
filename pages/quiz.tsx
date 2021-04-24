@@ -9,21 +9,13 @@ import { getTheory } from '../fetchData/getTheory';
 import dynamic from 'next/dynamic';
 
 // Components
-import Seo from '../components/Seo';
+import Seo from '../components/general/Seo';
 import Quiz from '../components/quiz/Quiz';
-import UngivenModal from '../components/quiz/UngivenModal';
-import Score from '../components/quiz/Score';
-import QuizSimComp from '../components/quizSim/QuizSimComp';
-import QuizSimNav from '../components/quizSim/QuizSimNav';
-import QuizSimBottom from '../components/quizSim/QuizSimBottom';
-import QuizTopicsList from '../components/quiz/QuizTopicsList';
-import Link from 'next/link';
+import QuizSim from '../components/quizSim/QuizSim';
 
-import { Button } from '@material-ui/core';
-
-// Css Import
-import '../style/quizSim.min.css';
-import '../style/quizTopics.min.css';
+const TopicChoice = dynamic(() => import('../components/quiz/TopicChoice'));
+const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
+const Score = dynamic(() => import('../components/quiz/Score'));
 
 // Functional Component
 const test = ({ questions, theory }) => {
@@ -338,47 +330,13 @@ const test = ({ questions, theory }) => {
       {router.query.tipo == 'simulazione' &&
         quizQuestions.length !== 0 &&
         !showScore && (
-          <div className='quiz-sim'>
-            <div className='quiz-sim_container'>
-              <QuizSimNav
-                questionCounter={questionCounter}
-                setQuestionCounter={(id) => setQuestionCounter(parseInt(id))}
-                quizQuestions={quizQuestions}
-              />
-              {quizQuestions.map((question, index) => {
-                return (
-                  <QuizSimComp
-                    key={index}
-                    index={index}
-                    questionCounter={questionCounter}
-                    question={question}
-                    getTrueAnswer={() => {
-                      getAnswer(index, true);
-                    }}
-                    getFalseAnswer={() => {
-                      getAnswer(index, false);
-                    }}
-                  />
-                );
-              })}
-              <QuizSimBottom
-                forceCorrect={() => correct(false)}
-                setQuestionCounter={(e) => setQuestionCounter(e)}
-                questionCounter={questionCounter}
-              />
-              <br />
-
-              <div className='quiz-sim_bottom_bottom'>
-                <Link href='/'>
-                  <a>Torna alla home</a>
-                </Link>
-
-                <div className='quiz-sim_correct' onClick={() => correct(true)}>
-                  Correggi
-                </div>
-              </div>
-            </div>
-          </div>
+          <QuizSim
+            correct={correct}
+            questionCounter={questionCounter}
+            quizQuestions={quizQuestions}
+            getAnswer={getAnswer}
+            setQuestionCounter={setQuestionCounter}
+          />
         )}
       {router.query.tipo == 'argomenti' && !showScore && (
         <>
@@ -394,34 +352,11 @@ const test = ({ questions, theory }) => {
 
           {/* Chose the topics of the quiz */}
           {!showQuiz && (
-            <div className='topic-choice '>
-              <div className='container-full'>
-                <div className='topic-choice-top'>
-                  <h2>Scegli argomenti per il quiz</h2>
-                  <div>
-                    <Button
-                      variant='contained'
-                      className='start'
-                      onClick={startQuiz}
-                    >
-                      Inizia quiz
-                    </Button>
-                    <Link href='/' passHref>
-                      <a style={{ textDecoration: 'none' }}>
-                        <Button variant='contained' className='close_quiz'>
-                          Esci
-                        </Button>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                {/* Theory List */}
-                <QuizTopicsList
-                  filters={filters}
-                  setFilters={(e) => setFilters(e)}
-                />
-              </div>
-            </div>
+            <TopicChoice
+              filters={filters}
+              setFilters={setFilters}
+              startQuiz={startQuiz}
+            />
           )}
         </>
       )}

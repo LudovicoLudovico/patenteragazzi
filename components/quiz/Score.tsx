@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import '../../style/score.min.css';
 import dynamic from 'next/dynamic';
 
-const AdBanner = dynamic(() => import('../AdBanner'), {
+const AdBanner = dynamic(() => import('../general/AdBanner'), {
   ssr: false,
 });
 

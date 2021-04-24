@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/general/Navbar';
 import { getTheory } from '../fetchData/getTheory';
 
 import dynamic from 'next/dynamic';
 
-const SearchBox = dynamic(() => import('../components/SearchBox'), {
+const SearchBox = dynamic(() => import('../components/theory/SearchBox'), {
   ssr: false,
   loading: () => <p>Caricamento...</p>,
 });
@@ -87,7 +87,7 @@ const Theory26 = dynamic(() => import('../components/theory/Theory26'), {
   loading: () => <p>Caricamento...</p>,
 });
 
-import Seo from '../components/Seo';
+import Seo from '../components/general/Seo';
 
 const teoria = ({ theory }) => {
   const [filteredTheory, setFilteredTheory] = useState([...theory]);

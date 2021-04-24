@@ -3,7 +3,7 @@ import { getTheorySlug } from '../../fetchData/getTheorySlug';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
 import { getTheoryQuestions } from '../../fetchData/getTheoryQuestions';
 import slugify from 'slugify';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import MDEditor from '@uiw/react-md-editor';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import firebase from 'firebase/app';
 import dynamic from 'next/dynamic';
 
-const AdBanner = dynamic(() => import('../../components/AdBanner'), {
+const AdBanner = dynamic(() => import('../../components/general/AdBanner'), {
   ssr: false,
 });
 const TheoryQuestions = dynamic(

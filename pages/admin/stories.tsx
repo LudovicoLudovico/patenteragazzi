@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import Head from 'next/head';
 import { getQuestions } from '../../fetchData/getQuestions';
 import { decrypt } from '../../lib/enc';

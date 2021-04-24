@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/general/Navbar';
 import { getPosts } from '../fetchData/getPosts';
-import Seo from '../components/Seo';
+import Seo from '../components/general/Seo';
 import { decrypt } from '../lib/enc';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 

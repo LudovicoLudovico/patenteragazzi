@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import Head from 'next/head';
 import Image from 'next/image';
 import { TextField, Button } from '@material-ui/core';

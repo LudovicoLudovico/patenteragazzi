@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useUser } from '../context/userContext';
+import { useUser } from '../../context/userContext';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import '../style/navbar.min.css';
+import '../../style/navbar.min.css';
 
 interface NavbarProps {
   isAdminNav?: boolean;

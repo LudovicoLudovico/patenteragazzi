@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import { getPostItem } from '../../fetchData/getPostItem';
 import { getPostsSlug } from '../../fetchData/getPostsSlug';
 import { decrypt } from '../../lib/enc';
-import Seo from '../../components/Seo';
+import Seo from '../../components/general/Seo';
 import cheerio from 'cheerio';
 import slugify from 'slugify';
 import '../../style/post.min.css';

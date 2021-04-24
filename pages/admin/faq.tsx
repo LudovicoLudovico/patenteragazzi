@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { TextField, Button } from '@material-ui/core';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import firebase from 'firebase/app';
 import MDEditor from '@uiw/react-md-editor';
 import { useUser } from '../../context/userContext';

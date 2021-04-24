@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Select, MenuItem } from '@material-ui/core';
-import CategoryList from '../CategoryList';
+import CategoryList from './CategoryList';
 import firebase from 'firebase/app';
 import MDEditor from '@uiw/react-md-editor';
 import slugify from 'slugify';

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Head from 'next/head';
 import firebase from 'firebase/app';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 import { TextField, Modal, Button, Backdrop, Fade } from '@material-ui/core';
 import { PaginatedList } from 'react-paginated-list';
 import { useUser } from '../../context/userContext';
-import CategoryList from '../../components/CategoryList';
+import CategoryList from '../../components/admin/CategoryList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAdmin } from '../../context/adminContext';
 import UpdateTheory from '../../components/admin/UpdateTheory';

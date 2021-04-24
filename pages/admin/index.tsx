@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import '../../style/admin.min.css';
 
 //Components
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/general/Navbar';
 
 const AdminUI = () => {
   const { isAdmin } = useUser();
