@@ -88,6 +88,7 @@ const Theory26 = dynamic(() => import('../components/theory/Theory26'), {
 });
 
 import Seo from '../components/general/Seo';
+import '../style/theory.min.css';
 
 const teoria = ({ theory }) => {
   const [filteredTheory, setFilteredTheory] = useState([...theory]);

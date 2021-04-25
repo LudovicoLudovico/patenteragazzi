@@ -16,6 +16,9 @@ interface PostProps {
 interface PostsProps {
   posts: PostProps[];
 }
+
+import '../style/post.min.css';
+
 const post = ({ posts }: PostsProps) => {
   return (
     <>

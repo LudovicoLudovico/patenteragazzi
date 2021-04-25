@@ -17,6 +17,8 @@ const TopicChoice = dynamic(() => import('../components/quiz/TopicChoice'));
 const UngivenModal = dynamic(() => import('../components/quiz/UngivenModal'));
 const Score = dynamic(() => import('../components/quiz/Score'));
 
+import '../style/quiz.min.css';
+
 // Functional Component
 const test = ({ questions, theory }) => {
   const router = useRouter();
@@ -114,7 +116,7 @@ const test = ({ questions, theory }) => {
     }
   };
   useEffect(() => {
-    console.log(router.query.tipo);
+    window.scrollTo(0, 1);
 
     filterAndSet('Segnali di pericolo', 2);
     filterAndSet('Segnali di divieto', 2);
@@ -141,37 +143,6 @@ const test = ({ questions, theory }) => {
       2
     );
     filterAndSetSecondary();
-
-    // if (router.query.tipo !== 'argomenti' && 'simulazione') {
-    //   let extractedNums = [];
-    //   while (extractedNums.length < 40) {
-    //     const num = Math.floor(Math.random() * questions.length);
-    //     if (!extractedNums.includes(num)) {
-    //       extractedNums.push(num);
-    //       const {
-    //         question,
-    //         image,
-    //         response,
-    //         answer,
-    //         category,
-    //         questionId,
-    //         isChecked,
-    //       } = questions[num];
-    //       setQuizQuestions((quizQuestions) => [
-    //         ...quizQuestions,
-    //         {
-    //           question: decrypt(question),
-    //           image: decrypt(image),
-    //           response,
-    //           answer,
-    //           category,
-    //           questionId,
-    //           isChecked: isChecked || null,
-    //         },
-    //       ]);
-    //     }
-    //   }
-    // }
   }, []);
 
   const checkUngiven = () => {

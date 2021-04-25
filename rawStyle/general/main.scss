@@ -11,11 +11,10 @@ $sim-green: #cfe6d6;
 
 html,
 body {
+  background-color: white;
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
-  padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
-    env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
 }
 
 .adsbygoogle {

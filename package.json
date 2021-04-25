@@ -25,6 +25,7 @@
     "react": "^16.13.0",
     "react-compound-timer": "^1.2.0",
     "react-dom": "^16.13.0",
+    "react-full-screen": "^1.0.2",
     "react-paginated-list": "^1.1.5",
     "react-uuid": "^1.0.2",
     "slugify": "^1.4.6",

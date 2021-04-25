@@ -3,6 +3,7 @@ import Timer from 'react-compound-timer';
 import { Modal, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import firebase from 'firebase/app';
 import WarningIcon from '@material-ui/icons/Warning';
+import FlagSharpIcon from '@material-ui/icons/FlagSharp';
 import Link from 'next/link';
 
 interface QuizTopProps {
@@ -185,7 +186,7 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
         {/* Top right section of the quiz, contains correct btn and close btn */}
         <div className='quiz_top_right'>
           <Button variant='contained' className='correct_btn' onClick={correct}>
-            Correggi
+            <FlagSharpIcon />
           </Button>
           <Link href='/'>
             <a title='Esci'>
