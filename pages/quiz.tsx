@@ -7,6 +7,8 @@ import { decrypt } from '../lib/enc';
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
 import dynamic from 'next/dynamic';
+import questions from '../questionTest';
+import theory from '../theoryTest';
 
 // Components
 import Seo from '../components/general/Seo';
@@ -21,6 +23,7 @@ import '../style/quiz.min.css';
 
 // Functional Component
 const test = ({ questions, theory }) => {
+  // const test = () => {
   const router = useRouter();
   const [questionCounter, setQuestionCounter] = useState(0);
   const [answers, setAnswers] = useState(new Array(40));
@@ -32,6 +35,8 @@ const test = ({ questions, theory }) => {
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [showQuiz, setShowQuiz] = useState(false);
   const [filters, setFilters] = useState([]);
+
+  const copyQuestions = {};
 
   const filterAndSet = (category: string, num: number) => {
     const filteredArray = questions.filter((val) => val.category === category);

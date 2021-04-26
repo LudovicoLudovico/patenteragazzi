@@ -16,12 +16,13 @@ $sim-green: #cfe6d6;
 .score {
   height: 100vh;
   width: 100vw;
+
   background-color: $blue;
   display: flex;
   justify-content: center;
   position: relative;
   color: white;
-  overflow-y: hidden;
+  overflow: hidden;
 
   .score_content {
     max-width: 1400px;
@@ -182,7 +183,8 @@ $sim-green: #cfe6d6;
 
 @media (max-width: 900px) {
   .score {
-    height: 100vh;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 
     .score_top {
       margin-top: 10 vh;
@@ -207,9 +209,10 @@ $sim-green: #cfe6d6;
       }
     }
     .score_content {
+      padding-top: 15%;
       margin-top: 0;
       .wrong_answer_container {
-        height: calc(87vh - 200px);
+        height: 75%;
         margin: 0;
         .wrong_answer {
           display: flex;

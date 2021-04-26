@@ -14,9 +14,8 @@ $sim-green: #cfe6d6;
 */
 
 .quiz {
-  min-height: 100vh;
+  min-height: 100.5vh;
   min-height: -webkit-fill-available;
-  // height: calc(100vh - calc(100vh - 100%));
   background-color: $blue;
   color: white;
   overflow: hidden;
@@ -25,10 +24,8 @@ $sim-green: #cfe6d6;
   justify-content: center;
 
   .standard_quiz {
-    width: 95vw;
-    box-sizing: border-box;
+    width: 100vw;
     padding: 20px;
-    overflow: hidden;
 
     //Report Button
     .quiz_problem {
@@ -53,8 +50,8 @@ $sim-green: #cfe6d6;
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: white;
-          color: $dark-blue;
+          font-size: 1.3rem;
+          color: white;
         }
 
         .quiz_problem {
