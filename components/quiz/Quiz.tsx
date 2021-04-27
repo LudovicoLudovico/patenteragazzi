@@ -1,6 +1,9 @@
 import React from 'react';
-import QuizComp from './QuizComp';
+import dynamic from 'next/dynamic';
+
 import QuizCompFirst from './QuizCompFirst';
+
+const QuizComp = dynamic(() => import('./QuizComp'));
 import QuizBottom from './QuizBottom';
 import QuizTop from './QuizTop';
 import '../../style/quiz.min.css';

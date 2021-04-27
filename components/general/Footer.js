@@ -37,6 +37,7 @@ const Footer = () => {
               layout={'intrinsic'}
               width={25}
               height={25}
+              quality={1}
             />
           </a>
           <a
@@ -51,6 +52,7 @@ const Footer = () => {
               layout={'intrinsic'}
               width={22}
               height={22}
+              quality={1}
             />
           </a>
 
@@ -61,6 +63,7 @@ const Footer = () => {
               layout={'intrinsic'}
               width={22}
               height={22}
+              quality={1}
             />
           </a>
 

@@ -47,7 +47,7 @@ const IndexHero = () => {
             <Button
               variant='contained'
               style={{
-                background: '#b35600',
+                background: '#843F00',
               }}
               onClick={(e) => {
                 setLoadingTopics(true);

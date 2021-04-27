@@ -262,20 +262,6 @@ const test = ({ questions, theory }) => {
         }
       }
 
-      // for (let i = 0; i < 40; i++) {
-      //   setQuizQuestions((quizQuestions) => [
-      //     ...quizQuestions,
-      //     {
-      //       question: decrypt(questsFiltered[extractedNums[i]].question),
-      //       image: decrypt(questsFiltered[extractedNums[i]].image),
-      //       response: questsFiltered[extractedNums[i]].response,
-      //       answer: questsFiltered[extractedNums[i]].answer,
-      //       category: questsFiltered[extractedNums[i]].category,
-      //       questionId: questsFiltered[extractedNums[i]].id,
-      //     },
-      //   ]);
-      // }
-
       setShowQuiz(true);
     } else {
       alert('Domande insufficienti selezionare altre categorie');

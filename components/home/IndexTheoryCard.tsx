@@ -14,13 +14,7 @@ const IndexTheoryCard = ({ title, image, slug }: IndexTheoryCardProps) => {
   return (
     <div className='index_theory_card'>
       <div className='index_theory_card_image'>
-        <Image
-          src={image}
-          alt={title}
-          layout={'intrinsic'}
-          width={250}
-          height={250}
-        />
+        <Image src={image} alt={title} width={250} height={250} quality={1} />
       </div>
       <div className='index_theory_card_content'>
         <h3>{title}</h3>
