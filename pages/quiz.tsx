@@ -7,8 +7,8 @@ import { decrypt } from '../lib/enc';
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
 import dynamic from 'next/dynamic';
-import questions from '../questionTest';
-import theory from '../theoryTest';
+// import questions from '../questionTest';
+// import theory from '../theoryTest';
 
 // Components
 import Seo from '../components/general/Seo';
