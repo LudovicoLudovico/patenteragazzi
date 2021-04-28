@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WrongAnswer from './WrongAnswer';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
@@ -56,10 +56,15 @@ const Score = ({
 }: ScoreProps) => {
   const [isActive, setIsActive] = useState(0);
 
+  useEffect(() => {
+    const quizContainer = document.getElementById('score');
+    quizContainer.style.height = `${window.innerHeight}px`;
+  }, [window.innerHeight]);
+
   return (
     <>
       {showScore && (
-        <div className='score'>
+        <div className='score' id='score'>
           <div className='score_content'>
             <div className='score_top'>
               <div className='score_top_left'>

@@ -119,8 +119,6 @@ const test = ({ questions, theory }) => {
     }
   };
   useEffect(() => {
-    window.scrollTo(0, 1);
-
     filterAndSet('Segnali di pericolo', 2);
     filterAndSet('Segnali di divieto', 2);
     filterAndSet('Segnali di obbligo', 2);

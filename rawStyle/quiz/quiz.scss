@@ -14,8 +14,7 @@ $sim-green: #cfe6d6;
 */
 
 .quiz {
-  // min-height: 100vh;
-  min-height: -webkit-fill-available -moz-available fill-available;
+  // height: 100vh;
   background-color: $blue;
   color: white;
   overflow: hidden;
@@ -79,7 +78,7 @@ $sim-green: #cfe6d6;
         justify-content: center;
         align-items: center;
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
       &.image {
         .quiz_image {
@@ -92,14 +91,14 @@ $sim-green: #cfe6d6;
           img {
             height: 150px;
             width: auto;
-            max-width: 95vw;
+            max-width: 85vw;
           }
         }
 
         .quiz_question {
           overflow-y: scroll;
-          max-height: 30vh;
-          height: 30vh;
+          min-height: 25vh;
+
           padding-top: 30px;
           margin-top: -20px;
           p {
@@ -112,8 +111,7 @@ $sim-green: #cfe6d6;
         .quiz_question {
           padding-top: 30px;
           overflow-y: scroll;
-          max-height: calc(30vh + 160px);
-          height: calc(30vh + 160px);
+          min-height: calc(25vh + 160px);
         }
       }
 
@@ -206,7 +204,7 @@ $sim-green: #cfe6d6;
 
 @media (min-width: 700px) {
   .quiz {
-    min-height: 100vh;
+    // min-height: 100vh;
     .standard_quiz {
       max-width: 1400px;
       overflow-y: hidden;

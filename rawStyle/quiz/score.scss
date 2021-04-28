@@ -14,8 +14,6 @@ $sim-green: #cfe6d6;
 // */
 
 .score {
-  min-height: 100vh;
-  min-height: -webkit-fill-available -moz-available fill-available;
   width: 100vw;
   background-color: $blue;
   display: flex;
@@ -183,8 +181,6 @@ $sim-green: #cfe6d6;
 
 @media (max-width: 900px) {
   .score {
-    max-height: 100vh;
-    max-height: -webkit-fill-available -moz-available fill-available;
     overflow-y: hidden;
 
     .score_top {
@@ -213,7 +209,7 @@ $sim-green: #cfe6d6;
       padding-top: 7%;
       margin-top: 0;
       .wrong_answer_container {
-        max-height: 70%;
+        min-height: 80%;
         margin: 0;
         .wrong_answer {
           display: flex;
@@ -227,6 +223,11 @@ $sim-green: #cfe6d6;
               width: 100%;
               display: flex;
               justify-content: center;
+
+              img {
+                height: 100px;
+                width: auto;
+              }
             }
           }
           .wrong_bottom {

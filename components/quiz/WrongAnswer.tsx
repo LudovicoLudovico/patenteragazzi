@@ -158,7 +158,48 @@ const WrongAnswer = ({
         style={{ position: 'relative' }}
       >
         <div className='wrong_answer_image'>
-          {wrong.image && <img src={wrong.image} alt='' />}
+          {wrong.image ? (
+            <>
+              <Modal
+                open={open}
+                onClick={() => setOpen(false)}
+                aria-labelledby='simple-modal-title'
+                aria-describedby='simple-modal-description'
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  outline: 'none',
+                }}
+              >
+                <img
+                  src={wrong.image}
+                  alt=''
+                  className='modal_img'
+                  style={{
+                    boxSizing: 'border-box',
+                    height: 'auto',
+                    width: '100%',
+                    maxWidth: 700,
+                    padding: 20,
+                    margin: 10,
+                    border: '5px solid white',
+                    borderRadius: 20,
+                    background: '#00408b',
+                    outline: 'none',
+                  }}
+                />
+              </Modal>
+
+              <img
+                onClick={() => setOpen(true)}
+                src={wrong.image}
+                alt='Caricamento...'
+              />
+            </>
+          ) : (
+            <div className='modal_img'></div>
+          )}
         </div>
         {theory.length !== 0 && (
           <Modal

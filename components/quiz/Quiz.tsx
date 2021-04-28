@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 import QuizCompFirst from './QuizCompFirst';
@@ -15,8 +15,12 @@ const quiz = ({
   getAnswer,
   setQuestionCounter,
 }) => {
+  useEffect(() => {
+    const quizContainer = document.getElementById('quiz');
+    quizContainer.style.height = `${window.innerHeight}px`;
+  }, [window.innerHeight]);
   return (
-    <div className='quiz'>
+    <div className='quiz' id='quiz'>
       <div className='standard_quiz'>
         <QuizTop
           correct={() => correct(true)}
