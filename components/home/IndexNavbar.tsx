@@ -29,11 +29,13 @@ const IndexNavbar = () => {
     <div className='index_navbar'>
       <div className='index_logo'>
         <Image
-          src='/patenteragazzi.png'
+          src='/patenteragazzi.svg'
           alt='Logo'
           width={138}
           height={138}
           layout={'intrinsic'}
+          quality={1}
+          priority
         />
         <h1>PatenteRagazzi</h1>
       </div>

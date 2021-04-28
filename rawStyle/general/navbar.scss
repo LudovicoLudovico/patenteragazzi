@@ -37,13 +37,14 @@ $sim-green: #cfe6d6;
       img {
         height: 100px;
         width: auto;
-        border: 1px solid white;
+
         border-radius: 50%;
       }
     }
     .menu {
       display: flex;
       align-items: center;
+      padding-right: 20px;
 
       img {
         border-radius: 50%;
@@ -136,6 +137,7 @@ $sim-green: #cfe6d6;
         display: block;
         cursor: pointer;
         z-index: 2;
+        padding-right: 20px;
 
         span {
           display: block;

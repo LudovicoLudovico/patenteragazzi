@@ -34,7 +34,8 @@ const Navbar = ({ isAdminNav, active }: NavbarProps) => {
     <div className='navbar'>
       <div className='container-full'>
         <div className='logo'>
-          <img src='/patenteragazzi.png' alt='Logo' />
+          {/* <img src='/patenteragazzi.png' alt='Logo' /> */}
+          <Image src='/patenteragazzi.svg' alt='Logo' width={72} height={72} />
           <h1>PatenteRagazzi</h1>
         </div>
 

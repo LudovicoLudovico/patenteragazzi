@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+theoryTest.js
+questionTest.js

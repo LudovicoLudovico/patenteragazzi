@@ -14,9 +14,9 @@ $sim-green: #cfe6d6;
 // */
 
 .score {
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available -moz-available fill-available;
   width: 100vw;
-
   background-color: $blue;
   display: flex;
   justify-content: center;
@@ -184,10 +184,11 @@ $sim-green: #cfe6d6;
 @media (max-width: 900px) {
   .score {
     min-height: 100vh;
-    min-height: -webkit-fill-available;
+    min-height: -webkit-fill-available -moz-available fill-available;
+    overflow-y: hidden;
 
     .score_top {
-      margin-top: 10 vh;
+      margin-top: 0;
 
       .score_top_left {
         margin-bottom: 20px;
@@ -209,10 +210,10 @@ $sim-green: #cfe6d6;
       }
     }
     .score_content {
-      padding-top: 15%;
+      padding-top: 7%;
       margin-top: 0;
       .wrong_answer_container {
-        height: 75%;
+        max-height: 70vh;
         margin: 0;
         .wrong_answer {
           display: flex;

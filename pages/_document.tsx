@@ -38,7 +38,7 @@ export default class MyDocument extends Document {
             async
             src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
           ></script>
-          <script src='/noflash.js' />
+
           <Main />
           <NextScript />
         </body>

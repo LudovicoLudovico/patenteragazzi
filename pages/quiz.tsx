@@ -36,8 +36,6 @@ const test = ({ questions, theory }) => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [filters, setFilters] = useState([]);
 
-  const copyQuestions = {};
-
   const filterAndSet = (category: string, num: number) => {
     const filteredArray = questions.filter((val) => val.category === category);
     let extractedNums = [];

@@ -14,8 +14,8 @@ $sim-green: #cfe6d6;
 */
 
 .quiz {
-  min-height: 100.5vh;
-  min-height: -webkit-fill-available;
+  min-height: 100vh;
+  min-height: -webkit-fill-available -moz-available fill-available;
   background-color: $blue;
   color: white;
   overflow: hidden;
