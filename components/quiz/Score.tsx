@@ -1,49 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import WrongAnswer from './WrongAnswer';
+// General Imports
+import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
-import '../../style/score.min.css';
 import dynamic from 'next/dynamic';
 
+// Components
+import WrongAnswer from './WrongAnswer';
 const AdBanner = dynamic(() => import('../general/AdBanner'), {
   ssr: false,
 });
 
+// Styling
+import '../../style/score.min.css';
+
+// Types
+import { Question, Wrong, Theory } from '../../interfaces';
+
+// Components Props
 interface ScoreProps {
   showScore: boolean;
   score: number;
   wrongAnswers: Wrong[];
   theory: Theory[];
   answers: boolean[];
-  quizQuestions: QuizQuestions[];
-}
-
-interface QuizQuestions {
-  answer: string;
-  category: string;
-  image?: string;
-  question: string;
-  questionId: string;
-  response: boolean;
-}
-interface Theory {
-  id: string;
-  category: string;
-  image?: string;
-  slug: string;
-  theory: string;
-  title: string;
-}
-
-interface Wrong {
-  answer: string;
-  category: string;
-  image: string;
-  num?: number;
-  question: string;
-  questionId: string;
-  response: boolean;
-  userResponse?: boolean;
+  quizQuestions: Question[];
 }
 
 const Score = ({
@@ -56,15 +36,10 @@ const Score = ({
 }: ScoreProps) => {
   const [isActive, setIsActive] = useState(0);
 
-  useEffect(() => {
-    const quizContainer = document.getElementById('score');
-    quizContainer.style.height = `${window.innerHeight}px`;
-  }, [window.innerHeight]);
-
   return (
     <>
       {showScore && (
-        <div className='score' id='score'>
+        <div className='score' style={{ height: `${window.innerHeight}px` }}>
           <div className='score_content'>
             <div className='score_top'>
               <div className='score_top_left'>

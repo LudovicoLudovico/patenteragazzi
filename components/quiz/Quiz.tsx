@@ -1,12 +1,24 @@
-import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
-import QuizCompFirst from './QuizCompFirst';
-
+// Components
 const QuizComp = dynamic(() => import('./QuizComp'));
-import QuizBottom from './QuizBottom';
+import QuizCompFirst from './QuizCompFirst';
 import QuizTop from './QuizTop';
+import QuizBottom from './QuizBottom';
+
+// Styling
 import '../../style/quiz.min.css';
+
+// Types
+import { Question } from '../../interfaces';
+
+interface QuizProps {
+  correct: (performCheck: boolean) => void;
+  questionCounter: number;
+  quizQuestions: Question[];
+  getAnswer: (index: any, answer: any) => void;
+  setQuestionCounter: (number: number) => void;
+}
 
 const quiz = ({
   correct,
@@ -14,13 +26,13 @@ const quiz = ({
   quizQuestions,
   getAnswer,
   setQuestionCounter,
-}) => {
-  useEffect(() => {
-    const quizContainer = document.getElementById('quiz');
-    quizContainer.style.height = `${window.innerHeight}px`;
-  }, [window.innerHeight]);
+}: QuizProps) => {
   return (
-    <div className='quiz' id='quiz'>
+    <div
+      className='quiz'
+      id='quiz'
+      style={{ height: `${window.innerHeight}px` }}
+    >
       <div className='standard_quiz'>
         <QuizTop
           correct={() => correct(true)}
@@ -39,7 +51,8 @@ const quiz = ({
             getAnswer(0, false);
           }}
         />
-        {quizQuestions.map((question, index) => {
+
+        {quizQuestions.map((question, index: number) => {
           if (index !== 0) {
             return (
               <QuizComp

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Timer from 'react-compound-timer';
-import { Modal, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Modal, Button } from '@material-ui/core';
 import firebase from 'firebase/app';
 import WarningIcon from '@material-ui/icons/Warning';
 import FlagSharpIcon from '@material-ui/icons/FlagSharp';
 import Link from 'next/link';
+
+import ReportPopup from './ReportPopup';
 
 interface QuizTopProps {
   questionCounter: number;
@@ -52,79 +54,6 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
       });
   };
 
-  const reportPopup = (
-    <div
-      className='report_popup'
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        background: 'white',
-        padding: 20,
-        width: '100%',
-        height: '50%',
-        maxWidth: 500,
-        maxHeight: 300,
-      }}
-    >
-      <h2>Segnale errore nella domanda:</h2>
-      <FormControlLabel
-        control={
-          <Checkbox
-            name='image'
-            checked={hasProblemImage}
-            onChange={() => {
-              setHasProblemImage(!hasProblemImage);
-            }}
-          />
-        }
-        label='Immagine'
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            name='question'
-            checked={hasProblemQuestion}
-            onChange={() => {
-              setHasProblemQuestion(!hasProblemQuestion);
-            }}
-          />
-        }
-        label='Domanda'
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            name='answer'
-            checked={hasProblemAnswer}
-            onChange={() => {
-              setHasProblemAnswer(!hasProblemAnswer);
-            }}
-          />
-        }
-        label='Risposta'
-      />
-
-      <br />
-      <br />
-
-      <Button
-        className='quiz_problem'
-        onClick={setProblem}
-        disabled={canReport.includes(questionCounter)}
-        variant='contained'
-        aria-label={`Conferma Domanda Numero ${questionCounter + 1}`}
-        style={{
-          background: 'red',
-          color: 'white',
-        }}
-      >
-        <p>Invia segnalazione</p>
-        <WarningIcon style={{ marginLeft: 20 }} />
-      </Button>
-    </div>
-  );
-
   return (
     <>
       {!quizQuestions[questionCounter].isChecked && (
@@ -140,7 +69,16 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
             outline: 'none',
           }}
         >
-          {reportPopup}
+          <ReportPopup
+            canReport={canReport}
+            hasProblemImage={hasProblemImage}
+            hasProblemQuestion={hasProblemQuestion}
+            hasProblemAnswer={hasProblemAnswer}
+            setProblem={setProblem}
+            setHasProblemImage={setHasProblemImage}
+            setHasProblemAnswer={setHasProblemAnswer}
+            setHasProblemQuestion={setHasProblemQuestion}
+          />
         </Modal>
       )}
 

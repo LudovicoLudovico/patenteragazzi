@@ -1,18 +1,14 @@
-import React from 'react';
 import { Modal, Button } from '@material-ui/core';
+import { Ungiven } from '../../interfaces';
 
 interface UngivenModalProps {
-  ungivenState: UngivenState;
+  ungivenState: Ungiven;
   correctPopup: boolean;
   correct: (bool: boolean) => void;
   setCorrectPopup: (value: boolean) => void;
   setQuestionCounter: (number: number) => void;
 }
 
-interface UngivenState {
-  number: number;
-  position: number[];
-}
 const UngivenModal = ({
   ungivenState,
   correctPopup,

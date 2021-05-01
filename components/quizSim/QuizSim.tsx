@@ -1,11 +1,17 @@
-import React from 'react';
-import '../../style/quizSim.min.css';
+// General imports
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
+// Components
 import QuizSimNav from './QuizSimNav';
 import QuizSimBottom from './QuizSimBottom';
-import QuizSimComp from './QuizSimComp';
-import Link from 'next/link';
+import QuizSimCompFirst from './QuizSimCompFirst';
+const QuizSimComp = dynamic(() => import('./QuizSimComp'));
 
+// Styling
+import '../../style/quizSim.min.css';
+
+// Functional component
 const QuizSim = ({
   questionCounter,
   setQuestionCounter,
@@ -21,21 +27,36 @@ const QuizSim = ({
           setQuestionCounter={(id) => setQuestionCounter(parseInt(id))}
           quizQuestions={quizQuestions}
         />
-        {quizQuestions.map((question, index) => {
-          return (
-            <QuizSimComp
-              key={index}
-              index={index}
-              questionCounter={questionCounter}
-              question={question}
-              getTrueAnswer={() => {
-                getAnswer(index, true);
-              }}
-              getFalseAnswer={() => {
-                getAnswer(index, false);
-              }}
-            />
-          );
+        <QuizSimCompFirst
+          key={0}
+          index={0}
+          questionCounter={questionCounter}
+          question={quizQuestions[0]}
+          getTrueAnswer={() => {
+            getAnswer(0, true);
+          }}
+          getFalseAnswer={() => {
+            getAnswer(0, false);
+          }}
+        />
+
+        {quizQuestions.map((question, index: number) => {
+          if (index !== 0) {
+            return (
+              <QuizSimComp
+                key={index}
+                index={index}
+                questionCounter={questionCounter}
+                question={question}
+                getTrueAnswer={() => {
+                  getAnswer(index, true);
+                }}
+                getFalseAnswer={() => {
+                  getAnswer(index, false);
+                }}
+              />
+            );
+          }
         })}
         <QuizSimBottom
           forceCorrect={() => correct(false)}

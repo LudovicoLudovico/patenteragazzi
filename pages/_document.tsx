@@ -6,8 +6,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang='it'>
         <Head>
-          <link rel='shortcut icon' href='/patenteragazzi.ico' />
-
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             data-ad-client='ca-pub-7942078481061905'

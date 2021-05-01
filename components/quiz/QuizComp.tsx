@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Modal, Button } from '@material-ui/core';
 import slugify from 'slugify';
 
 interface QuizCompProps {

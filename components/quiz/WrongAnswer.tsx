@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
-import { Modal, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+// General imports
+import { useState } from 'react';
 import { decrypt } from '../../lib/enc';
-import MDEditor from '@uiw/react-md-editor';
 import firebase from 'firebase/app';
+
+// Layout imports
+import MDEditor from '@uiw/react-md-editor';
+import { Modal, Button } from '@material-ui/core';
 import WarningIcon from '@material-ui/icons/Warning';
+// const ReportPopup = dynamic(() => import('./ReportPopup'));
+import ReportPopup from './ReportPopup';
+
+// Types
+import { Wrong, Theory } from '../../interfaces';
 
 interface WrongAnswerProps {
   theory: Theory[];
   answers: boolean[];
   isAllQuestions?: boolean;
   index: number;
-  wrong?: Wrong;
+  wrong: Wrong;
 }
 
-interface Theory {
-  title: string;
-  theory: string;
-  image?: string;
-}
-interface Wrong {
-  question: string;
-  questionId: string;
-  category: string;
-  image?: string;
-  answer: string;
-  response: boolean;
-  userResponse?: boolean;
-  num?: number;
-  isChecked?: boolean;
-}
+// Functional Component
 const WrongAnswer = ({
   wrong,
   theory,
@@ -38,10 +31,10 @@ const WrongAnswer = ({
 }: WrongAnswerProps) => {
   const [open, setOpen] = useState(false);
   const [canReport, setCanReport] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const [hasProblemImage, setHasProblemImage] = useState(false);
   const [hasProblemQuestion, setHasProblemQuestion] = useState(false);
   const [hasProblemAnswer, setHasProblemAnswer] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
 
   const setProblem = () => {
     firebase
@@ -65,78 +58,6 @@ const WrongAnswer = ({
       });
   };
 
-  const reportPopup = (
-    <div
-      className='report_popup'
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        background: 'white',
-        padding: 20,
-        width: '100%',
-        height: '50%',
-        maxWidth: 500,
-        maxHeight: 300,
-      }}
-    >
-      <h2>Segnale errore nella domanda:</h2>
-      <FormControlLabel
-        control={
-          <Checkbox
-            name='image'
-            checked={hasProblemImage}
-            onChange={() => {
-              setHasProblemImage(!hasProblemImage);
-            }}
-          />
-        }
-        label='Immagine'
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            name='question'
-            checked={hasProblemQuestion}
-            onChange={() => {
-              setHasProblemQuestion(!hasProblemQuestion);
-            }}
-          />
-        }
-        label='Domanda'
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            name='answer'
-            checked={hasProblemAnswer}
-            onChange={() => {
-              setHasProblemAnswer(!hasProblemAnswer);
-            }}
-          />
-        }
-        label='Risposta'
-      />
-
-      <br />
-      <br />
-
-      <Button
-        className={`quiz_problem active`}
-        onClick={setProblem}
-        disabled={!canReport}
-        variant='contained'
-        style={{
-          background: 'red',
-          color: 'white',
-        }}
-      >
-        <p>Invia segnalazione</p>
-        <WarningIcon style={{ marginLeft: 20 }} />
-      </Button>
-    </div>
-  );
-
   return (
     <>
       <Modal
@@ -151,7 +72,16 @@ const WrongAnswer = ({
           outline: 'none',
         }}
       >
-        {reportPopup}
+        <ReportPopup
+          canReport={canReport}
+          hasProblemImage={hasProblemImage}
+          hasProblemQuestion={hasProblemQuestion}
+          hasProblemAnswer={hasProblemAnswer}
+          setProblem={setProblem}
+          setHasProblemImage={setHasProblemImage}
+          setHasProblemAnswer={setHasProblemAnswer}
+          setHasProblemQuestion={setHasProblemQuestion}
+        />
       </Modal>
       <div
         className={`wrong_answer ${wrong.image ? 'image' : 'no-image'}`}
