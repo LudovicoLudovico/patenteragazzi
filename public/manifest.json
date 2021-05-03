@@ -1,8 +1,8 @@
 {
-  "name": "PatenteRagazzi",
-  "short_name": "PatenteRagazzi",
+  "name": "Patente Ragazzi",
+  "short_name": "Patente Ragazzi",
   "theme_color": "#00408b",
-  "background_color": "#ffffff",
+  "background_color": "#00408b",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",

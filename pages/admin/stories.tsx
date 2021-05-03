@@ -90,7 +90,7 @@ const stories = ({ questions }) => {
                 </div>
 
                 <div className='screen_bottom'>
-                  <img src='/patenteragazzi.png' />
+                  <img src='/patenteragazzi.svg' />
 
                   <p>patenteragazzi.it</p>
                 </div>
