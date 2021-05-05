@@ -1,5 +1,5 @@
 // General imports
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { decrypt } from '../lib/enc';
 
@@ -7,8 +7,8 @@ import { decrypt } from '../lib/enc';
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
 import dynamic from 'next/dynamic';
-import questions from '../questionTest';
-import theory from '../theoryTest';
+// import questions from '../questionTest';
+// import theory from '../theoryTest';
 
 // Components
 import Seo from '../components/general/Seo';
@@ -196,14 +196,13 @@ const test = ({ questions, theory }) => {
     }
   };
 
-  const getAnswer = (index, answer) => {
-    if (questionCounter + 1 !== quizQuestions.length) {
+  const getAnswer = useCallback((index, answer) => {
+    if (index + 1 !== 40) {
       if (router.query.tipo !== 'simulazione') {
         setQuestionCounter((prevState) => prevState + 1);
       }
-      let answersCopy = [...answers];
+      let answersCopy = answers;
       answersCopy[index] = answer;
-
       setAnswers(answersCopy);
     } else {
       setQuestionCounter(index);
@@ -214,7 +213,7 @@ const test = ({ questions, theory }) => {
 
       setCorrectPopup(true);
     }
-  };
+  }, []);
 
   const startQuiz = async () => {
     setQuizQuestions([]);

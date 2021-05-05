@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import { useState, memo } from 'react';
 import { Modal, Button } from '@material-ui/core';
-import slugify from 'slugify';
 
 interface QuizCompProps {
-  questionCounter: number;
-  index: number;
   question: Question;
   getTrueAnswer: () => void;
   getFalseAnswer: () => void;
@@ -14,23 +11,12 @@ interface Question {
   question: string;
   image?: string;
 }
-const QuizComp = ({
-  questionCounter,
-  index,
-  question,
-  getTrueAnswer,
-  getFalseAnswer,
-}: QuizCompProps) => {
-  const [open, setOpen] = useState(false);
+const QuizComp = memo(
+  ({ question, getTrueAnswer, getFalseAnswer }: QuizCompProps) => {
+    const [open, setOpen] = useState(false);
 
-  return (
-    <>
-      <div
-        key={slugify(`${question.question}${index}`, { lower: true })}
-        className={`quiz_content ${index == questionCounter ? 'active' : ''} ${
-          question.image ? 'image' : 'no-image'
-        }`}
-      >
+    return (
+      <>
         <div className='quiz_image'>
           {question.image ? (
             <>
@@ -101,9 +87,9 @@ const QuizComp = ({
             Falso
           </Button>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  }
+);
 
 export default QuizComp;

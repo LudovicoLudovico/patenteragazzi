@@ -11,6 +11,7 @@ import '../../style/quiz.min.css';
 
 // Types
 import { Question } from '../../interfaces';
+import slugify from 'slugify';
 
 interface QuizProps {
   correct: (performCheck: boolean) => void;
@@ -39,34 +40,40 @@ const quiz = ({
           questionCounter={questionCounter}
           quizQuestions={quizQuestions}
         />
-        <QuizCompFirst
-          key={0}
-          questionCounter={questionCounter}
-          index={0}
-          question={quizQuestions[0]}
-          getTrueAnswer={() => {
-            getAnswer(0, true);
-          }}
-          getFalseAnswer={() => {
-            getAnswer(0, false);
-          }}
-        />
+        <div
+          key={slugify(`${quizQuestions[0].question}${0}`, { lower: true })}
+          className={`quiz_content ${0 == questionCounter ? 'active' : ''} ${
+            quizQuestions[0].image ? 'image' : 'no-image'
+          }`}
+        >
+          <QuizCompFirst
+            key={0}
+            question={quizQuestions[0]}
+            getTrueAnswer={() => {
+              getAnswer(0, true);
+            }}
+            getFalseAnswer={() => {
+              getAnswer(0, false);
+            }}
+          />
+        </div>
 
         {quizQuestions.map((question, index: number) => {
           if (index !== 0) {
             return (
-              <QuizComp
-                key={index}
-                questionCounter={questionCounter}
-                index={index}
-                question={question}
-                getTrueAnswer={() => {
-                  getAnswer(index, true);
-                }}
-                getFalseAnswer={() => {
-                  getAnswer(index, false);
-                }}
-              />
+              <div
+                key={slugify(`${question.question}${index}`, { lower: true })}
+                className={`quiz_content ${
+                  index == questionCounter ? 'active' : ''
+                } ${question.image ? 'image' : 'no-image'}`}
+              >
+                <QuizComp
+                  key={index}
+                  question={question}
+                  getAnswer={getAnswer}
+                  index={index}
+                />
+              </div>
             );
           } else {
             return;
