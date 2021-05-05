@@ -68,6 +68,8 @@ const quiz = ({
                 }}
               />
             );
+          } else {
+            return;
           }
         })}
 

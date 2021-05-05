@@ -1,9 +1,8 @@
-import React from 'react';
 import { decrypt } from '../../lib/enc';
 import Link from 'next/link';
 import slugify from 'slugify';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { unslugify } from 'unslugify';
+import Image from 'next/image';
 
 const TheoryItem = ({ theory, category, filters }) => {
   const isDisplayed = theory.filter((ti) => {
@@ -38,7 +37,8 @@ const TheoryItem = ({ theory, category, filters }) => {
                     as={`/teoria/${theoryItem.slug}`}
                   >
                     <a className='theoryList-item-link'>
-                      {titleItem} <ArrowForwardIosIcon />
+                      {titleItem}
+                      <Image src={'/right-arrow.svg'} height={24} width={24} />
                     </a>
                   </Link>
                 </div>

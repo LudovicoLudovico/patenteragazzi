@@ -17,11 +17,16 @@ $sim-green: #cfe6d6;
   min-height: 100vh;
   position: relative;
   padding-top: 20px;
+
   .theory_back {
     display: flex;
     align-items: center;
+
     position: absolute;
     right: 0;
+    .rotated-image {
+      transform: rotate(180deg);
+    }
   }
 
   .theory_questions {

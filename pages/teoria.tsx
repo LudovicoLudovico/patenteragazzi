@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Navbar from '../components/general/Navbar';
 import { getTheory } from '../fetchData/getTheory';
 

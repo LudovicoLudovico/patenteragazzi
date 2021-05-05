@@ -1,5 +1,5 @@
 import { FormControlLabel, Checkbox, Button } from '@material-ui/core';
-import WarningIcon from '@material-ui/icons/Warning';
+import Image from 'next/image';
 
 const ReportPopup = ({
   canReport,
@@ -77,8 +77,9 @@ const ReportPopup = ({
           color: 'white',
         }}
       >
-        <p>Invia segnalazione</p>
-        <WarningIcon style={{ marginLeft: 20 }} />
+        <p style={{ marginRight: 20 }}>Invia segnalazione</p>
+
+        <Image src={'/danger.svg'} height={24} width={24} />
       </Button>
     </div>
   );

@@ -1,5 +1,5 @@
 // General imports
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { decrypt } from '../lib/enc';
 
@@ -7,8 +7,8 @@ import { decrypt } from '../lib/enc';
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
 import dynamic from 'next/dynamic';
-// import questions from '../questionTest';
-// import theory from '../theoryTest';
+import questions from '../questionTest';
+import theory from '../theoryTest';
 
 // Components
 import Seo from '../components/general/Seo';
@@ -36,114 +36,98 @@ const test = ({ questions, theory }) => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [filters, setFilters] = useState([]);
 
-  const filterAndSet = (category: string, num: number) => {
-    const filteredArray = questions.filter((val) => val.category === category);
-    let extractedNums = [];
-    while (extractedNums.length < num) {
-      const num = Math.floor(Math.random() * filteredArray.length);
-      if (!extractedNums.includes(num)) {
-        extractedNums.push(num);
+  const questionDistribution = [
+    'Segnali di pericolo',
+    'Segnali di divieto',
+    'Segnali di obbligo',
+    'Segnali di precedenza',
+    'Segnaletica orizzontale e segni sugli ostacoli',
+    'Segnalazioni semaforiche e degli agenti del traffico',
+    'Limiti di velocità, pericolo e intralcio alla circolazione',
+    'Distanza di sicurezza',
+    'Norme sulla circolazione dei veicoli',
+    'Ordine di precedenza agli incroci',
+    'Norme sul sorpasso',
+    'Norme varie',
+    'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza',
+    'Incidenti stradali e comportamenti in caso di incidente',
+    'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso',
+    'Altro',
+  ];
+
+  const filterAndSet = () => {
+    const questionCopy = [];
+
+    for (let i = 0; i < questionDistribution.length; i++) {
+      if (questionDistribution[i] !== 'Altro') {
+        const filteredArray = questions.filter(
+          (val) => val.category === questionDistribution[i]
+        );
+        let extractedNums = [];
+
+        while (extractedNums.length < 2) {
+          const num = Math.floor(Math.random() * filteredArray.length);
+          if (!extractedNums.includes(num)) {
+            questionCopy.push({
+              question: decrypt(filteredArray[num].question),
+              image: decrypt(filteredArray[num].image),
+              response: filteredArray[num].response,
+              answer: filteredArray[num].answer,
+              category: filteredArray[num].category,
+              questionId: filteredArray[num].questionId,
+            });
+
+            extractedNums.push(num);
+          }
+        }
+      } else {
+        const filteredArray = questions.filter((val) => {
+          return (
+            val.category !== 'Segnali di pericolo' &&
+            val.category !== 'Segnali di divieto' &&
+            val.category !== 'Segnali di obbligo' &&
+            val.category !== 'Segnali di precedenza' &&
+            val.category !== 'Segnaletica orizzontale e segni sugli ostacoli' &&
+            val.category !==
+              'Segnalazioni semaforiche e degli agenti del traffico' &&
+            val.category !==
+              'Limiti di velocità, pericolo e intralcio alla circolazione' &&
+            val.category !== 'Distanza di sicurezza' &&
+            val.category !== 'Norme sulla circolazione dei veicoli' &&
+            val.category !== 'Ordine di precedenza agli incroci' &&
+            val.category !== 'Norme sul sorpasso' &&
+            val.category !== 'Norme varie' &&
+            val.category !==
+              'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza' &&
+            val.category !==
+              'Incidenti stradali e comportamenti in caso di incidente' &&
+            val.category !==
+              'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
+          );
+        });
+
+        let extractedNums = [];
+        while (extractedNums.length < 10) {
+          const num = Math.floor(Math.random() * filteredArray.length);
+          if (!extractedNums.includes(num)) {
+            questionCopy.push({
+              question: decrypt(filteredArray[num].question),
+              image: decrypt(filteredArray[num].image),
+              response: filteredArray[num].response,
+              answer: filteredArray[num].answer,
+              category: filteredArray[num].category,
+              questionId: filteredArray[num].id,
+            });
+            extractedNums.push(num);
+          }
+        }
       }
     }
-
-    setQuizQuestions((quizQuestions) => [
-      ...quizQuestions,
-      {
-        question: decrypt(filteredArray[extractedNums[0]].question),
-        image: decrypt(filteredArray[extractedNums[0]].image),
-        response: filteredArray[extractedNums[0]].response,
-        answer: filteredArray[extractedNums[0]].answer,
-        category: filteredArray[extractedNums[0]].category,
-        questionId: filteredArray[extractedNums[0]].id,
-      },
-    ]);
-    setQuizQuestions((quizQuestions) => [
-      ...quizQuestions,
-      {
-        question: decrypt(filteredArray[extractedNums[1]].question),
-        image: decrypt(filteredArray[extractedNums[1]].image),
-        response: filteredArray[extractedNums[1]].response,
-        answer: filteredArray[extractedNums[1]].answer,
-        category: filteredArray[extractedNums[1]].category,
-        questionId: filteredArray[extractedNums[1]].id,
-      },
-    ]);
+    setQuizQuestions(questionCopy);
   };
 
-  const filterAndSetSecondary = () => {
-    const filteredArray = questions.filter((val) => {
-      return (
-        val.category !== 'Segnali di pericolo' &&
-        val.category !== 'Segnali di divieto' &&
-        val.category !== 'Segnali di obbligo' &&
-        val.category !== 'Segnali di precedenza' &&
-        val.category !== 'Segnaletica orizzontale e segni sugli ostacoli' &&
-        val.category !==
-          'Segnalazioni semaforiche e degli agenti del traffico' &&
-        val.category !==
-          'Limiti di velocità, pericolo e intralcio alla circolazione' &&
-        val.category !== 'Distanza di sicurezza' &&
-        val.category !== 'Norme sulla circolazione dei veicoli' &&
-        val.category !== 'Ordine di precedenza agli incroci' &&
-        val.category !== 'Norme sul sorpasso' &&
-        val.category !== 'Norme varie' &&
-        val.category !==
-          'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza' &&
-        val.category !==
-          'Incidenti stradali e comportamenti in caso di incidente' &&
-        val.category !==
-          'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
-      );
-    });
-
-    let extractedNums = [];
-    while (extractedNums.length < 10) {
-      const num = Math.floor(Math.random() * filteredArray.length);
-      if (!extractedNums.includes(num)) {
-        extractedNums.push(num);
-      }
-    }
-
-    for (let i = 0; i < 10; i++) {
-      setQuizQuestions((quizQuestions) => [
-        ...quizQuestions,
-        {
-          question: decrypt(filteredArray[extractedNums[i]].question),
-          image: decrypt(filteredArray[extractedNums[i]].image),
-          response: filteredArray[extractedNums[i]].response,
-          answer: filteredArray[extractedNums[i]].answer,
-          category: filteredArray[extractedNums[i]].category,
-          questionId: filteredArray[extractedNums[i]].id,
-        },
-      ]);
-    }
-  };
   useEffect(() => {
-    filterAndSet('Segnali di pericolo', 2);
-    filterAndSet('Segnali di divieto', 2);
-    filterAndSet('Segnali di obbligo', 2);
-    filterAndSet('Segnali di precedenza', 2);
-    filterAndSet('Segnaletica orizzontale e segni sugli ostacoli', 2);
-    filterAndSet('Segnalazioni semaforiche e degli agenti del traffico', 2);
-    filterAndSet(
-      'Limiti di velocità, pericolo e intralcio alla circolazione',
-      2
-    );
-    filterAndSet('Distanza di sicurezza', 2);
-    filterAndSet('Norme sulla circolazione dei veicoli', 2);
-    filterAndSet('Ordine di precedenza agli incroci', 2);
-    filterAndSet('Norme sul sorpasso', 2);
-    filterAndSet('Norme varie', 2);
-    filterAndSet(
-      'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza',
-      2
-    );
-    filterAndSet('Incidenti stradali e comportamenti in caso di incidente', 2);
-    filterAndSet(
-      'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso',
-      2
-    );
-    filterAndSetSecondary();
+    filterAndSet();
   }, []);
 
   const checkUngiven = () => {

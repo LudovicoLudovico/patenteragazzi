@@ -12,6 +12,7 @@
  */
 
 const version = 1.0;
+
 // If the loader is already loaded, just stop.
 if (!self.define) {
   const singleRequire = (name) => {

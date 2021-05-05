@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getTheorySlug } from '../../fetchData/getTheorySlug';
 import { getTheoryItem } from '../../fetchData/getTheoryItem';
 import { getTheoryQuestions } from '../../fetchData/getTheoryQuestions';
 import slugify from 'slugify';
 import Navbar from '../../components/general/Navbar';
 import MDEditor from '@uiw/react-md-editor';
-import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Seo from '../../components/general/Seo';
 import { Button, Modal, FormControlLabel, Checkbox } from '@material-ui/core';
-import WarningIcon from '@material-ui/icons/Warning';
 import firebase from 'firebase/app';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 const AdBanner = dynamic(() => import('../../components/general/AdBanner'), {
   ssr: false,
@@ -129,8 +128,8 @@ const slug = ({ theoryItem, questions }: SlugProps) => {
           color: 'white',
         }}
       >
-        <p>Invia segnalazione</p>
-        <WarningIcon style={{ marginLeft: 20 }} />
+        <p style={{ marginRight: 15 }}>Invia segnalazione</p>
+        <Image src={'/danger.svg'} height={24} width={24} layout={'fixed'} />
       </Button>
     </div>
   );
@@ -139,31 +138,14 @@ const slug = ({ theoryItem, questions }: SlugProps) => {
     <>
       {theoryItem && (
         <>
-          <NextSeo
+          <Seo
             title={`${theoryItem.title} - Patenteragazzi`}
             description={theoryItem.title}
             canonical={`https://patenteragazzi.it/teoria/${slugify(
               theoryItem.title
             )}`}
-            openGraph={{
-              url: `https://patenteragazzi.it/teoria/${slugify(
-                theoryItem.title
-              )}`,
-              title: 'Patenteragazzi',
-              description: `${theoryItem.theory
-                .replace(/\*/g, '')
-                .slice(0, 150)}...`,
-              images: [
-                {
-                  url: 'https://patenteragazzi.it/patenteragazzi-square.png',
-                  width: 600,
-                  height: 600,
-                  alt: 'Patenteragazzi Logo',
-                },
-              ],
-              site_name: 'Patenteragazzi',
-            }}
           />
+
           <Navbar isAdminNav={false} active={''} />
           <div className='container-full main_content'>
             <div className='theory'>
@@ -175,8 +157,14 @@ const slug = ({ theoryItem, questions }: SlugProps) => {
               >
                 <a className='theory_back'>
                   <>
-                    <ArrowBackIcon />
-                    Torna indietro
+                    <Image
+                      src={'/black-right-arrow.svg'}
+                      height={24}
+                      width={24}
+                      layout={'fixed'}
+                      className='rotated-image'
+                    />
+                    <p style={{ marginLeft: 10 }}>Torna indietro</p>
                   </>
                 </a>
               </Link>
@@ -208,8 +196,13 @@ const slug = ({ theoryItem, questions }: SlugProps) => {
                   color: 'white',
                 }}
               >
-                <p>Segnala Problema Nella Teoria</p>
-                <WarningIcon />
+                <p style={{ marginRight: 15 }}>Segnala Problema Nella Teoria</p>
+                <Image
+                  src={'/danger.svg'}
+                  height={24}
+                  width={24}
+                  layout={'fixed'}
+                />
               </Button>
 
               <Modal

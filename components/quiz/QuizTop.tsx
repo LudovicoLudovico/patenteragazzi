@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Timer from 'react-compound-timer';
 import { Modal, Button } from '@material-ui/core';
 import firebase from 'firebase/app';
-import WarningIcon from '@material-ui/icons/Warning';
-import FlagSharpIcon from '@material-ui/icons/FlagSharp';
 import Link from 'next/link';
-
+import Image from 'next/image';
 import ReportPopup from './ReportPopup';
 
 interface QuizTopProps {
@@ -116,15 +114,20 @@ const QuizTop = ({ correct, questionCounter, quizQuestions }: QuizTopProps) => {
               aria-label={`Segnala Domanda Numero ${questionCounter + 1}`}
             >
               <p>Segnala domanda</p>
-              <WarningIcon />
+              <Image src={'/danger.svg'} width={20} height={20} />
             </Button>
           )}
         </div>
 
         {/* Top right section of the quiz, contains correct btn and close btn */}
         <div className='quiz_top_right'>
-          <Button variant='contained' className='correct_btn' onClick={correct}>
-            <FlagSharpIcon />
+          <Button
+            variant='contained'
+            className='correct_btn'
+            onClick={correct}
+            name='Correggi'
+          >
+            <Image src={'/flag.svg'} width={24} height={24} />
           </Button>
           <Link href='/'>
             <a title='Esci'>
