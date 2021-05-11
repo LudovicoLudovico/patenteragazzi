@@ -10,10 +10,14 @@ module.exports = withPWA(
     images: {
       domains: ['firebasestorage.googleapis.com', 'lh3.googleusercontent.com'],
     },
+    future: {
+      webpack5: true,
+    },
   }),
   {
     pwa: {
       dest: 'public',
+      mode: 'production',
       runtimeCaching,
     },
   }

@@ -20,6 +20,7 @@ export const getQuestions = async () => {
           answer: doc.data().answer,
           isChecked: doc.data().isChecked,
           category: doc.data().category,
+          difficulty: doc.data().difficulty,
         });
       });
     });

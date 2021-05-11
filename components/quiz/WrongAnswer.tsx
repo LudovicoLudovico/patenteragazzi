@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 // Layout imports
 import MDEditor from '@uiw/react-md-editor';
 import { Modal, Button } from '@material-ui/core';
-import WarningIcon from '@material-ui/icons/Warning';
+import Image from 'next/image';
 // const ReportPopup = dynamic(() => import('./ReportPopup'));
 import ReportPopup from './ReportPopup';
 
@@ -225,7 +225,12 @@ const WrongAnswer = ({
                   color: 'white',
                 }}
               >
-                <WarningIcon />
+                <Image
+                  src={'/danger.svg'}
+                  height={20}
+                  width={20}
+                  layout={'fixed'}
+                />
               </Button>
             )}
 

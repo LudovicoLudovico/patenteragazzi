@@ -92,4 +92,4 @@ const QuizComp = memo(
   }
 );
 
-export default QuizComp;
+export default memo(QuizComp);

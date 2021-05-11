@@ -2,13 +2,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { decrypt } from '../lib/enc';
+import { useUser } from '../context/userContext';
+import firebase from '../firebase/clientApp';
 
 // Fetching data
 import { getQuestions } from '../fetchData/getQuestions';
 import { getTheory } from '../fetchData/getTheory';
 import dynamic from 'next/dynamic';
-// import questions from '../questionTest';
-// import theory from '../theoryTest';
+import questions from '../questionTest';
+import theory from '../theoryTest';
 
 // Components
 import Seo from '../components/general/Seo';
@@ -35,6 +37,9 @@ const test = ({ questions, theory }) => {
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [showQuiz, setShowQuiz] = useState(false);
   const [filters, setFilters] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const { user } = useUser();
 
   const questionDistribution = [
     'Segnali di pericolo',
@@ -57,6 +62,7 @@ const test = ({ questions, theory }) => {
 
   const filterAndSet = () => {
     const questionCopy = [];
+    const categoriesCopy = [];
 
     for (let i = 0; i < questionDistribution.length; i++) {
       if (questionDistribution[i] !== 'Altro') {
@@ -76,6 +82,8 @@ const test = ({ questions, theory }) => {
               category: filteredArray[num].category,
               questionId: filteredArray[num].questionId,
             });
+
+            categoriesCopy.push(filteredArray[num].category);
 
             extractedNums.push(num);
           }
@@ -118,16 +126,51 @@ const test = ({ questions, theory }) => {
               category: filteredArray[num].category,
               questionId: filteredArray[num].id,
             });
+            categoriesCopy.push(filteredArray[num].category);
             extractedNums.push(num);
           }
         }
       }
     }
+    setCategories(categoriesCopy);
     setQuizQuestions(questionCopy);
   };
 
   useEffect(() => {
-    filterAndSet();
+    if (router.query.tipo !== 'super' && router.query.tipo !== 'argomenti') {
+      filterAndSet();
+    }
+    console.log(router.query.tipo);
+    if (router.query.tipo == 'super') {
+      const filteredArray = questions.filter(
+        (val) => val.difficulty === 'high'
+      );
+
+      const questionCopy = [];
+      const categoriesCopy = [];
+
+      let extractedNums = [];
+
+      while (extractedNums.length < 40) {
+        const num = Math.floor(Math.random() * filteredArray.length);
+        if (!extractedNums.includes(num)) {
+          questionCopy.push({
+            question: decrypt(filteredArray[num].question),
+            image: decrypt(filteredArray[num].image),
+            response: filteredArray[num].response,
+            answer: filteredArray[num].answer,
+            category: filteredArray[num].category,
+            questionId: filteredArray[num].questionId,
+          });
+
+          categoriesCopy.push(filteredArray[num].category);
+
+          extractedNums.push(num);
+        }
+      }
+
+      setQuizQuestions(questionCopy);
+    }
   }, []);
 
   const checkUngiven = () => {
@@ -151,36 +194,70 @@ const test = ({ questions, theory }) => {
     checkUngiven();
   }, [answers]);
 
+  useEffect(() => {
+    if (user && score !== 0) {
+      firebase
+        .firestore()
+        .collection('users')
+        .doc(user.user_id)
+        .set(
+          {
+            quizCounter: firebase.firestore.FieldValue.increment(1),
+            quizErrors: firebase.firestore.FieldValue.arrayUnion(40 - score),
+          },
+          {
+            merge: true,
+          }
+        )
+        .then(() => {
+          setShowScore(true);
+
+          if (localStats) {
+            localStats = {
+              quizCounter: localStats.quizCounter + 1,
+              quizErrors: [...localStats.quizErrors, 40 - score],
+            };
+            localStorage.setItem('stats', JSON.stringify(localStats));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      let localStats = JSON.parse(localStorage.getItem('stats'));
+    }
+  }, [score]);
+
   const loopCorrect = () => {
     let quizQuestionsCopy = [...quizQuestions];
+    let scoreCopy = 0;
+    let wrongAnswerCopy = [];
 
     for (let i = 0; i < 40; i++) {
       if (answers[i] === quizQuestionsCopy[i].response) {
-        setScore((prevState) => prevState + 1);
+        scoreCopy += 1;
       } else {
         const resBool =
           answers[i] === undefined || answers[i] === null
             ? null
             : !quizQuestionsCopy[i].response;
 
-        setWrongAnswers((wrongAnswers) => [
-          ...wrongAnswers,
-          {
-            userResponse: resBool,
-            question: quizQuestionsCopy[i].question,
-            response: quizQuestionsCopy[i].response,
-            image: quizQuestionsCopy[i].image,
-            answer: quizQuestionsCopy[i].answer,
-            category: quizQuestionsCopy[i].category,
-            questionId: quizQuestionsCopy[i].questionId,
-            isChecked: quizQuestionsCopy[i].isChecked || null,
-            num: i,
-          },
-        ]);
+        wrongAnswerCopy.push({
+          userResponse: resBool,
+          question: quizQuestionsCopy[i].question,
+          response: quizQuestionsCopy[i].response,
+          image: quizQuestionsCopy[i].image,
+          answer: quizQuestionsCopy[i].answer,
+          category: quizQuestionsCopy[i].category,
+          questionId: quizQuestionsCopy[i].questionId,
+          isChecked: quizQuestionsCopy[i].isChecked || null,
+          num: i,
+        });
       }
     }
 
-    setShowScore(true);
+    setWrongAnswers(wrongAnswerCopy);
+    setScore(scoreCopy);
   };
   const correct = (performCheck: boolean) => {
     if (performCheck) {

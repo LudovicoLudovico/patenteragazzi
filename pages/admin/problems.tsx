@@ -67,7 +67,7 @@ const problems = () => {
       <div>
         <Navbar isAdminNav={true} active='problems' />
 
-        <div className='main_content container-full admin_problems'>
+        <div className='main_content container admin_problems'>
           <h1>Problemi</h1>
 
           <h2>Problemi con le domande</h2>

@@ -20,7 +20,8 @@
     "**/*.tsx",
     "components/general/Footer.js",
     "components/admin/Editor.js",
-    "pages/admin/questions.js"
+    "pages/admin/questions.js",
+    "components/home/StatsBar.js"
   ],
   "exclude": ["node_modules"]
 }

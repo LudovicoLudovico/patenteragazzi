@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUser } from '../../context/userContext';
 import { useAdmin } from '../../context/adminContext';
 import firebase from 'firebase/app';
-import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -118,14 +117,13 @@ const AdminUI = () => {
   if (isAdmin) {
     return (
       <>
-        <NextSeo nofollow={true} />
         <Head>
           <title>Admin Area</title>
           <link rel='shortcut icon' href='/patenteragazzi.ico' />
         </Head>
         {/* Navbar */}
-        <Navbar isAdminNav={true} active={'immagini'} />
-        <div className='admin-ui container-full main_content'>
+        <Navbar isAdminNav={true} active={'images'} />
+        <div className='admin-ui container main_content'>
           {/* Image Change */}
           <h2>Sostituisci immagine</h2>
           <TextField

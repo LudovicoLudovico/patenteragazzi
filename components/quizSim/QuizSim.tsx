@@ -1,7 +1,7 @@
 // General imports
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-
+import { memo } from 'react';
 // Components
 import QuizSimNav from './QuizSimNav';
 import QuizSimBottom from './QuizSimBottom';
@@ -79,4 +79,4 @@ const QuizSim = ({
   );
 };
 
-export default QuizSim;
+export default memo(QuizSim);

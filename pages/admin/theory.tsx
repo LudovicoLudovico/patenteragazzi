@@ -3,7 +3,6 @@ import Head from 'next/head';
 import firebase from 'firebase/app';
 import Navbar from '../../components/general/Navbar';
 import { TextField, Modal, Button, Backdrop, Fade } from '@material-ui/core';
-import { PaginatedList } from 'react-paginated-list';
 import { useUser } from '../../context/userContext';
 import CategoryList from '../../components/admin/CategoryList';
 import { makeStyles } from '@material-ui/core/styles';
@@ -85,8 +84,8 @@ const theory = () => {
         <Head>
           <title>Admin Area - Teoria</title>
         </Head>
-        <Navbar isAdminNav={true} active={'teoria'} />
-        <div className='container-full main_content'>
+        <Navbar isAdminNav={true} active={'theory'} />
+        <div className='container main_content'>
           <br />
           <h2>Carica teoria</h2>
           <form className='admin-theory'>
@@ -120,7 +119,7 @@ const theory = () => {
                   return <div></div>;
                 }
               })}
-            <Modal
+            {/* <Modal
               aria-labelledby='transition-modal-title'
               aria-describedby='transition-modal-description'
               open={theoryModal}
@@ -158,7 +157,7 @@ const theory = () => {
                   />
                 </div>
               </Fade>
-            </Modal>
+            </Modal> */}
             <br />
             <TextField
               id='outlined-multiline-flexible'

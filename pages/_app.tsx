@@ -9,6 +9,8 @@ import * as gtag from '../lib/gtag';
 
 import Head from 'next/head';
 
+import '../style/normalize.min.css';
+
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
 

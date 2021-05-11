@@ -67,7 +67,7 @@ const stories = ({ questions }) => {
         </Head>
         <Navbar isAdminNav={true} active='stories' />
 
-        <div className='main_content container-full'>
+        <div className='main_content container' style={{ marginTop: 10 }}>
           <div className='admin-stories'>
             {question && (
               <div

@@ -1,9 +1,8 @@
-import React from 'react';
 import Navbar from '../components/general/Navbar';
 import { getPosts } from '../fetchData/getPosts';
 import Seo from '../components/general/Seo';
 import { decrypt } from '../lib/enc';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Image from 'next/image';
 
 import Link from 'next/link';
 
@@ -27,7 +26,7 @@ const post = ({ posts }: PostsProps) => {
         description="Coi nostri post puoi imparare gli argomenti più svariati riguardanti la patente, come il modo migliore per prepararsi all'esame!"
         canonical='https://patenteragazzi.it/posts'
       />
-      <Navbar isAdminNav={false} active={'post'} />
+      <Navbar isAdminNav={false} active={'posts'} />
       <div className='container main_content'>
         {posts.map((post) => {
           const text = decrypt(post.text).slice(0, 150) + '...';
@@ -54,7 +53,7 @@ const post = ({ posts }: PostsProps) => {
                   }}
                 >
                   Vai al post
-                  <ArrowForwardIosIcon />
+                  <Image src={'/right-arrow.svg'} height={24} width={24} />
                 </a>
               </Link>
               <hr />

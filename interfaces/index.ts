@@ -8,6 +8,7 @@ export type Question = {
   response: boolean;
   num: number;
   isChecked?: boolean;
+  difficulty?: string;
 };
 
 export type Wrong = {

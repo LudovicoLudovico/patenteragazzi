@@ -22,11 +22,12 @@ export default function UserContextComp({ children }) {
             } else {
               setIsAdmin(false);
             }
-
+            const { user_id, picture, name, email } = idTokenResult.claims;
             setUser({
-              picture: idTokenResult.claims.picture,
-              name: idTokenResult.claims.name,
-              email: idTokenResult.claims.email,
+              user_id,
+              picture,
+              name,
+              email,
             });
           })
           .catch((error) => {
@@ -55,6 +56,8 @@ export default function UserContextComp({ children }) {
         setUser(null);
         setLoadingUser(false);
       });
+
+    return user;
   };
 
   const logout = () => {
@@ -64,6 +67,7 @@ export default function UserContextComp({ children }) {
       .then(function () {
         setUser(null);
         setLoadingUser(false);
+        localStorage.removeItem('stats');
       })
       .catch(function (error) {
         setUser(null);
