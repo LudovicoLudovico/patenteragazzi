@@ -1,29 +1,30 @@
-import React from 'react';
-
 // Layout
 import QuizTopicsList from './QuizTopicsList';
 import Link from 'next/link';
-import { Button } from '@material-ui/core';
 
 // Css Import
 import '../../style/quizTopics.min.css';
 
 const TopicChoice = ({ filters, setFilters, startQuiz }) => {
   return (
-    <div className='topic-choice '>
-      <div className='container-full'>
+    <div className='topic-choice'>
+      <div className='container'>
         <div className='topic-choice-top'>
           <h2>Scegli argomenti per il quiz</h2>
 
           <div>
-            <Button variant='contained' className='start' onClick={startQuiz}>
+            <button onClick={startQuiz} className='start'>
               Inizia quiz
-            </Button>
-            <Link href='/' passHref>
+            </button>
+
+            <Link href='/'>
               <a style={{ textDecoration: 'none' }}>
-                <Button variant='contained' className='close_quiz'>
+                <button
+                  className='close_quiz'
+                  style={{ backgroundColor: '#9d0606' }}
+                >
                   Esci
-                </Button>
+                </button>
               </a>
             </Link>
           </div>

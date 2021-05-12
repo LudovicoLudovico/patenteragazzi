@@ -1,4 +1,3 @@
-import React from 'react';
 import TopicQuizSelec from './TopicQuizSelec';
 
 interface QuizTopicsListProps {
