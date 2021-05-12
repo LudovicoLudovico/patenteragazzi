@@ -195,36 +195,40 @@ const test = ({ questions, theory }) => {
   }, [answers]);
 
   useEffect(() => {
-    if (user && score !== 0) {
-      firebase
-        .firestore()
-        .collection('users')
-        .doc(user.user_id)
-        .set(
-          {
-            quizCounter: firebase.firestore.FieldValue.increment(1),
-            quizErrors: firebase.firestore.FieldValue.arrayUnion(40 - score),
-          },
-          {
-            merge: true,
-          }
-        )
-        .then(() => {
-          setShowScore(true);
+    if (score !== 0) {
+      if (user) {
+        firebase
+          .firestore()
+          .collection('users')
+          .doc(user.user_id)
+          .set(
+            {
+              quizCounter: firebase.firestore.FieldValue.increment(1),
+              quizErrors: firebase.firestore.FieldValue.arrayUnion(40 - score),
+            },
+            {
+              merge: true,
+            }
+          )
+          .then(() => {
+            setShowScore(true);
 
-          if (localStats) {
-            localStats = {
-              quizCounter: localStats.quizCounter + 1,
-              quizErrors: [...localStats.quizErrors, 40 - score],
-            };
-            localStorage.setItem('stats', JSON.stringify(localStats));
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+            if (localStats) {
+              localStats = {
+                quizCounter: localStats.quizCounter + 1,
+                quizErrors: [...localStats.quizErrors, 40 - score],
+              };
+              localStorage.setItem('stats', JSON.stringify(localStats));
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
-      let localStats = JSON.parse(localStorage.getItem('stats'));
+        let localStats = JSON.parse(localStorage.getItem('stats'));
+      } else {
+        setShowScore(true);
+      }
     }
   }, [score]);
 
