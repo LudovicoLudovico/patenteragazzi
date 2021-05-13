@@ -147,7 +147,7 @@ const slug = ({ theoryItem, questions }: SlugProps) => {
           />
 
           <Navbar isAdminNav={false} active={''} />
-          <div className='container-full main_content'>
+          <div className='container main_content'>
             <div className='theory'>
               <Link
                 href={`/teoria#${slugify(theoryItem.category, {

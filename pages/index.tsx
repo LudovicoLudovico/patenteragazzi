@@ -4,8 +4,10 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { useUser } from '../context/userContext';
-import firebase from '../firebase/clientApp';
+
 const StatBar = dynamic(() => import('../components/home/StatBar'));
+const IndexTheory = dynamic(() => import('../components/home/IndexTheory'));
+const IndexFooter = dynamic(() => import('../components/home/IndexFooter'));
 
 // Seo
 import Seo from '../components/general/Seo';
@@ -53,9 +55,11 @@ export default function Home() {
     }
   }, [user]);
 
-  const loadStats = () => {
+  const loadStats = async () => {
     localStorage.removeItem('stats');
     if (user) {
+      const firebase = (await import('../firebase/clientApp')).default;
+
       firebase
         .firestore()
         .collection('users')
@@ -138,10 +142,10 @@ export default function Home() {
                 <Link href='/'>
                   <a className='active'>Home</a>
                 </Link>
-                <Link href='/posts'>
+                <Link href='/posts' prefetch={false}>
                   <a>Posts</a>
                 </Link>
-                <Link href='/teoria'>
+                <Link href='/teoria' prefetch={false}>
                   <a>Teoria</a>
                 </Link>
               </div>
@@ -170,13 +174,13 @@ export default function Home() {
                   <button>INIZIA QUIZ AM/B</button>
                 </Link>
 
-                <Link href='/quiz?tipo=simulazione'>
+                <Link href='/quiz?tipo=simulazione' prefetch={false}>
                   <button>INIZIA SIMULAZIONE</button>
                 </Link>
-                <Link href='/quiz?tipo=argomenti'>
+                <Link href='/quiz?tipo=argomenti' prefetch={false}>
                   <button>INIZIA QUIZ ARGOMENTI</button>
                 </Link>
-                <Link href='/quiz?tipo=super'>
+                <Link href='/quiz?tipo=super' prefetch={false}>
                   <button>INIZIA SUPER QUIZ</button>
                 </Link>
               </div>
@@ -249,104 +253,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='index_theory'>
-          <div className='container'>
-            <div className='index_theory_title'>
-              <h2>TEORIA</h2>
-              <Image
-                src={'/book-dark.svg'}
-                height={26}
-                width={26}
-                alt='Icona teoria'
-              />
-            </div>
+        <IndexTheory />
 
-            <div className='index_theory_cards_container'>
-              <div className='index_theory_card'>
-                <h3>Segnali di pericolo</h3>
-                <Image
-                  src={'/segnali di pericolo.svg'}
-                  height={150}
-                  width={150}
-                />
-                <Link href='/teoria#segnali-di-pericolo'>
-                  <button>Scopri di più</button>
-                </Link>
-              </div>
-              <div className='index_theory_card'>
-                <h3>Assicurazioni</h3>
-                <Image src={'/assicurazione.svg'} height={150} width={150} />
-
-                <Link href='/teoria#patenti-di-guida-sistema-sanzionatorio-documenti-di-circolazione-obblighi-verso-agenti'>
-                  <button>Scopri di più</button>
-                </Link>
-              </div>
-              <div className='index_theory_card'>
-                <h3>Patenti</h3>
-                <Image src={'/patente.svg'} height={150} width={150} />
-                <Link href='/teoria#responsabilita-civile-penale-e-amministrativa-assicurazione-r.c.a.-e-altre-forme-assicurative-legate-al-veicolo'>
-                  <button>Scopri di più</button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <footer className='index_footer'>
-          <div className='container'>
-            <p>Copryright 2021</p>
-            <div className='footer_contact'>
-              <a
-                href='https://www.instagram.com/patenteragazzi/'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Instagram'
-              >
-                <Image
-                  src='/instagram.svg'
-                  alt='Footer - Instagram'
-                  layout={'intrinsic'}
-                  width={25}
-                  height={25}
-                  quality={1}
-                />
-              </a>
-              <a
-                target='_blank'
-                href='https://www.tiktok.com/@patenteragazzi?_d=secCgsIARCbDRgBIAMoARI%2BCjwsj44V9oynClqip6A4ZSRxXQ7IMbrbj0dcklcqsrDMDvXA6SQeKXZUJJ6Jvd9mYItFThRf0RLwXwuGhlsaAA%3D%3D&language=en&sec_uid=MS4wLjABAAAArAPVVnxxdhUkBCzdBjVK7ua1WngkYyHh4L12ghvAJ1aTHZADdxi68jsXNgpJ1pOm&sec_user_id=MS4wLjABAAAArAPVVnxxdhUkBCzdBjVK7ua1WngkYyHh4L12ghvAJ1aTHZADdxi68jsXNgpJ1pOm&share_app_name=musically&share_author_id=6870055060148929542&share_link_id=304e3355-7227-4486-b53c-9ad57578e237&timestamp=1599646252&u_code=deb73gifajfmm5&user_id=6870055060148929542&utm_campaign=client_share&utm_medium=android&utm_source=copy&source=h5_m'
-                rel='noopener noreferrer'
-              >
-                <Image
-                  src='/tiktok.svg'
-                  alt='Footer - Tiktok'
-                  aria-label='Tiktok'
-                  layout={'intrinsic'}
-                  width={22}
-                  height={22}
-                  quality={1}
-                />
-              </a>
-
-              <a href='mailto:patenteragazzi@gmail.com' aria-label='Email'>
-                <Image
-                  src='/mail.svg'
-                  alt='Footer - Email'
-                  layout={'intrinsic'}
-                  width={22}
-                  height={22}
-                  quality={1}
-                />
-              </a>
-
-              <a
-                href='https://www.iubenda.com/privacy-policy/49097191'
-                className='iubenda-white iubenda-embed'
-                title='Privacy Policy '
-              >
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-        </footer>
+        <IndexFooter />
       </div>
     </>
   );
