@@ -16,14 +16,18 @@ $sim-green: #cfe6d6;
 .theory {
   min-height: 100vh;
   position: relative;
-  padding-top: 20px;
+  padding: 20px 10px 10px 10px;
 
   .theory_back {
     display: flex;
     align-items: center;
-
     position: absolute;
-    right: 0;
+    right: 10px;
+    // text-decoration: none;
+
+    p {
+      color: black;
+    }
     .rotated-image {
       transform: rotate(180deg);
     }
@@ -60,7 +64,7 @@ $sim-green: #cfe6d6;
     }
   }
   h2 {
-    padding-top: 20px;
+    padding-top: 50px;
   }
 
   img {

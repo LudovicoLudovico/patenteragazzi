@@ -264,6 +264,8 @@ const test = ({ questions, theory }) => {
     setScore(scoreCopy);
   };
   const correct = (performCheck: boolean) => {
+    console.log('called correct');
+
     if (performCheck) {
       checkUngiven();
 
@@ -277,22 +279,37 @@ const test = ({ questions, theory }) => {
     }
   };
 
-  const getAnswer = useCallback((index, answer) => {
-    if (index + 1 !== 40) {
-      if (router.query.tipo !== 'simulazione') {
-        setQuestionCounter((prevState) => prevState + 1);
+  const getAnswer = useCallback((index, answer, isSim) => {
+    if (!isSim) {
+      if (index + 1 !== 40) {
+        if (router.query.tipo !== 'simulazione') {
+          setQuestionCounter((prevState) => prevState + 1);
+        }
+        let answersCopy = answers;
+        answersCopy[index] = answer;
+        setAnswers(answersCopy);
+      } else {
+        setQuestionCounter(index);
+        let answersCopy = [...answers];
+        answersCopy[index] = answer;
+
+        setAnswers(answersCopy);
+
+        setCorrectPopup(true);
       }
-      let answersCopy = answers;
-      answersCopy[index] = answer;
-      setAnswers(answersCopy);
     } else {
-      setQuestionCounter(index);
-      let answersCopy = [...answers];
-      answersCopy[index] = answer;
+      if (index + 1 !== 40) {
+        let answersCopy = answers;
+        answersCopy[index] = answer;
+        setAnswers(answersCopy);
+      } else {
+        let answersCopy = [...answers];
+        answersCopy[index] = answer;
 
-      setAnswers(answersCopy);
+        setAnswers(answersCopy);
 
-      setCorrectPopup(true);
+        setCorrectPopup(true);
+      }
     }
   }, []);
 
@@ -349,17 +366,15 @@ const test = ({ questions, theory }) => {
           />
         )}
 
-      {router.query.tipo == 'simulazione' &&
-        quizQuestions.length !== 0 &&
-        !showScore && (
-          <QuizSim
-            correct={correct}
-            questionCounter={questionCounter}
-            quizQuestions={quizQuestions}
-            getAnswer={getAnswer}
-            setQuestionCounter={setQuestionCounter}
-          />
-        )}
+      {router.query.tipo == 'simulazione' && !showScore && (
+        <QuizSim
+          correct={correct}
+          questionCounter={questionCounter}
+          quizQuestions={quizQuestions}
+          getAnswer={getAnswer}
+          setQuestionCounter={setQuestionCounter}
+        />
+      )}
       {router.query.tipo == 'argomenti' && !showScore && (
         <>
           {showQuiz && (

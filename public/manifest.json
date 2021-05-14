@@ -3,7 +3,7 @@
   "short_name": "Patente Ragazzi",
   "theme_color": "#00408b",
   "background_color": "#00408b",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",

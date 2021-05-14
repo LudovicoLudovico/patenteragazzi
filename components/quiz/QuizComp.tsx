@@ -3,7 +3,7 @@ import { Modal, Button } from '@material-ui/core';
 
 interface QuizCompProps {
   question: Question;
-  getAnswer: (index: any, answer: any) => void;
+  getAnswer: (index: any, answer: any, isSim: boolean) => void;
   index: number;
 }
 
@@ -14,7 +14,7 @@ interface Question {
 
 const QuizComp = ({ question, getAnswer, index }: QuizCompProps) => {
   const [open, setOpen] = useState(false);
-  console.log('rendered');
+
   return (
     <>
       <div className='quiz_image'>
@@ -75,14 +75,14 @@ const QuizComp = ({ question, getAnswer, index }: QuizCompProps) => {
         <Button
           variant='contained'
           className='quiz_answer_btn'
-          onClick={() => getAnswer(index, true)}
+          onClick={() => getAnswer(index, true, false)}
         >
           Vero
         </Button>
         <Button
           variant='contained'
           className='quiz_answer_btn'
-          onClick={() => getAnswer(index, false)}
+          onClick={() => getAnswer(index, false, false)}
         >
           Falso
         </Button>

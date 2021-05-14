@@ -17,7 +17,7 @@ interface QuizProps {
   correct: (performCheck: boolean) => void;
   questionCounter: number;
   quizQuestions: Question[];
-  getAnswer: (index: any, answer: any) => void;
+  getAnswer: (index: any, answer: any, isSim: boolean) => void;
   setQuestionCounter: (number: number) => void;
 }
 
@@ -40,6 +40,7 @@ const quiz = ({
           questionCounter={questionCounter}
           quizQuestions={quizQuestions}
         />
+
         <div
           key={slugify(`${quizQuestions[0].question}${0}`, { lower: true })}
           className={`quiz_content ${0 == questionCounter ? 'active' : ''} ${
@@ -49,12 +50,8 @@ const quiz = ({
           <QuizCompFirst
             key={0}
             question={quizQuestions[0]}
-            getTrueAnswer={() => {
-              getAnswer(0, true);
-            }}
-            getFalseAnswer={() => {
-              getAnswer(0, false);
-            }}
+            getAnswer={getAnswer}
+            index={0}
           />
         </div>
 

@@ -27,34 +27,30 @@ const QuizSim = ({
           setQuestionCounter={(id) => setQuestionCounter(parseInt(id))}
           quizQuestions={quizQuestions}
         />
-        <QuizSimCompFirst
-          key={0}
-          index={0}
-          questionCounter={questionCounter}
-          question={quizQuestions[0]}
-          getTrueAnswer={() => {
-            getAnswer(0, true);
-          }}
-          getFalseAnswer={() => {
-            getAnswer(0, false);
-          }}
-        />
+        <div className={`quiz-sim_box ${questionCounter == 0 ? 'active' : ''}`}>
+          <QuizSimCompFirst
+            key={0}
+            index={0}
+            question={quizQuestions[0]}
+            getAnswer={getAnswer}
+          />
+        </div>
 
         {quizQuestions.map((question, index: number) => {
           if (index !== 0) {
             return (
-              <QuizSimComp
-                key={index}
-                index={index}
-                questionCounter={questionCounter}
-                question={question}
-                getTrueAnswer={() => {
-                  getAnswer(index, true);
-                }}
-                getFalseAnswer={() => {
-                  getAnswer(index, false);
-                }}
-              />
+              <div
+                className={`quiz-sim_box ${
+                  questionCounter == index ? 'active' : ''
+                }`}
+              >
+                <QuizSimComp
+                  key={index}
+                  question={question}
+                  getAnswer={getAnswer}
+                  index={index}
+                />
+              </div>
             );
           }
         })}

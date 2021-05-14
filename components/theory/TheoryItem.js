@@ -38,7 +38,14 @@ const TheoryItem = ({ theory, category, filters }) => {
                   >
                     <a className='theoryList-item-link'>
                       {titleItem}
-                      <Image src={'/right-arrow.svg'} height={24} width={24} />
+                      <div style={{ height: 24, width: 24 }}>
+                        <Image
+                          src={'/right-arrow.svg'}
+                          height={24}
+                          width={24}
+                          layout={'fixed'}
+                        />
+                      </div>
                     </a>
                   </Link>
                 </div>

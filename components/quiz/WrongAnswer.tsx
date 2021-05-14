@@ -32,6 +32,7 @@ const WrongAnswer = ({
   const [open, setOpen] = useState(false);
   const [canReport, setCanReport] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const [openTheory, setOpenTheory] = useState(false);
   const [hasProblemImage, setHasProblemImage] = useState(false);
   const [hasProblemQuestion, setHasProblemQuestion] = useState(false);
   const [hasProblemAnswer, setHasProblemAnswer] = useState(false);
@@ -133,8 +134,8 @@ const WrongAnswer = ({
         </div>
         {theory.length !== 0 && (
           <Modal
-            open={open}
-            onClose={() => setOpen(false)}
+            open={openTheory}
+            onClose={() => setOpenTheory(false)}
             aria-labelledby='simple-modal-title'
             aria-describedby='simple-modal-description'
             style={{
@@ -238,7 +239,7 @@ const WrongAnswer = ({
               src='/book.svg'
               alt=''
               className='open_theory'
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenTheory(true)}
             />
           </div>
         </div>

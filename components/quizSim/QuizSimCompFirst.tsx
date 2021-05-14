@@ -2,25 +2,18 @@ import React, { useState } from 'react';
 
 interface QuizSimCompProps {
   index: number;
-  questionCounter: number;
+
   question: Question;
-  getTrueAnswer: () => void;
-  getFalseAnswer: () => void;
+  getAnswer: (index: any, answer: any, isSim: boolean) => void;
 }
 interface Question {
   question: string;
   image: string | null;
 }
-const QuizSimComp = ({
-  index,
-  questionCounter,
-  question,
-  getTrueAnswer,
-  getFalseAnswer,
-}: QuizSimCompProps) => {
+const QuizSimComp = ({ index, question, getAnswer }: QuizSimCompProps) => {
   const [answer, setAnswer] = useState<boolean>();
   return (
-    <div className={`quiz-sim_box ${questionCounter == index ? 'active' : ''}`}>
+    <>
       <div className='quiz-sim_box_image'>
         {question.image && <img src={question.image} alt='Caricamento...' />}
       </div>
@@ -41,7 +34,7 @@ const QuizSimComp = ({
             }`}
             alt=''
             onClick={() => {
-              getTrueAnswer();
+              getAnswer(index, true, true);
               setAnswer(true);
             }}
           />
@@ -53,13 +46,13 @@ const QuizSimComp = ({
             }`}
             alt=''
             onClick={() => {
-              getFalseAnswer();
+              getAnswer(index, false, true);
               setAnswer(false);
             }}
           />
         </>
       </div>
-    </div>
+    </>
   );
 };
 
