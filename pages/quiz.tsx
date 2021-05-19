@@ -140,7 +140,7 @@ const test = ({ questions, theory }) => {
     if (router.query.tipo !== 'super' && router.query.tipo !== 'argomenti') {
       filterAndSet();
     }
-    console.log(router.query.tipo);
+
     if (router.query.tipo == 'super') {
       const filteredArray = questions.filter(
         (val) => val.difficulty === 'high'
@@ -197,35 +197,35 @@ const test = ({ questions, theory }) => {
   useEffect(() => {
     if (score !== 0) {
       if (user) {
+        const error = 40 - score;
+        console.log(error);
+        console.log(user);
+        console.log(user.user_id);
         firebase
           .firestore()
           .collection('users')
           .doc(user.user_id)
           .set(
             {
-              quizCounter: firebase.firestore.FieldValue.increment(1),
-              quizErrors: firebase.firestore.FieldValue.arrayUnion(40 - score),
+              quizErrors: firebase.firestore.FieldValue.arrayUnion(error),
             },
-            {
-              merge: true,
-            }
+            { merge: true }
           )
           .then(() => {
-            setShowScore(true);
-
+            let localStats = JSON.parse(localStorage.getItem('stats'));
             if (localStats) {
               localStats = {
-                quizCounter: localStats.quizCounter + 1,
+                quizCounter: localStats.quizErrors.length + 1,
                 quizErrors: [...localStats.quizErrors, 40 - score],
               };
               localStorage.setItem('stats', JSON.stringify(localStats));
             }
+
+            setShowScore(true);
           })
           .catch((error) => {
             console.log(error);
           });
-
-        let localStats = JSON.parse(localStorage.getItem('stats'));
       } else {
         setShowScore(true);
       }

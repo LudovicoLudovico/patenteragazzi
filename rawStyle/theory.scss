@@ -18,6 +18,16 @@ $sim-green: #cfe6d6;
   position: relative;
   padding: 20px 10px 10px 10px;
 
+  h2 {
+    padding-top: 50px;
+  }
+  .wmde-markdown,
+  .wmde-markdown-color {
+    h2 {
+      padding: 0;
+    }
+  }
+
   .theory_back {
     display: flex;
     align-items: center;
@@ -62,9 +72,6 @@ $sim-green: #cfe6d6;
         }
       }
     }
-  }
-  h2 {
-    padding-top: 50px;
   }
 
   img {

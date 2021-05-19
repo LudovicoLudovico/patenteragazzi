@@ -40,11 +40,12 @@ export default function Home() {
           stats.quizErrors.length
         );
       }
-
+      let quizCounter = stats.quizErrors.length;
+      console.log(quizCounter.length);
       setStats({
         quizErrors,
-        quizCounter: stats.quizCounter,
-        average: average,
+        quizCounter,
+        average,
       });
     }
   }, []);
@@ -84,7 +85,7 @@ export default function Home() {
 
             setStats({
               quizErrors,
-              quizCounter: doc.data().quizCounter,
+              quizCounter: doc.data().quizErrors.length,
               average,
             });
             localStorage.setItem('stats', JSON.stringify(doc.data()));

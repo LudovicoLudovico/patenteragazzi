@@ -27,7 +27,7 @@ const post = ({ posts }: PostsProps) => {
         canonical='https://patenteragazzi.it/posts'
       />
       <Navbar isAdminNav={false} active={'posts'} />
-      <div className='container main_content'>
+      <div className='container main_content' style={{ padding: 20 }}>
         {posts.map((post) => {
           const text = decrypt(post.text).slice(0, 150) + '...';
 

@@ -11,6 +11,7 @@ import { Button, Modal, FormControlLabel, Checkbox } from '@material-ui/core';
 import firebase from 'firebase/app';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import '../../style/theory.min.css';
 
 const AdBanner = dynamic(() => import('../../components/general/AdBanner'), {
   ssr: false,
