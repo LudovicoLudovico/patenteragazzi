@@ -1,4 +1,3 @@
-import React from 'react';
 import { decrypt } from '../../lib/enc';
 
 const TheoryQuestions = ({ questions }) => {

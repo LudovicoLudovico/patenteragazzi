@@ -18,11 +18,10 @@ import '../style/index.min.css';
 //Home Component
 export default function Home() {
   const { user, login, logout } = useUser();
-
   const [stats, setStats] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [canRefresh, setCanRefresh] = useState(true);
+
   useEffect(() => {
     let stats = JSON.parse(localStorage.getItem('stats'));
     if (stats) {
@@ -113,6 +112,10 @@ export default function Home() {
     }
   };
 
+  const showLoader = (e) => {
+    e.target.innerHTML = 'CARICAMENTO...';
+  };
+
   return (
     <>
       {/* SEO Init  */}
@@ -172,17 +175,25 @@ export default function Home() {
 
               <div className='index_buttons'>
                 <Link href='/quiz'>
-                  <button>INIZIA QUIZ AM/B</button>
+                  <button onClick={(e) => showLoader(e)}>
+                    INIZIA QUIZ AM/B
+                  </button>
                 </Link>
 
                 <Link href='/quiz?tipo=simulazione' prefetch={false}>
-                  <button>INIZIA SIMULAZIONE</button>
+                  <button onClick={(e) => showLoader(e)}>
+                    INIZIA SIMULAZIONE
+                  </button>
                 </Link>
                 <Link href='/quiz?tipo=argomenti' prefetch={false}>
-                  <button>INIZIA QUIZ ARGOMENTI</button>
+                  <button onClick={(e) => showLoader(e)}>
+                    INIZIA QUIZ ARGOMENTI
+                  </button>
                 </Link>
                 <Link href='/quiz?tipo=super' prefetch={false}>
-                  <button>INIZIA SUPER QUIZ</button>
+                  <button onClick={(e) => showLoader(e)}>
+                    INIZIA SUPER QUIZ
+                  </button>
                 </Link>
               </div>
             </div>

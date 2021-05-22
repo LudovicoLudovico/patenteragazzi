@@ -70,24 +70,22 @@ const QuizTopicsList = ({ filters, setFilters }: QuizTopicsListProps) => {
       <TopicQuizSelec
         filters={filters}
         setFilters={setFilters}
-        text={'Norme sulla circolazione dei veicolio'}
+        text={'Norme sulla circolazione dei veicoli'}
       />
       <TopicQuizSelec
         filters={filters}
         setFilters={setFilters}
-        text={'Esempi di precedenza (ordine di precedenza agli incroci)'}
+        text={'Ordine di precedenza agli incroci'}
       />
       <TopicQuizSelec
         filters={filters}
         setFilters={setFilters}
-        text={'Fermata, sosta, arresto e partenza'}
+        text={'Fermata, sosta, arresto'}
       />
       <TopicQuizSelec
         filters={filters}
         setFilters={setFilters}
-        text={
-          'Norme varie (ingombro della carreggiata, circolazione su autostrade e strade extraurbane principali, trasporto di persone, pannelli sui veicoli, etc.)'
-        }
+        text={'Norme varie'}
       />
       <TopicQuizSelec
         filters={filters}
@@ -105,7 +103,7 @@ const QuizTopicsList = ({ filters, setFilters }: QuizTopicsListProps) => {
         filters={filters}
         setFilters={setFilters}
         text={
-          'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti, uso di lenti e altri apparecchi'
+          'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti'
         }
       />
       <TopicQuizSelec

@@ -62,6 +62,7 @@ const AdminUI = () => {
   const handleImageUpload = (e) => {
     const image = e.target.files[0];
     setImageLoader(true);
+
     firebase
       .storage()
       .ref(`images/${image.name}`)

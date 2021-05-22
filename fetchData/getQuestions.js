@@ -1,12 +1,13 @@
 import admin from '../firebase/nodeApp';
 import { encrypt } from '../lib/enc';
 
-export const getQuestions = async () => {
+export const getQuestions = async (category) => {
   const questions = [];
   await admin
     .firestore()
     .collection('questions')
-    .limit(process.env.NODE_ENV == 'development' ? 500 : 6881)
+    .limit(process.env.NODE_ENV == 'development' ? 4 : 7000)
+    .where('category', '==', category)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {

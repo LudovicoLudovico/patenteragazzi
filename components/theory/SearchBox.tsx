@@ -1,6 +1,3 @@
-import React from 'react';
-import { TextField } from '@material-ui/core';
-
 interface SearchBoxProps {
   filters?: string[] | string;
   setFilters: (string: string) => void;
@@ -9,18 +6,20 @@ interface SearchBoxProps {
 const SearchBox = ({ setFilters, filters }: SearchBoxProps) => {
   return (
     <>
-      <TextField
-        id='outlined-basic'
-        label='Trova teoria...'
-        variant='outlined'
-        style={{ width: '100%', maxWidth: 800 }}
-        inputProps={{
-          autoComplete: 'off',
-        }}
+      <input
+        type='text'
+        value={filters}
         onChange={(e) => {
           setFilters(e.target.value);
         }}
-        value={filters}
+        style={{
+          width: '100%',
+          maxWidth: 800,
+          padding: 20,
+          borderRadius: 5,
+          outline: 'none',
+        }}
+        placeholder='Trova teoria...'
       />
     </>
   );
