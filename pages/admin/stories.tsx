@@ -6,11 +6,64 @@ import { decrypt } from '../../lib/enc';
 import '../../style/admin.min.css';
 import { useUser } from '../../context/userContext';
 
-const stories = ({ questions }) => {
+const stories = ({
+  a,
+  b,
+  c,
+  d,
+  e,
+  f,
+  g,
+  h,
+  i,
+  j,
+  k,
+  l,
+  m,
+  n,
+  o,
+  p,
+  q,
+  r,
+  s,
+  t,
+  u,
+  v,
+  w,
+  y,
+  x,
+}) => {
   const [question, setQuestion] = useState(undefined);
   const [fontSize, setFontSize] = useState(1);
   const [imageSize, setImageSize] = useState(15);
   const [topSpace, setTopSpace] = useState(10);
+  const [questions] = useState([
+    ...a,
+    ...b,
+    ...c,
+    ...d,
+    ...e,
+    ...f,
+    ...g,
+    ...h,
+    ...i,
+    ...j,
+    ...k,
+    ...l,
+    ...m,
+    ...n,
+    ...o,
+    ...p,
+    ...q,
+    ...r,
+    ...s,
+    ...t,
+    ...u,
+    ...v,
+    ...w,
+    ...y,
+    ...x,
+  ]);
 
   const { isAdmin } = useUser();
 
@@ -162,11 +215,85 @@ const stories = ({ questions }) => {
 };
 
 export async function getStaticProps() {
-  const questionsRaw = await getQuestions();
+  const a = await getQuestions(
+    "Definizioni generali e doveri nell'uso della strada"
+  );
+  const b = await getQuestions('Segnali di pericolo');
+  const c = await getQuestions('Segnali di divieto');
+  const d = await getQuestions('Segnali di obbligo');
+  const e = await getQuestions('Segnali di precedenza');
+  const f = await getQuestions(
+    'Segnaletica orizzontale e segni sugli ostacoli'
+  );
+  const g = await getQuestions(
+    'Segnalazioni semaforiche e degli agenti del traffico'
+  );
+  const h = await getQuestions('Segnali di indicazione');
+  const i = await getQuestions(
+    'Segnali complementari, segnali temporanei e di cantiere'
+  );
+  const j = await getQuestions('Pannelli integrativi dei segnali');
+  const k = await getQuestions(
+    'Limiti di velocità, pericolo e intralcio alla circolazione'
+  );
+  const l = await getQuestions('Distanza di sicurezza');
+  const m = await getQuestions('Norme sulla circolazione dei veicoli');
+  const n = await getQuestions('Ordine di precedenza agli incroci');
+  const o = await getQuestions('Fermata, sosta, arresto');
+  const p = await getQuestions('Norme varie');
+  const q = await getQuestions(
+    'Uso delle luci e dei dispositivi acustici, spie e simboli'
+  );
+  const r = await getQuestions(
+    'Dispositivi di equipaggiamento, funzione ed uso: cinture di sicurezza, sistemi di ritenuta per bambini, casco protettivo e abbigliamento di sicurezza'
+  );
+  const s = await getQuestions(
+    'Patenti di guida, sistema sanzionatorio, documenti di circolazione, obblighi verso agenti'
+  );
+  const t = await getQuestions(
+    'Incidenti stradali e comportamenti in caso di incidente'
+  );
+  const u = await getQuestions(
+    'Guida in relazione alle qualità e condizioni fisiche e psichiche, alcool, droga, farmaci e primo soccorso'
+  );
+  const v = await getQuestions(
+    'Responsabilità civile, penale e amministrativa, assicurazione r.c.a. e altre forme assicurative legate al veicolo'
+  );
+  const w = await getQuestions(
+    "Limitazione dei consumi, rispetto dell'ambiente e inquinamento"
+  );
+  const y = await getQuestions(
+    'Elementi costitutivi del veicolo, manutenzione ed uso, stabilità e tenuta di strada, comportamenti e cautele di guida'
+  );
+  const x = await getQuestions('Norme sul sorpasso');
 
   return {
     props: {
-      questions: JSON.parse(JSON.stringify(questionsRaw)),
+      a: JSON.parse(JSON.stringify(a)),
+      b: JSON.parse(JSON.stringify(b)),
+      c: JSON.parse(JSON.stringify(c)),
+      d: JSON.parse(JSON.stringify(d)),
+      e: JSON.parse(JSON.stringify(e)),
+      f: JSON.parse(JSON.stringify(f)),
+      g: JSON.parse(JSON.stringify(g)),
+      h: JSON.parse(JSON.stringify(h)),
+      i: JSON.parse(JSON.stringify(i)),
+      j: JSON.parse(JSON.stringify(j)),
+      k: JSON.parse(JSON.stringify(k)),
+      l: JSON.parse(JSON.stringify(l)),
+      m: JSON.parse(JSON.stringify(m)),
+      n: JSON.parse(JSON.stringify(n)),
+      o: JSON.parse(JSON.stringify(o)),
+      p: JSON.parse(JSON.stringify(p)),
+      q: JSON.parse(JSON.stringify(q)),
+      r: JSON.parse(JSON.stringify(r)),
+      s: JSON.parse(JSON.stringify(s)),
+      t: JSON.parse(JSON.stringify(t)),
+      u: JSON.parse(JSON.stringify(u)),
+      v: JSON.parse(JSON.stringify(v)),
+      w: JSON.parse(JSON.stringify(w)),
+      y: JSON.parse(JSON.stringify(y)),
+      x: JSON.parse(JSON.stringify(x)),
     },
   };
 }
